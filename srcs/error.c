@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/07 15:43:21 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:31:01 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	error_msg(char *msg)
 {
 	printf("%s", msg);
-	return (1);
+	exit(1);
 }

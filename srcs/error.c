@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/07 15:43:47 by maborges         ###   ########.fr       */
+/*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
+/*   Updated: 2026/04/07 15:43:21 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-#define CUB3D_H
+#include "../inc/cub3d.h"
 
-#include <stdio.h>
-#include "../libft/libft.h"
-
-typedef struct s_map
+void	error_msg(char *msg)
 {
-	char	**map;
-	int		height;
-	int		width;
-}	t_map;
-
-
-void	error_msg(char *msg);
-
-#endif
+	printf("%s", msg);
+	return (1);
+}

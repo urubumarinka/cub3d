@@ -1,7 +1,7 @@
 NAME = cub3d
 
 CC = cc
-CFLAGS = -g -Wall -Werror -Wextra -I$(INC)
+CFLAGS = -g -Wall -Werror -Wextra -I$(INC) -Imlx
 
 INC = ./inc/
 LIBFT_DIR = ./libft
@@ -12,7 +12,7 @@ REMOVE = rm -f
 SRCS = \
 ./srcs/main.c \
 ./srcs/error.c \
-#./srcs/parser/parser.c \
+./srcs/parser/parsing.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -28,7 +28,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "$(CYAN)Linking cub3d...$(RESET)"
-	$(CC) $(CFLAGS) $(OBJS) ./libft/libft.a -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) ./libft/libft.a  -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	@echo "$(GREEN)Cub3d executable created successfully!$(RESET)"
 
 $(LIBFT):

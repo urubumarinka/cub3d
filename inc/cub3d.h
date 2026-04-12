@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_K.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/07 16:30:56 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/12 22:47:00 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,77 @@
 #define CUB3D_H
 
 #include <stdio.h>
+#include <errno.h>
 #include "../libft/libft.h"
+#include "mlx.h"
+#include <stdlib.h>
 
-typedef struct s_map
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 720
+
+typedef struct s_player
 {
-	char	**map;
+    float x;
+    float y;
+    float angle;
+    float fov; // field of view
+} t_player;
+
+typedef struct s_image
+{
+    void *img_ptr;
+    char *data;
+    int bpp;
+    int line_length;
+    int endian;
+    int width;
+    int height;
+} t_image;
+
+typedef struct s_graphics
+{
+    void *mlx;
+    void *win;
+    t_image image;
+    t_player player;
+} t_graphics;
+
+typedef struct	s_map
+{
+	char	**grid;
 	int		height;
 	int		width;
+	t_graphics	grap;
+	//int		player_x;
+	//int		player_y;
+	//char	player_dir; //as of N, S, E or W
 }	t_map;
+
+typedef struct	s_texture
+{
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	int		flr_r;
+	int		flr_g;
+	int		flr_b;
+	int		ceil_r;
+	int		ceil_g;
+	int		ceil_b;
+
+}	t_texture;
+
+
+typedef struct	s_game
+{
+	t_map		map;
+	t_texture	text;
+	//here can come the rest like mlx, window and player pos data
+}	t_game;
 
 
 void	error_msg(char *msg);
+int		parsing(char *file, t_map *map);
 
 #endif

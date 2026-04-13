@@ -34,6 +34,7 @@ static int	file_check(char *path)
 int	main(int ac, char **av)
 {
 	t_map	*map;
+    t_game game;
 
 	map = NULL;
 	if (ac != 2)
@@ -45,5 +46,16 @@ int	main(int ac, char **av)
 		//destroy(&map);//TODO destroy function
 		error_msg("Map failed");
 	}
+    if (!init_game(&game))
+        return (1);
+    
+    mlx_key_hook(game.win, handle_key, &game);
+    mlx_hook(game.win, 17, 0, close_window, &game);
+
+    // render loop - frame update: call rendering everyframe, 60 times per sec
+    mlx_loop_hook(game.mlx, rendering, &game);
+
+    // main event loop: keeps window open and responsive + listen for events
+    mlx_loop(game.mlx);
 	return (0);
 }

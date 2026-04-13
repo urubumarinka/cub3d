@@ -74,10 +74,21 @@ EOF
 }
 
 clean(){
-	log_info 'Execute "make clean" from "makefile.gen"'
-	${MAKE} -f Makefile.gen clean
-	log_info 'Execute "make clean" from "test/makefile.gen"'
-	${MAKE} -f Makefile.gen -C test/ --no-print-directory clean
+	if [ -f Makefile.gen ]; then
+		log_info 'Execute "make clean" from "Makefile.gen"'
+		${MAKE} -f Makefile.gen clean
+	else
+		log_info '"Makefile.gen" not found, execute "make clean" from "Makefile.mk"'
+		${MAKE} -f Makefile.mk clean
+	fi
+
+	if [ -f test/Makefile.gen ]; then
+		log_info 'Execute "make clean" from "test/Makefile.gen"'
+		${MAKE} -f Makefile.gen -C test/ --no-print-directory clean
+	else
+		log_info '"test/Makefile.gen" not found, execute "make clean" from "test/Makefile.mk"'
+		${MAKE} -f Makefile.mk -C test/ --no-print-directory clean
+	fi
 }
 
 parse_args(){
@@ -111,7 +122,7 @@ main(){
 	log_info "Found X11 include path directory: $xlib_inc"
 
 	log_info 'Generate "makefile.gen" from template "makefile.mk"'
-		echo "INC=$xlib_inc"  	 	    	>  Makefile.gen 
+		echo "INC=$xlib_inc"  	 	    	>  Makefile.gen
 		cat Makefile.mk | grep -v %%%%  	>> Makefile.gen
 	log_info 'Generate "test/makefile.gen" from template "test/makefile.mk"'
 		echo "INC=$xlib_inc"				>  test/Makefile.gen

@@ -7,7 +7,7 @@ ifeq ($(UNAME_S),Darwin)
     MLX_FLAGS = -framework AppKit -framework OpenGL
 else
     MLX_DIR = ./minilibx_linux
-    MLX_FLAGS = -lX11 -lm
+    MLX_FLAGS = -lX11 -lm -lXext
 endif
 
 CC = cc

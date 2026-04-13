@@ -6,26 +6,40 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/12 23:18:20 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/13 20:42:23 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static void	append_line(char *lines, char *line, int count)
+static int	append_line(char ***lines_adr, char *line, int count)
 {
 	//input: an array of strings, the strings, how many strings
 	//copy one string below another onto the array
 	//return
-	int	i;
+	int		i;
+	char	**new_arr;
 
 	i = 0;
+	new_arr = malloc(sizeof(char *) * (count + 2));
+	if (!new_arr)
+		return (0); //make sure the caller frees array
 	while(i < count)
 	{
-		ft_strlcpy(&lines[i], line, ft_strlen(line));
+		new_arr[i] = (*lines_adr)[i];
 		i++;
 	}
-	return ;
+	new_arr[count] = ft_strdup(line);
+	if (!new_arr[count])
+	{
+		free(new_arr);
+		return (0);
+	}
+	new_arr[count + 1] = NULL;
+	if (*lines_adr)
+		free(*lines_adr);
+	*lines_adr = new_arr;
+	return (1);
 
 }
 
@@ -48,7 +62,9 @@ static char	**read_lines(char *file)
 	while (1)
 	{
 		line = get_next_line(fd);
-		append_line(*lines, line, count);
+		if(!line)
+			break;
+		append_line(&lines, line, count);
 		free(line);
 		count++;
 	}

@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:50:06 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/06 16:55:08 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/13 00:06:54 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,35 @@
 
 static int	file_check(char *path)
 {
-	int	len;
-
 	if(!path)
 		return (0);
-	len = ft_strlen(path);
-
-	//to be continued the file name and extension check
+	while (*path)
+	{
+		if (*path == '.')
+		{
+			path++;
+			if(ft_strcmp(path, "cub") == 0)
+				return (1);
+			else
+				return (0);
+		}
+		path++;
+	}
+	return (0);
 }
 
 int	main(int ac, char **av)
 {
-	t_map	*map; //TODO define struct for map in a .h file
+	t_map	*map;
 
+	map = NULL;
 	if (ac != 2)
-		error_msg("Usage: ./cub3d <map-file.cub>"); //TODO make this into a error_msg(), return 1
+		error_msg("Usage: ./cub3d <map-file.cub>");
 	if (!file_check(av[1]))
 		error_msg("File has wrong format or doesnt exist");
-	if(!parsing(av[1]), &map); //TODO parsing function
+	if(!parsing(av[1], map))
 	{
-		destroy(&map);//TODO destroy function
+		//destroy(&map);//TODO destroy function
 		error_msg("Map failed");
 	}
 	return (0);

@@ -11,7 +11,8 @@ REMOVE = rm -f
 
 SRCS = \
 ./srcs/main.c \
-./srcs/parser/parser.c \
+./srcs/error.c \
+./srcs/parsing.c \
 
 OBJS = $(SRCS:.c=.o)
 

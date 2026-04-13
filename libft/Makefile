@@ -6,7 +6,7 @@
 #    By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/29 16:23:58 by maborges          #+#    #+#              #
-#    Updated: 2024/11/29 17:48:17 by maborges         ###   ########.fr        #
+#    Updated: 2026/04/07 15:16:01 by maborges         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ NAME = libft.a
 
 #Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror $(Inc)
+
+Inc = -I . -I gnl
 
 #Source files
 SRCS =	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
@@ -25,20 +27,25 @@ SRCS =	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 	ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strcmp.c ft_strncmp.c \
 	ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c \
 
-# Object files
+#Gnl source files
+GNL_DIR = gnl
+GNL_SRCS = $(GNL_DIR)/get_next_line.c \
+
+#Object files
 OBJS = $(SRCS:.c=.o)
+GNL_OBJS = $(GNL_SRCS:.c=.o)
 
 #Default rule to compile the program
 all: $(NAME)
 
 #Rule to link the object files into executable, create static lib and update the index of static lib
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+$(NAME): $(OBJS) $(GNL_OBJS)
+	ar rcs $(NAME) $(OBJS) $(GNL_OBJS)
 	ranlib $(NAME)
 
 #Rule to compile the source files into object files
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 #For make main
 main: $(NAME)
@@ -50,10 +57,10 @@ clean:
 
 #Fclean rule to remove object files and executable
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(GNL_OBJS)
 
 #Rule to clean and recompile everything
 re: fclean all
 
 #Phony targets to prevent conflicts with files
-.PHONY: clean fclean re
+.PHONY: all clean fclean re

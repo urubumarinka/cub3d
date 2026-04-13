@@ -12,29 +12,24 @@
 
 #include "../inc/cub3d.h"
 
-static int	file_check(char *path)
+int main(int ac, char **av)
 {
-	int	len;
+    t_game game;
 
-	if(!path)
-		return (0);
-	len = ft_strlen(path);
+    (void)av;
+    if (ac != 2)
+        printf("Error");
 
-	//to be continued the file name and extension check
-}
+    if (!init_game(&game))
+        return (1);
 
-int	main(int ac, char **av)
-{
-	t_map	*map; //TODO define struct for map in a .h file
+    mlx_key_hook(game.win, handle_key, &game);
+    mlx_hook(game.win, 17, 0, close_window, &game);
 
-	if (ac != 2)
-		error_msg("Usage: ./cub3d <map-file.cub>"); //TODO make this into a error_msg(), return 1
-	if (!file_check(av[1]))
-		error_msg("File has wrong format or doesnt exist");
-	if(!parsing(av[1]), &map); //TODO parsing function
-	{
-		destroy(&map);//TODO destroy function
-		error_msg("Map failed");
-	}
-	return (0);
+    // render loop - frame update: call rendering everyframe, 60 times per sec
+    mlx_loop_hook(game.mlx, rendering, &game);
+
+    // main event loop: keeps window open and responsive + listen for events
+    mlx_loop(game.mlx);
+    return (0);
 }

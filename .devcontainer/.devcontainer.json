@@ -1,0 +1,10 @@
+{
+	"name": "Codespace - 42 Setup",
+	"image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu-22.04",
+	"features": {
+		"ghcr.io/devcontainers/features/python:1": {
+			"version": "3"
+		}
+	},
+	"postCreateCommand": "bash .devcontainer/setup.sh"
+}

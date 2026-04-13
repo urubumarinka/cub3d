@@ -1,7 +1,7 @@
 NAME = cub3d
 
 CC = cc
-CFLAGS = -g -Wall -Werror -Wextra -I$(INC) -Imlx
+CFLAGS = -g -Wall -Werror -Wextra -I$(INC)
 
 INC = ./inc/
 LIBFT_DIR = ./libft
@@ -28,7 +28,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "$(CYAN)Linking cub3d...$(RESET)"
-	$(CC) $(CFLAGS) $(OBJS) ./libft/libft.a  -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) ./libft/libft.a -o $(NAME)
 	@echo "$(GREEN)Cub3d executable created successfully!$(RESET)"
 
 $(LIBFT):

@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include "../libft/libft.h"
-//#include "mlx.h"
+#include "mlx.h"
 #include <stdlib.h>
 
 #define SCREEN_WIDTH 1280
@@ -41,20 +41,11 @@ typedef struct s_image
     int height;
 } t_image;
 
-typedef struct s_graphics
-{
-    void *mlx;
-    void *win;
-    t_image image;
-    t_player player;
-} t_graphics;
-
 typedef struct	s_map
 {
 	char	**grid;
 	int		height;
 	int		width;
-	t_graphics	grap;
 	//int		player_x;
 	//int		player_y;
 	//char	player_dir; //as of N, S, E or W
@@ -80,11 +71,21 @@ typedef struct	s_game
 {
 	t_map		map;
 	t_texture	text;
-	//here can come the rest like mlx, window and player pos data
+	void *mlx;
+    void *win;
+    t_image image;
+    t_player player;
 }	t_game;
 
 
 void	error_msg(char *msg);
 int		parsing(char *file, t_map *map);
+void	error_msg(char *msg);
+int		init_game(t_game *game);
+int		init_graphics(t_game *game);
+int		rendering(t_game *game);
+void	draw_minimap(char *data, int line_length);
+int		handle_key(int keycode, t_game *game);
+int		close_window(t_game *game);
 
 #endif

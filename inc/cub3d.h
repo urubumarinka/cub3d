@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/13 20:17:10 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/14 21:27:54 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,13 @@ typedef struct s_image
 
 typedef struct	s_map
 {
-	char	**grid;
-	int		height;
-	int		width;
+	char		**grid;
+	int			height;
+	int			width;
+	t_texture	text;
 	//int		player_x;
 	//int		player_y;
-	//char	player_dir; //as of N, S, E or W
+	//char		player_dir; //as of N, S, E or W
 }	t_map;
 
 typedef struct	s_texture
@@ -63,7 +64,6 @@ typedef struct	s_texture
 	int		ceil_r;
 	int		ceil_g;
 	int		ceil_b;
-
 }	t_texture;
 
 

@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:50:06 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/13 00:06:54 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/14 13:07:44 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	file_check(char *path)
 int	main(int ac, char **av)
 {
 	t_map	*map;
-    t_game game;
+    //t_game game;
 
 	map = NULL;
 	if (ac != 2)
@@ -46,9 +46,9 @@ int	main(int ac, char **av)
 		//destroy(&map);//TODO destroy function
 		error_msg("Map failed");
 	}
-    if (!init_game(&game))
+    /*if (!init_game(&game))
         return (1);
-    
+
     mlx_key_hook(game.win, handle_key, &game);
     mlx_hook(game.win, 17, 0, close_window, &game);
 
@@ -56,6 +56,6 @@ int	main(int ac, char **av)
     mlx_loop_hook(game.mlx, rendering, &game);
 
     // main event loop: keeps window open and responsive + listen for events
-    mlx_loop(game.mlx);
+    mlx_loop(game.mlx); */
 	return (0);
 }

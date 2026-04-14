@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/13 20:42:23 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/13 20:46:53 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static int	append_line(char ***lines_adr, char *line, int count)
 {
-	//input: an array of strings, the strings, how many strings
-	//copy one string below another onto the array
-	//return
 	int		i;
 	char	**new_arr;
 
@@ -64,7 +61,12 @@ static char	**read_lines(char *file)
 		line = get_next_line(fd);
 		if(!line)
 			break;
-		append_line(&lines, line, count);
+		if (!append_line(&lines, line, count))
+		{
+			free(lines);
+			free(line);
+			return (NULL);
+		}
 		free(line);
 		count++;
 	}

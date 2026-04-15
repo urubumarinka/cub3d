@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/14 22:21:55 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/15 10:54:56 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*insert_path(char *s)
 	char	*path;
 
 	i = 0;
-	if (s[i] <= 13 && s[i] >= 9|| s[i] == 32)
+	if ((s[i] <= 13 && s[i]) >= 9|| s[i] == 32)
 		i++;
 	len = ft_strlen(s + i);
 	while(len > 0 && s[i + len - 1] == '\n')
@@ -36,7 +36,7 @@ static int	lines_separator(char **lines, t_map *map)
 	i = 0;
 	while (lines[i])
 	{
-		if (empty_line(lines[i]) || lines[i][0] == '\0') //TODO empty_line()
+		if (empty_line(lines[i]) || lines[i][0] == '\0')
 		{
 			i++;
 			continue ;

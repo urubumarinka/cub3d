@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/14 21:27:54 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/15 11:39:22 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,9 @@ int		rendering(t_game *game);
 void	draw_minimap(char *data, int line_length);
 int		handle_key(int keycode, t_game *game);
 int		close_window(t_game *game);
+
+//utils
+
+int		empty_line(char *s);
 
 #endif

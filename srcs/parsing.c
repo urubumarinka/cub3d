@@ -6,13 +6,13 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/17 19:34:12 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/17 20:02:37 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static int	extract_colors(char *color, t_map *map)
+static void	extract_colors(char *color, t_map *map)
 {
 	char	**values;
 	int		i;
@@ -28,7 +28,13 @@ static int	extract_colors(char *color, t_map *map)
 		while (values[++i])
 			free(values[i]);
 		free(values);
-		return (error_msg("wrong color format", NULL), 0);
+		return (error_msg("wrong color format", NULL));
+	}
+	i = -1;
+	while (values[++i])
+	{
+		if (!is_valid_int(values[i]))
+			return (error_msg("not valid int", values[i]));
 	}
 	if (color[0] == 'F')
 	{
@@ -48,12 +54,8 @@ static int	extract_colors(char *color, t_map *map)
 	while (values[++i])
 		free(values[i]);
 	free(values);
-	if (color_range_check(map) && check_dup(map))
-
-
-
-
-
+	color_range_check(map);
+	check_dup(map);
 	}
 
 static int	lines_separator(char **lines, t_map *map)

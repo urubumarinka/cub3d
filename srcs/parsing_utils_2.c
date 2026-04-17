@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 19:14:15 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/17 19:35:31 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/17 20:00:16 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,28 @@
 int		check_dup(t_map *map)
 {
 	if (map->text.ceil_seen)
+		return (error_msg("Duplicated C id", NULL), 0);
+	if (map->text.flr_seen)
+		return (error_msg("Duplicated F id", NULL), 0);
+	return (1);
 }
+
+int		is_valid_int(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] == ' ' || s[i] == '\t')
+		i++;
+	if (!s[i])
+		return (0);
+	while (s[i] && s[i] != '\n' && s[i] != '\r' && s[i] != ' ')
+	{
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+

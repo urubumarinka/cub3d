@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/15 11:39:22 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/17 16:05:30 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,6 @@ typedef struct s_image
     int height;
 } t_image;
 
-typedef struct	s_map
-{
-	char		**grid;
-	int			height;
-	int			width;
-	t_texture	text;
-	//int		player_x;
-	//int		player_y;
-	//char		player_dir; //as of N, S, E or W
-}	t_map;
-
 typedef struct	s_texture
 {
 	char	*no;
@@ -66,6 +55,16 @@ typedef struct	s_texture
 	int		ceil_b;
 }	t_texture;
 
+typedef struct	s_map
+{
+	char		**grid;
+	int			height;
+	int			width;
+	t_texture	text;
+	//int		player_x;
+	//int		player_y;
+	//char		player_dir; //as of N, S, E or W
+}	t_map;
 
 typedef struct	s_game
 {
@@ -78,9 +77,7 @@ typedef struct	s_game
 }	t_game;
 
 
-void	error_msg(char *msg);
-int		parsing(char *file, t_map *map);
-void	error_msg(char *msg);
+void	error_msg(char *msg, char *context);
 int		init_game(t_game *game);
 int		init_graphics(t_game *game);
 int		rendering(t_game *game);
@@ -88,8 +85,19 @@ void	draw_minimap(char *data, int line_length);
 int		handle_key(int keycode, t_game *game);
 int		close_window(t_game *game);
 
+//parsing
+
+int		parsing(char *file, t_map *map);
+char	**append_line(char **lines_adr, char *line, int count);
+int		set_texture_path(char **slot, int *seen, char *line);
+char	*insert_path(char *s);
+int		path_is_valid(t_map *map);
+int		test_file(char *path);
+
+
 //utils
 
 int		empty_line(char *s);
+
 
 #endif

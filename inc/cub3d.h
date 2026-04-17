@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/17 16:05:30 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:35:01 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ typedef struct	s_texture
 	int		flr_r;
 	int		flr_g;
 	int		flr_b;
+	int		flr_seen;
 	int		ceil_r;
 	int		ceil_g;
 	int		ceil_b;
+	int		ceil_seen;
 }	t_texture;
 
 typedef struct	s_map
@@ -93,7 +95,6 @@ int		set_texture_path(char **slot, int *seen, char *line);
 char	*insert_path(char *s);
 int		path_is_valid(t_map *map);
 int		test_file(char *path);
-
 
 //utils
 

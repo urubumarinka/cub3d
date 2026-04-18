@@ -6,11 +6,18 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:50:06 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/17 11:18:23 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/18 14:39:48 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+static void init_map(t_map *map)
+{
+	map->text.no = NULL;
+	map->text.so = NULL;
+
+}
 
 static int	file_check(char *path)
 {
@@ -33,15 +40,16 @@ static int	file_check(char *path)
 
 int	main(int ac, char **av)
 {
-	t_map	*map;
+	t_map	map;
     //t_game game;
 
-	map = NULL;
+	ft_bzero(&map, sizeof(map));
+	init_map(&map);
 	if (ac != 2)
 		error_msg("Usage: ./cub3d <map-file.cub>", NULL);
 	if (!file_check(av[1]))
 		error_msg("File has wrong format or doesnt exist", NULL);
-	if(!parsing(av[1], map))
+	if(!parsing(av[1], &map))
 	{
 		//destroy(&map);//TODO destroy function
 		error_msg("Map failed", NULL);

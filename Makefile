@@ -25,6 +25,9 @@ SRCS = \
 ./srcs/main.c \
 ./srcs/error.c \
 ./srcs/parsing.c \
+./srcs/parsing_utils.c \
+./srcs/parsing_utils_2.c \
+./srcs/utils.c \
 ./srcs/init.c \
 ./srcs/rendering.c \
 ./srcs/events.c \

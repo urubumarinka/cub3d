@@ -6,23 +6,29 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/17 20:02:37 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/18 15:18:45 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+static void	validate_map(char **lines, t_map *map, int i)
+{
+	(void)lines;
+	(void)map;
+	(void)i;
+}
 
 static void	extract_colors(char *color, t_map *map)
 {
 	char	**values;
 	int		i;
 
-	i = 0;
 	color += 1;
-	while (color[i] == ' ' || color[i] == '\t')
-		i++;
+	while (*color == ' ' || *color == '\t')
+		color++;
 	values = ft_split(color, ',');
-	if (!values || !values[0] || !values[1] || !values[2] || !values[3])
+	if (!values || !values[0] || !values[1] || !values[2] || values[3])
 	{
 		i = -1;
 		while (values[++i])
@@ -56,6 +62,7 @@ static void	extract_colors(char *color, t_map *map)
 	free(values);
 	color_range_check(map);
 	check_dup(map);
+	return ;
 	}
 
 static int	lines_separator(char **lines, t_map *map)
@@ -79,27 +86,34 @@ static int	lines_separator(char **lines, t_map *map)
 			continue ;
 		}
 		if (ft_strncmp(lines[i], "NO ", 3) == 0)
+		{
 			if (!set_texture_path(&map->text.no, &no_seen, lines[i] + 3))
 				return (0);
+		}
 		else if (ft_strncmp(lines[i], "SO ", 3) == 0)
+		{
 			if (!set_texture_path(&map->text.so, &so_seen, lines[i] + 3))
 				return (0);
+		}
 		else if (ft_strncmp(lines[i], "WE ", 3) == 0)
+		{
 			if (!set_texture_path(&map->text.we, &we_seen, lines[i] + 3))
 				return (0);
+		}
 		else if (ft_strncmp(lines[i], "EA ", 3) == 0)
+		{
 			if (!set_texture_path(&map->text.ea, &ea_seen, lines[i] + 3))
 				return (0);
+		}
 		else if (lines[i][0] == 'F' || lines[i][0] == 'C')
 			extract_colors(lines[i], map);
 		else if (lines[i][0] == '0' || lines[i][0] == '1')
-			validate_map(); //TODO
+			validate_map(lines, map, i);
 		else
 			return (error_msg("Wrong Identifier", lines[i]), 0);
 		i++;
 	}
 	return (i);
-
 }
 
 static char	**read_lines(char *file)
@@ -140,21 +154,22 @@ static char	**read_lines(char *file)
 int		parsing(char *file, t_map *map)
 {
 	char	**lines;
-	int		p;
 	int		map_i;
 
 	//init_game(); //init all pointers to NULL and all ints to 0
 	lines = NULL;
-	p = 0;
 	lines = read_lines(file);
+	/*int		p;
+	p = 0;
 	while (lines && lines[p] != NULL)
 	{
 		printf("%s", lines[p]);
 		p++;
-	}
+	}*/
 	map_i = lines_separator(lines, map);
 	if (!path_is_valid(map))
 		return (error_msg("not valid path", NULL), 0);
 	// draw map through map_i
+	(void)map_i;
 	return (1);
 }

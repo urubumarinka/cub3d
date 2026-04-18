@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/17 19:35:01 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/18 10:38:09 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ int		set_texture_path(char **slot, int *seen, char *line);
 char	*insert_path(char *s);
 int		path_is_valid(t_map *map);
 int		test_file(char *path);
+int		color_range_check(t_map *map);
+int		check_dup(t_map *map);
+int		is_valid_int(char *s);
 
 //utils
 

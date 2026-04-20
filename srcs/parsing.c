@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/18 15:18:45 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/20 12:00:54 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ static char	**read_lines(char *file)
 	return (lines);
 }
 
-int		parsing(char *file, t_map *map)
+int	parsing(char *file, t_map *map)
 {
 	char	**lines;
 	int		map_i;

@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:59:55 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/18 11:11:57 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/20 11:51:21 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	test_file(char *path)
 	return (1);
 }
 
-int		path_is_valid(t_map *map)
+int	path_is_valid(t_map *map)
 {
 	if (!test_file(map->text.no)
 		|| !test_file(map->text.so)
@@ -74,7 +74,7 @@ char	**append_line(char **lines_adr, char *line, int count)
 	new_arr = malloc(sizeof(char *) * (count + 2));
 	if (!new_arr)
 		return (0); //make sure the caller frees array
-	while( i < count)
+	while(i < count)
 	{
 		new_arr[i] = lines_adr[i];
 		i++;

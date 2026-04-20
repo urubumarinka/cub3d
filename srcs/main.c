@@ -6,11 +6,18 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:50:06 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/13 00:06:54 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/18 14:39:48 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+static void init_map(t_map *map)
+{
+	map->text.no = NULL;
+	map->text.so = NULL;
+
+}
 
 static int	file_check(char *path)
 {
@@ -33,22 +40,23 @@ static int	file_check(char *path)
 
 int	main(int ac, char **av)
 {
-	t_map	*map;
-    t_game game;
+	t_map	map;
+    //t_game game;
 
-	map = NULL;
+	ft_bzero(&map, sizeof(map));
+	init_map(&map);
 	if (ac != 2)
-		error_msg("Usage: ./cub3d <map-file.cub>");
+		error_msg("Usage: ./cub3d <map-file.cub>", NULL);
 	if (!file_check(av[1]))
-		error_msg("File has wrong format or doesnt exist");
-	if(!parsing(av[1], map))
+		error_msg("File has wrong format or doesnt exist", NULL);
+	if(!parsing(av[1], &map))
 	{
 		//destroy(&map);//TODO destroy function
-		error_msg("Map failed");
+		error_msg("Map failed", NULL);
 	}
-    if (!init_game(&game))
+    /*if (!init_game(&game))
         return (1);
-    
+
     mlx_key_hook(game.win, handle_key, &game);
     mlx_hook(game.win, 17, 0, close_window, &game);
 
@@ -56,6 +64,6 @@ int	main(int ac, char **av)
     mlx_loop_hook(game.mlx, rendering, &game);
 
     // main event loop: keeps window open and responsive + listen for events
-    mlx_loop(game.mlx);
+    mlx_loop(game.mlx); */
 	return (0);
 }

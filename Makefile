@@ -7,7 +7,7 @@ ifeq ($(UNAME_S),Darwin)
     MLX_FLAGS = -framework AppKit -framework OpenGL
 else
     MLX_DIR = ./minilibx_linux
-    MLX_FLAGS = -lX11 -lm
+    MLX_FLAGS = -lX11 -lm -lXext
 endif
 
 CC = cc
@@ -25,6 +25,9 @@ SRCS = \
 ./srcs/main.c \
 ./srcs/error.c \
 ./srcs/parsing.c \
+./srcs/parsing_utils.c \
+./srcs/parsing_utils_2.c \
+./srcs/utils.c \
 ./srcs/init.c \
 ./srcs/rendering.c \
 ./srcs/events.c \

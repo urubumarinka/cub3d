@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/17 11:17:25 by maborges         ###   ########.fr       */
+/*   Created: 2026/04/15 10:53:39 by maborges          #+#    #+#             */
+/*   Updated: 2026/04/15 11:38:57 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	error_msg(char *msg, char *context)
+int	empty_line(char *s)
 {
-	ft_putstr_fd("Error\n", 2);
-	if (errno != 0)
-		perror(msg);
-	else
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while(s[i])
 	{
-		ft_putstr_fd(msg, 2);
-		if (context)
-			ft_putstr_fd(context, 2);
-		ft_putstr_fd("\n", 2);
+		if (s[i] != '\0' && s[i] != '\n' && s[i] != '\t' &&
+				s[i] != ' ' && s[i] != '\v' && s[i] != '\r')
+			return (0);
+		i++;
 	}
-	exit(1);
+	return (1);
 }

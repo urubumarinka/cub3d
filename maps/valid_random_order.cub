@@ -1,14 +1,14 @@
 F 0,255,0
 
-EA ./textures/east.xpm
+EA ./assets/wall_04.xpm
 
 C 255,255,255
 
-NO ./textures/north.xpm
+NO ./assets/wall_01.xpm
 
-SO ./textures/south.xpm
+SO ./assets/wall_02.xpm
 
-WE ./textures/west.xpm
+WE ./assets/wall_03.xpm
 
 111111111
 100000001

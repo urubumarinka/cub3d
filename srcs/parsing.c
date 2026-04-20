@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/20 12:00:54 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/20 17:48:10 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,51 +19,65 @@ static void	validate_map(char **lines, t_map *map, int i)
 	(void)i;
 }
 
+static void	free_split(char **values)
+
+{
+	int	i;
+
+	if (!values)
+		return ;
+	i = 0;
+	while (values[i])
+	{
+		free(values[i]);
+		i++;
+	}
+	free(values);
+}
+
 static void	extract_colors(char *color, t_map *map)
 {
 	char	**values;
 	int		i;
+	char	id;
 
+	id = color[0];
 	color += 1;
 	while (*color == ' ' || *color == '\t')
 		color++;
 	values = ft_split(color, ',');
 	if (!values || !values[0] || !values[1] || !values[2] || values[3])
 	{
-		i = -1;
-		while (values[++i])
-			free(values[i]);
-		free(values);
+		free_split(values);
 		return (error_msg("wrong color format", NULL));
 	}
 	i = -1;
 	while (values[++i])
 	{
 		if (!is_valid_int(values[i]))
+		{
+			free_split(values);
 			return (error_msg("not valid int", values[i]));
+		}
 	}
-	if (color[0] == 'F')
+	if (id == 'F')
 	{
 		map->text.flr_r = ft_atoi(values[0]);
 		map->text.flr_g = ft_atoi(values[1]);
 		map->text.flr_b = ft_atoi(values[2]);
 		map->text.flr_seen = 1;
 	}
-	else if (color[0] == 'C')
+	else if (id == 'C')
 	{
 		map->text.ceil_r = ft_atoi(values[0]);
 		map->text.ceil_g = ft_atoi(values[1]);
 		map->text.ceil_b = ft_atoi(values[2]);
 		map->text.ceil_seen = 1;
 	}
-	i = -1;
-	while (values[++i])
-		free(values[i]);
-	free(values);
+	free_split(values);
 	color_range_check(map);
-	check_dup(map);
 	return ;
-	}
+}
 
 static int	lines_separator(char **lines, t_map *map)
 {
@@ -72,12 +86,16 @@ static int	lines_separator(char **lines, t_map *map)
 	int	so_seen;
 	int	we_seen;
 	int	ea_seen;
+	int	f_seen;
+	int	c_seen;
 
 	i = 0;
 	no_seen = 0;
 	so_seen = 0;
 	we_seen = 0;
 	ea_seen = 0;
+	f_seen = 0;
+	c_seen = 0;
 	while (lines[i])
 	{
 		if (empty_line(lines[i]) || lines[i][0] == '\0')
@@ -105,8 +123,20 @@ static int	lines_separator(char **lines, t_map *map)
 			if (!set_texture_path(&map->text.ea, &ea_seen, lines[i] + 3))
 				return (0);
 		}
-		else if (lines[i][0] == 'F' || lines[i][0] == 'C')
+		else if (lines[i][0] == 'F')
+		{
+			if (f_seen)
+				return (error_msg("Duplicated F id", NULL), 0);
 			extract_colors(lines[i], map);
+			f_seen = 1;
+		}
+		else if (lines[i][0] == 'C')
+		{
+			if (c_seen)
+				return (error_msg("Duplicated C id", NULL), 0);
+			extract_colors(lines[i], map);
+			c_seen = 1;
+		}
 		else if (lines[i][0] == '0' || lines[i][0] == '1')
 			validate_map(lines, map, i);
 		else

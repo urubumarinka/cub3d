@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/21 11:19:27 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/22 00:11:19 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,30 @@ static void	parse_map(char **lines, int map_i, t_map *map)
 	int	len;
 
 	count = 0;
-	i =
+	i = map_i;
+	while (lines[i])
+	{
+		count++;
+		i++;
+	}
+	map->grid = malloc(sizeof(char *) * (count + 1));
+	if (!map->grid)
+		return (error_msg("malloc failed", map->grid));
+	i = 0;
+	map->width = count;
+	map->height = 0;
+	while (i < count)
+	{
+		map->grid[i] = lines[map_i + i];
+		len = ft_strlen(map->grid[i]);
+		if(len > 0 && map->grid[i][--len] == '\n')
+			map->grid[i][--len] = '\0';
+		if (len > map->height)
+			map->height = len;
+		i++;
+	}
+	map->grid[count] = NULL;
+	return (1);
 }
 
 static void	validate_map(char **lines,t_map *map, int i)

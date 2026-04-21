@@ -6,15 +6,38 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/20 17:48:10 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/21 11:19:27 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static void	validate_map(char **lines, t_map *map, int i)
+static void	parse_map(char **lines, int map_i, t_map *map)
 {
-	(void)lines;
+	int	i;
+	int	count;
+	int	len;
+
+	count = 0;
+	i =
+}
+
+static void	validate_map(char **lines,t_map *map, int i)
+{
+	int i;
+
+	i = 0;
+	while (lines[i])
+	{
+		if (lines[i] != '0' && lines[i] != '1'
+			&& lines[i] != 'N' && lines[i] != 'S'
+			&& lines[i] != 'E' && lines[i] != 'W'
+			&& lines[i] != ' ' && lines[i] != '\t'
+			&& lines[i] != '\n' && lines[i] != '\r')
+			return (0);
+		i++;
+	}
+	return (1);
 	(void)map;
 	(void)i;
 }
@@ -199,7 +222,6 @@ int	parsing(char *file, t_map *map)
 	map_i = lines_separator(lines, map);
 	if (!path_is_valid(map))
 		return (error_msg("not valid path", NULL), 0);
-	// draw map through map_i
-	(void)map_i;
+	parse_map(**lines, map_i, map);
 	return (1);
 }

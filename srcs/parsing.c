@@ -6,13 +6,47 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/22 00:11:19 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/22 11:24:46 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static void	parse_map(char **lines, int map_i, t_map *map)
+static int	find_player(t_map *map)
+{
+	int	width;
+	int	height;
+	int	found;
+
+	found = 0;
+	height = 0;
+	while (height < map->height)
+	{
+		width = 0;
+		while (map->grid[height][width])
+		{
+			if (map->grid[height][width] == 'N'
+				|| map->grid[height][width] == 'S'
+				|| map->grid[height][width] == 'E'
+				|| map->grid[height][width] == 'W')
+			{
+				if (++found > 1)
+					return (error_msg("multiple players", NULL), 0);
+				map->player_x = width;
+				map->player_y = height;
+				map->player_dir = map->grid[height][width];
+				map->grid[height][width] = 0;
+			}
+			width++;
+		}
+		height++;
+	}
+	if (found == 0)
+		return (error_msg("no player found", NULL), 0);
+	return (1);
+}
+
+static int	parse_map(char **lines, int map_i, t_map *map)
 {
 	int	i;
 	int	count;
@@ -35,7 +69,7 @@ static void	parse_map(char **lines, int map_i, t_map *map)
 	{
 		map->grid[i] = lines[map_i + i];
 		len = ft_strlen(map->grid[i]);
-		if(len > 0 && map->grid[i][--len] == '\n')
+		if (len > 0 && map->grid[i][--len] == '\n')
 			map->grid[i][--len] = '\0';
 		if (len > map->height)
 			map->height = len;

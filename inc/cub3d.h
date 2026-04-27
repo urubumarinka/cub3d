@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include "../libft/libft.h"
-#include "mlx.h"
+#include "../minilibx_linux/mlx.h"
 #include <stdlib.h>
 #include <math.h>
 #include <sys/time.h>
@@ -146,5 +146,25 @@ void load_config_textures(t_game *game);
 int get_texture_index(t_game *game, double rayDirX, double rayDirY);
 int load_texture(void *mlx, t_tex_img *texture, const char *path);
 int load_all_textures(t_game *game);
+
+
+void	error_clean(char **lines, t_map *map, char *msg, char*context);
+
+//parsing
+
+int		parsing(char *file, t_map *map);
+char	**append_line(char **lines_adr, char *line, int count);
+int		set_texture_path(char **slot, int *seen, char *line);
+char	*insert_path(char *s);
+int		path_is_valid(t_map *map);
+int		test_file(char *path);
+int		color_range_check(t_map *map);
+int		check_dup(t_map *map);
+int		is_valid_int(char *s);
+
+//utils
+
+int		empty_line(char *s);
+
 
 #endif

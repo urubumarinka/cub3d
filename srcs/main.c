@@ -12,6 +12,22 @@
 
 #include "../inc/cub3d.h"
 
+static void	init_map(t_map *map)
+{
+	map->text.no = NULL;
+	map->text.so = NULL;
+	map->text.we = NULL;
+	map->text.ea = NULL;
+	map->text.flr_r = 0;
+	map->text.flr_g = 0;
+	map->text.flr_b = 0;
+	map->text.flr_seen = 0;
+	map->text.ceil_r = 0;
+	map->text.ceil_g = 0;
+	map->text.ceil_b = 0;
+	map->text.ceil_seen = 0;
+}
+
 static int	file_check(char *path)
 {
 	if (!path)

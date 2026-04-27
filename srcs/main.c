@@ -6,29 +6,38 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:50:06 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/18 14:39:48 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/24 14:13:06 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static void init_map(t_map *map)
+static void	init_map(t_map *map)
 {
 	map->text.no = NULL;
 	map->text.so = NULL;
-
+	map->text.we = NULL;
+	map->text.ea = NULL;
+	map->text.flr_r = 0;
+	map->text.flr_g = 0;
+	map->text.flr_b = 0;
+	map->text.flr_seen = 0;
+	map->text.ceil_r = 0;
+	map->text.ceil_g = 0;
+	map->text.ceil_b = 0;
+	map->text.ceil_seen = 0;
 }
 
 static int	file_check(char *path)
 {
-	if(!path)
+	if (!path)
 		return (0);
 	while (*path)
 	{
 		if (*path == '.')
 		{
 			path++;
-			if(ft_strcmp(path, "cub") == 0)
+			if (ft_strcmp(path, "cub") == 0)
 				return (1);
 			else
 				return (0);
@@ -49,7 +58,7 @@ int	main(int ac, char **av)
 		error_msg("Usage: ./cub3d <map-file.cub>", NULL);
 	if (!file_check(av[1]))
 		error_msg("File has wrong format or doesnt exist", NULL);
-	if(!parsing(av[1], &map))
+	if (!parsing(av[1], &map))
 	{
 		//destroy(&map);//TODO destroy function
 		error_msg("Map failed", NULL);

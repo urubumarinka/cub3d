@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/22 11:03:37 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/27 17:26:26 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ typedef struct	s_map
 	int			height;
 	int			width;
 	t_texture	text;
-	int		player_x;
-	int		player_y;
+	int			player_x;
+	int			player_y;
 	char		player_dir; //as of N, S, E or W
 }	t_map;
 
@@ -79,6 +79,7 @@ typedef struct	s_game
 }	t_game;
 
 
+void	error_clean(char **lines, t_map *map, char *msg, char*context);
 void	error_msg(char *msg, char *context);
 int		init_game(t_game *game);
 int		init_graphics(t_game *game);

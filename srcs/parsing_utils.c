@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:59:55 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/20 11:51:21 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:51:36 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,4 @@ char	**append_line(char **lines_adr, char *line, int count)
 	if (lines_adr)
 		free(lines_adr);
 	return (new_arr);
-
 }

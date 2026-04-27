@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/22 11:24:46 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/27 17:27:37 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,16 @@ static int	parse_map(char **lines, int map_i, t_map *map)
 	int	len;
 
 	count = 0;
-	i = map_i;
-	while (lines[i])
-	{
+	i = map_i -1;
+	while (lines[++i])
 		count++;
-		i++;
-	}
 	map->grid = malloc(sizeof(char *) * (count + 1));
 	if (!map->grid)
-		return (error_msg("malloc failed", map->grid));
-	i = 0;
+		return (error_msg("malloc failed", *map->grid), 0);
+	i = -1;
 	map->width = count;
 	map->height = 0;
-	while (i < count)
+	while (++i < count)
 	{
 		map->grid[i] = lines[map_i + i];
 		len = ft_strlen(map->grid[i]);
@@ -73,30 +70,32 @@ static int	parse_map(char **lines, int map_i, t_map *map)
 			map->grid[i][--len] = '\0';
 		if (len > map->height)
 			map->height = len;
-		i++;
 	}
 	map->grid[count] = NULL;
 	return (1);
 }
 
-static void	validate_map(char **lines,t_map *map, int i)
+static int	validate_map(char **lines, int i, t_map *map)
 {
-	int i;
+	int	p;
 
-	i = 0;
+	p = 0;
 	while (lines[i])
 	{
-		if (lines[i] != '0' && lines[i] != '1'
-			&& lines[i] != 'N' && lines[i] != 'S'
-			&& lines[i] != 'E' && lines[i] != 'W'
-			&& lines[i] != ' ' && lines[i] != '\t'
-			&& lines[i] != '\n' && lines[i] != '\r')
-			return (0);
+		while (lines[i][p])
+		{
+			if (lines[i][p] != '0' && lines[i][p] != '1'
+				&& lines[i][p] != 'N' && lines[i][p] != 'S'
+				&& lines[i][p] != 'E' && lines[i][p] != 'W'
+				&& lines[i][p] != ' ' && lines[i][p] != '\t'
+				&& lines[i][p] != '\n' && lines[i][p] != '\r')
+				return (0);
+			p++;
+		}
 		i++;
 	}
+	(void)map; //TODO other validations
 	return (1);
-	(void)map;
-	(void)i;
 }
 
 static void	free_split(char **values)
@@ -218,7 +217,10 @@ static int	lines_separator(char **lines, t_map *map)
 			c_seen = 1;
 		}
 		else if (lines[i][0] == '0' || lines[i][0] == '1')
-			validate_map(lines, map, i);
+		{
+			if (!validate_map(lines, i, map))
+				return (error_clean(lines, map, "map not valid", lines[i]), 0);
+		}
 		else
 			return (error_msg("Wrong Identifier", lines[i]), 0);
 		i++;
@@ -279,6 +281,8 @@ int	parsing(char *file, t_map *map)
 	map_i = lines_separator(lines, map);
 	if (!path_is_valid(map))
 		return (error_msg("not valid path", NULL), 0);
-	parse_map(**lines, map_i, map);
+	if (!parse_map(lines, map_i, map))
+		return (0);
+	find_player(map);
 	return (1);
 }

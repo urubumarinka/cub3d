@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:50:06 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/24 14:13:06 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/27 17:42:49 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ static int	file_check(char *path)
 	return (0);
 }
 
-int	main(int ac, char **av)
+int main(int ac, char **av)
 {
-	t_map	map;
-    //t_game game;
+    t_map	map;
+    t_game  game;
 
-	ft_bzero(&map, sizeof(map));
-	init_map(&map);
+    ft_bzero(&map, sizeof(map));
+    init_map(&map);
 	if (ac != 2)
 		error_msg("Usage: ./cub3d <map-file.cub>", NULL);
 	if (!file_check(av[1]))
@@ -63,7 +63,9 @@ int	main(int ac, char **av)
 		//destroy(&map);//TODO destroy function
 		error_msg("Map failed", NULL);
 	}
-    /*if (!init_game(&game))
+
+    // Initialize game (creates window and initializes MLX, loads config and textures)
+    if (!init_game(&game))
         return (1);
 
     mlx_key_hook(game.win, handle_key, &game);
@@ -73,6 +75,6 @@ int	main(int ac, char **av)
     mlx_loop_hook(game.mlx, rendering, &game);
 
     // main event loop: keeps window open and responsive + listen for events
-    mlx_loop(game.mlx); */
-	return (0);
+    mlx_loop(game.mlx);
+    return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 00:00:00 by kchatela          #+#    #+#             */
-/*   Updated: 2026/04/13 00:00:00 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/04/27 17:40:34 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,35 @@ int init_graphics(t_game *game)
     return (1);
 }
 
+void init_player(t_player *player)
+{
+    // from parsing later
+    player->x = 8 + 0.5;
+    player->y = 8 + 0.5;
+
+    // looking north
+    player->dirX = 0;
+    player->dirY = -1;
+
+    player->planeX = 0.66;
+    player->planeY = 0;
+}
+
 int init_game(t_game *game)
 {
+    // Allocate screen buffer
+    game->buffer = (uint32_t *)malloc(SCREEN_HEIGHT * SCREEN_WIDTH * sizeof(uint32_t));
+    if (!game->buffer)
+        return (0);
+
     if (!init_graphics(game))
         return (0);
-    // add other inits here
+    init_player(&game->player);
+    game->time = 0;
+    game->oldTime = 0;
+    load_config(game);
+    if (!load_all_textures(game))
+        return (0);
+
     return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/27 17:56:28 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:14:03 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,6 @@ typedef struct s_tex_img
     int endian;
 } t_tex_img;
 
-typedef struct s_map
-{
-    char **grid;
-    int height;
-    int width;
-    int		player_x;
-    int		player_y;
-    char	player_dir; //as of N, S, E or W
-} t_map;
-
 typedef struct s_texture
 {
     char *no;
@@ -91,6 +81,17 @@ typedef struct s_texture
     int	ceil_seen;
 
 } t_texture;
+
+typedef struct s_map
+{
+    char **grid;
+    int height;
+    int width;
+    t_texture text;
+    int		player_x;
+    int		player_y;
+    char	player_dir; //as of N, S, E or W
+} t_map;
 
 typedef struct s_dda
 {

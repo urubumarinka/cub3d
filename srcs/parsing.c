@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/27 17:27:37 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:21:18 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,16 @@ static int	parse_map(char **lines, int map_i, t_map *map)
 	if (!map->grid)
 		return (error_msg("malloc failed", *map->grid), 0);
 	i = -1;
-	map->width = count;
-	map->height = 0;
+	map->height = count;
+	map->width = 0;
 	while (++i < count)
 	{
 		map->grid[i] = lines[map_i + i];
 		len = ft_strlen(map->grid[i]);
 		if (len > 0 && map->grid[i][--len] == '\n')
 			map->grid[i][--len] = '\0';
-		if (len > map->height)
-			map->height = len;
+		if (len > map->width)
+			map->width = len;
 	}
 	map->grid[count] = NULL;
 	return (1);
@@ -167,8 +167,10 @@ static int	lines_separator(char **lines, t_map *map)
 	int	ea_seen;
 	int	f_seen;
 	int	c_seen;
+	int	map_start;
 
 	i = 0;
+	map_start = -1;
 	no_seen = 0;
 	so_seen = 0;
 	we_seen = 0;
@@ -218,6 +220,8 @@ static int	lines_separator(char **lines, t_map *map)
 		}
 		else if (lines[i][0] == '0' || lines[i][0] == '1')
 		{
+			if (map_start == -1)
+				map_start = i;
 			if (!validate_map(lines, i, map))
 				return (error_clean(lines, map, "map not valid", lines[i]), 0);
 		}
@@ -225,7 +229,7 @@ static int	lines_separator(char **lines, t_map *map)
 			return (error_msg("Wrong Identifier", lines[i]), 0);
 		i++;
 	}
-	return (i);
+	return (map_start);
 }
 
 static char	**read_lines(char *file)
@@ -271,13 +275,13 @@ int	parsing(char *file, t_map *map)
 	//init_game(); //init all pointers to NULL and all ints to 0
 	lines = NULL;
 	lines = read_lines(file);
-	/*int		p;
+	int		p;
 	p = 0;
 	while (lines && lines[p] != NULL)
 	{
 		printf("%s", lines[p]);
 		p++;
-	}*/
+	}
 	map_i = lines_separator(lines, map);
 	if (!path_is_valid(map))
 		return (error_msg("not valid path", NULL), 0);

@@ -4,10 +4,10 @@ NAME = cub3d
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
     MLX_DIR = ./minilibx_opengl
-    MLX_FLAGS = -framework AppKit -framework OpenGL
+    MLX_FLAGS = -framework AppKit -framework OpenGL -lm
 else
     MLX_DIR = ./minilibx_linux
-    MLX_FLAGS = -lX11 -lm
+    MLX_FLAGS = -lXext -lX11 -lm -lbsd
 endif
 
 CC = cc
@@ -26,9 +26,14 @@ SRCS = \
 ./srcs/error.c \
 ./srcs/parsing.c \
 ./srcs/init.c \
+./srcs/testing.c \
+./srcs/texture.c \
+./srcs/raycasting.c \
+./srcs/wall.c \
 ./srcs/rendering.c \
 ./srcs/events.c \
 ./srcs/player.c \
+./srcs/minimap.c \
 
 OBJS = $(SRCS:.c=.o)
 

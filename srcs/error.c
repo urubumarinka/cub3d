@@ -3,20 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/09 13:43:45 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/27 17:38:35 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	error_msg(char *msg)
+void	error_msg(char *msg, char *context)
 {
-	//printf("%s", msg);
 	ft_putstr_fd("Error\n", 2);
-	//clean if needed
-	perror(msg);
+	if (errno != 0)
+		perror(msg);
+	else
+	{
+		ft_putstr_fd(msg, 2);
+		if (context)
+			ft_putstr_fd(context, 2);
+		ft_putstr_fd("\n", 2);
+	}
 	exit(1);
 }

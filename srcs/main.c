@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:50:06 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/27 17:42:49 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/04/28 20:01:54 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ int main(int ac, char **av)
 	if (!file_check(av[1]))
 		error_msg("File has wrong format or doesnt exist", NULL);
 	if (!parsing(av[1], &map))
-	{
-		//destroy(&map);//TODO destroy function
-		error_msg("Map failed", NULL);
-	}
+		error_clean(NULL, &map, "map not valid", NULL);
 
     // Initialize game (creates window and initializes MLX, loads config and textures)
     if (!init_game(&game))

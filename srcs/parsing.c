@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/27 18:21:18 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/04/28 20:07:47 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+static void	free_lines(char **lines)
+{
+	int	i;
+
+	if (!lines)
+		return ;
+	i = 0;
+	while (lines[i])
+	{
+		free(lines[i]);
+		i++;
+	}
+	free(lines);
+}
 
 static int	find_player(t_map *map)
 {
@@ -284,9 +299,20 @@ int	parsing(char *file, t_map *map)
 	}
 	map_i = lines_separator(lines, map);
 	if (!path_is_valid(map))
+	{
+		free_lines(lines);
 		return (error_msg("not valid path", NULL), 0);
+	}
 	if (!parse_map(lines, map_i, map))
+	{
+		free_lines(lines);
 		return (0);
-	find_player(map);
+	}
+	if (!find_player(map))
+	{
+		free_lines(lines);
+		return (0);
+	}
+	free_lines(lines);
 	return (1);
 }

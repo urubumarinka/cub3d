@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   testing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 00:00:00 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/27 14:57:04 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/04/28 19:12:24 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int testMap[MAP_WIDTH][MAP_HEIGHT] = {
 
 
 // Texture paths (from the .cub format: NO, SO, WE, EA)
-#define TEXTURE_NO "pics/eagle.xpm"       // North
+#define TEXTURE_NO "assets/wall_03.xpm"       // North
 #define TEXTURE_SO "pics/greystone.xpm"   // South
 #define TEXTURE_WE "pics/purplestone.xpm" // West
-#define TEXTURE_EA "pics/redbrick.xpm"    // East
+#define TEXTURE_EA "assets/wall_04.xpm"    // East
 
 // Initialize texture paths from config
 void load_config_textures(t_game *game)

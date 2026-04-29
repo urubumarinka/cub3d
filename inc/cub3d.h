@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/29 13:21:34 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/29 16:55:09 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,17 +150,20 @@ int load_all_textures(t_game *game);
 void error_clean(char **lines, t_map *map, char *msg, char *context);
 void cleanup_game(t_game *game);
 
-// parsing
+void	error_clean(char **lines, t_map *map, char *msg, char*context);
+void	free_grid(char **grid, int rows);
 
-int parsing(char *file, t_map *map);
-char **append_line(char **lines_adr, char *line, int count);
-int set_texture_path(char **slot, int *seen, char *line);
-char *insert_path(char *s);
-int path_is_valid(t_map *map);
-int test_file(char *path);
-int color_range_check(t_map *map);
-int check_dup(t_map *map);
-int is_valid_int(char *s);
+//parsing
+
+int		parsing(char *file, t_map *map);
+char	**append_line(char **lines_adr, char *line, int count);
+int		set_texture_path(char **slot, int *seen, char *line);
+char	*insert_path(char *s);
+int		path_is_valid(t_map *map);
+int		test_file(char *path);
+int		color_range_check(t_map *map);
+int		check_dup(t_map *map);
+int		is_valid_int(char *s);
 
 // utils
 

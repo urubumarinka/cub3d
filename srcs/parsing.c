@@ -6,11 +6,62 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/29 14:25:00 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/29 17:19:15 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+static int	flood_fill(char **map, int row, int col,
+					int rows, int cols)
+{
+	if (row < 0 || col < 0 || row >= rows || col >= cols)
+		return (0);
+	if (map[row][col] == ' ')
+		return (0);
+	if (map[row][col] == '1')
+		return (1);
+	if (map[row][col] == 'V')
+		return (1);
+	map[row][col] = 'V';
+	if (!flood_fill(map, row - 1, col, rows, cols))
+		return (0);
+	if (!flood_fill(map, row + 1, col, rows, cols))
+		return (0);
+	if (!flood_fill(map, row, col - 1, rows, cols))
+		return (0);
+	if (!flood_fill(map, row, col + 1, rows, cols))
+		return (0);
+	return (1);
+}
+
+static char	**copy_map(t_map *map)
+{
+	char	**copy;
+	int		i;
+
+	copy = malloc(sizeof(char *) * (map->height + 1));
+	i = 0;
+	while (i < map->height)
+	{
+		copy[i] = ft_strdup(map->grid[i]);
+		i++;
+	}
+	copy[map->height] = NULL;
+	return (copy);
+}
+
+static int	validate_closed(t_map *map)
+{
+	char	**copy;
+	int		result;
+
+	copy = copy_map(map);
+	result = flood_fill(copy, map->player_y,
+					map->player_x, map->height, map->width);
+	free_grid(copy, map->height);
+	return (result);
+}
 
 static void	pad_map(t_map *map)
 {
@@ -75,7 +126,7 @@ static int	find_player(t_map *map)
 				map->player_x = width;
 				map->player_y = height;
 				map->player_dir = map->grid[height][width];
-				map->grid[height][width] = 0;
+				map->grid[height][width] = '0';
 			}
 			width++;
 		}
@@ -106,8 +157,11 @@ static int	parse_map(char **lines, int map_i, t_map *map)
 	{
 		map->grid[i] = lines[map_i + i];
 		len = ft_strlen(map->grid[i]);
-		if (len > 0 && map->grid[i][--len] == '\n')
-			map->grid[i][--len] = '\0';
+		if (len > 0 && map->grid[i][len - 1] == '\n')
+		{
+			map->grid[i][len - 1] = '\0';
+			len--;
+		}
 		if (len > map->width)
 			map->width = len;
 	}
@@ -316,14 +370,19 @@ int	parsing(char *file, t_map *map)
 	lines = NULL;
 	lines = read_lines(file);
 	map_i = lines_separator(lines, map);
+	if (map_i < 0)
+		return (free_lines(lines), error_msg("no map found", NULL), 0);
 	if (!path_is_valid(map))
 		return (free_lines(lines), error_msg("not valid path", NULL), 0);
 	if (!parse_map(lines, map_i, map))
 		return (free_lines(lines), 0);
+	if (lines)
+		free(lines);
 	pad_map(map);
 	if (!find_player(map))
-		return (free_lines(lines), 0);
-	free_lines(lines);
+		return (0);
+	if (!validate_closed(map))
+		return (0);
 	return (1);
 }
 

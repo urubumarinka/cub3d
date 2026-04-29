@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/27 18:14:03 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/04/29 13:21:34 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include <string.h>
 
 #define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 960
+#define SCREEN_HEIGHT 960 
 #define CEILING_COLOR 0xFF0000 // red
 #define FLOOR_COLOR 0x000000   // black
 
@@ -102,7 +102,7 @@ typedef struct s_dda
     double deltaDistX; // Distance between vertical grid line always same
     double deltaDistY; // Distance between horizontal grid line always same
     int stepX; // Which dir for ray to go
-    int stepY; // Which dir for ray to go 
+    int stepY; // Which dir for ray to go
     int side;
 } t_dda;
 

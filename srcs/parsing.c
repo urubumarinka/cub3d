@@ -6,11 +6,36 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/28 20:07:47 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/29 14:25:00 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+static void	pad_map(t_map *map)
+{
+	int		row;
+	int		len;
+	int		pad;
+	char	*padded;
+
+	row = 0;
+	while (row < map->height)
+	{
+		len = ft_strlen(map->grid[row]);
+		if (len < map->width)
+		{
+			pad = map->width - len;
+			padded = malloc(map->width + 1);
+			ft_memcpy(padded, map->grid[row], len);
+			ft_memset(padded + len, ' ', pad);
+			padded[map->width] = '\0';
+			free(map->grid[row]);
+			map->grid[row] = padded;
+		}
+		row++;
+	}
+}
 
 static void	free_lines(char **lines)
 {
@@ -290,29 +315,23 @@ int	parsing(char *file, t_map *map)
 	//init_game(); //init all pointers to NULL and all ints to 0
 	lines = NULL;
 	lines = read_lines(file);
+	map_i = lines_separator(lines, map);
+	if (!path_is_valid(map))
+		return (free_lines(lines), error_msg("not valid path", NULL), 0);
+	if (!parse_map(lines, map_i, map))
+		return (free_lines(lines), 0);
+	pad_map(map);
+	if (!find_player(map))
+		return (free_lines(lines), 0);
+	free_lines(lines);
+	return (1);
+}
+
+/* //Use to print the.cub file
 	int		p;
 	p = 0;
 	while (lines && lines[p] != NULL)
 	{
 		printf("%s", lines[p]);
 		p++;
-	}
-	map_i = lines_separator(lines, map);
-	if (!path_is_valid(map))
-	{
-		free_lines(lines);
-		return (error_msg("not valid path", NULL), 0);
-	}
-	if (!parse_map(lines, map_i, map))
-	{
-		free_lines(lines);
-		return (0);
-	}
-	if (!find_player(map))
-	{
-		free_lines(lines);
-		return (0);
-	}
-	free_lines(lines);
-	return (1);
-}
+	} */

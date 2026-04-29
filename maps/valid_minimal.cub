@@ -1,6 +1,6 @@
-NO ./assets/wall_01.xpm
-SO ./assets/wall_02.xpm
-WE ./assets/wall_03.xpm
+NO ./assets/bluestone.xpm
+SO ./assets/mossy.xpm
+WE ./assets/purplestone.xpm
 EA ./assets/wall_04.xpm
 
 F 220,100,0

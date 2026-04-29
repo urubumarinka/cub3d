@@ -12,8 +12,6 @@
 
 #include "../inc/cub3d.h"
 
-extern int testMap[24][24];
-
 #define MINIMAP_TILE_SIZE 6
 #define MINIMAP_X 10
 #define MINIMAP_Y 350
@@ -35,10 +33,10 @@ void draw_minimap(t_image *image, t_game *game)
     int py;
 
     map_y = 0;
-    while (map_y < 24)
+    while (map_y < game->map.height)
     {
         map_x = 0;
-        while (map_x < 24)
+        while (map_x < game->map.width)
         {
             ty = 0;
             while (ty < MINIMAP_TILE_SIZE)
@@ -48,7 +46,7 @@ void draw_minimap(t_image *image, t_game *game)
                 {
                     pixel_x = MINIMAP_X + (map_y * MINIMAP_TILE_SIZE) + tx;
                     pixel_y = MINIMAP_Y + (map_x * MINIMAP_TILE_SIZE) + ty;
-                    if (testMap[map_x][map_y])
+                    if (game->map.grid[map_x][map_y] == '1')
                         color = 0x000000;
                     else
                         color = 0xFFFFFF;

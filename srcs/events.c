@@ -23,10 +23,7 @@ int handle_key(int keycode, t_game *game)
 
 int close_window(t_game *game)
 {
-    if (game->image.img_ptr)
-        mlx_destroy_image(game->mlx, game->image.img_ptr);
-    if (game->win)
-        mlx_destroy_window(game->mlx, game->win);
-    exit(0);
-    return (0);
+	cleanup_game(game);
+	exit(0);
+	return (0);
 }

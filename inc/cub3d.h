@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/29 13:21:34 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/29 16:55:09 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include <string.h>
 
 #define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 960 
+#define SCREEN_HEIGHT 960
 #define CEILING_COLOR 0xFF0000 // red
 #define FLOOR_COLOR 0x000000   // black
 
@@ -149,6 +149,7 @@ int load_all_textures(t_game *game);
 
 
 void	error_clean(char **lines, t_map *map, char *msg, char*context);
+void	free_grid(char **grid, int rows);
 
 //parsing
 

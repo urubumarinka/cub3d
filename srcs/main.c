@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:50:06 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/28 20:01:54 by maborges         ###   ########.fr       */
+/*   Updated: 2026/04/29 17:38:54 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int main(int ac, char **av)
     // Initialize game (creates window and initializes MLX, loads config and textures)
     if (!init_game(&game))
         return (1);
-    game.map = map; 
+    game.map = map;
     mlx_key_hook(game.win, handle_key, &game);
     mlx_hook(game.win, 17, 0, close_window, &game);
 

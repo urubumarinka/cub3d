@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/27 17:38:35 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/04/29 17:24:19 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,42 +31,59 @@ static void	clean(char **lines, t_map *map)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (lines)
 	{
 		while (lines[i])
-			free(lines[i++]);
+		{
+			free(lines[i]);
+			i++;
+		}
 		free(lines);
 	}
-	i = -1;
-	if (map->grid)
+	i = 0;
+	if (map && map->grid)
 	{
-		if (map->grid)
+		while (map->grid[i])
 		{
-			while (map->grid[i])
-				free(map->grid[i++]);
-			free(map->grid);
+			free(map->grid[i]);
+			i++;
 		}
+		free(map->grid);
+		map->grid = NULL;
 	}
-	if (map->text.no)
+	if (map && map->text.no)
 		free(map->text.no);
-	if (map->text.so)
+	if (map && map->text.so)
 		free(map->text.so);
-	if (map->text.we)
+	if (map && map->text.we)
 		free(map->text.we);
-	if (map->text.ea)
+	if (map && map->text.ea)
 		free(map->text.ea);
-
 	if (map)
-		free(map);
-	map->text.no = NULL;
-	map->text.so = NULL;
-	map->text.we = NULL;
-	map->text.ea = NULL;
+	{
+		map->text.no = NULL;
+		map->text.so = NULL;
+		map->text.we = NULL;
+		map->text.ea = NULL;
+	}
 }
 
 void	error_clean(char **lines, t_map *map, char *msg, char*context)
 {
 	clean(lines, map);
 	error_msg(msg, context);
+}
+
+void	free_grid(char **grid, int rows)
+{
+	int	i;
+
+	i = 0;
+	while (i < rows)
+	{
+		free(grid[i]);
+		i++;
+	}
+	free(grid);
 }

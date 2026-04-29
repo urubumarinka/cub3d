@@ -12,8 +12,6 @@
 
 #include "../inc/cub3d.h"
 
-extern int testMap[24][24];
-
 static void init_dda_dist(t_game *game, t_dda *dda, double rayDirX, double rayDirY)
 {
     // which grid square player is currently in
@@ -63,7 +61,7 @@ static void init_dda(t_game *game, t_dda *dda, double rayDirX, double rayDirY)
 }
 
 // DDA logic
-double dda_loop(t_dda *dda)
+double dda_loop(t_game *game, t_dda *dda)
 {
     int hit;
 
@@ -82,13 +80,13 @@ double dda_loop(t_dda *dda)
             dda->mapY += dda->stepY;
             dda->side = 1;
         }
-        // Check bounds and wall
-        if (dda->mapX < 0 || dda->mapX >= 24 || dda->mapY < 0 || dda->mapY >= 24)
+        // Check bounds and wall using parsed map
+        if (dda->mapX < 0 || dda->mapX >= game->map.width || dda->mapY < 0 || dda->mapY >= game->map.height)
         {
             // Out of bounds - treat as wall
             hit = 1;
         }
-        else if (testMap[dda->mapX][dda->mapY] > 0)
+        else if (game->map.grid[dda->mapY][dda->mapX] == '1')
         {
             hit = 1;
         }
@@ -108,7 +106,7 @@ double cast_ray(t_game *game, double rayDirX, double rayDirY)
 
     // init ray infos needed
     init_dda(game, &dda, rayDirX, rayDirY);
-    wallDist = dda_loop(&dda);
+    wallDist = dda_loop(game, &dda);
     // store values for rendering
     game->lastSide = dda.side;
     game->lastMapX = dda.mapX;

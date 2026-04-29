@@ -36,11 +36,13 @@ int init_graphics(t_game *game)
     return (1);
 }
 
-void init_player(t_player *player)
+void init_player(t_game *game)
 {
-    // from parsing later
-    player->x = 8 + 0.5;
-    player->y = 8 + 0.5;
+    t_player *player = &game->player;
+    
+    // Use parsed player position from map
+    player->x = game->map.player_x + 0.5;
+    player->y = game->map.player_y + 0.5;
 
     // looking north
     player->dirX = 0;
@@ -59,10 +61,9 @@ int init_game(t_game *game)
 
     if (!init_graphics(game))
         return (0);
-    init_player(&game->player);
+    init_player(game);
     game->time = 0;
     game->oldTime = 0;
-    load_config(game);
     if (!load_all_textures(game))
         return (0);
 

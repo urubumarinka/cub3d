@@ -41,17 +41,17 @@ int testMap[MAP_WIDTH][MAP_HEIGHT] = {
 
 // Texture paths (from the .cub format: NO, SO, WE, EA)
 #define TEXTURE_NO "assets/wall_03.xpm"       // North
-#define TEXTURE_SO "pics/greystone.xpm"   // South
-#define TEXTURE_WE "pics/purplestone.xpm" // West
+#define TEXTURE_SO "assets/greystone.xpm"   // South
+#define TEXTURE_WE "assets/purplestone.xpm" // West
 #define TEXTURE_EA "assets/wall_04.xpm"    // East
 
 // Initialize texture paths from config
 void load_config_textures(t_game *game)
 {
-    game->text.no = (char *)TEXTURE_NO;
-    game->text.so = (char *)TEXTURE_SO;
-    game->text.we = (char *)TEXTURE_WE;
-    game->text.ea = (char *)TEXTURE_EA;
+    game->map.text.no = (char *)TEXTURE_NO;
+    game->map.text.so = (char *)TEXTURE_SO;
+    game->map.text.we = (char *)TEXTURE_WE;
+    game->map.text.ea = (char *)TEXTURE_EA;
 }
 
 // Get texture index based on which wall direction was hit

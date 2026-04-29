@@ -38,13 +38,13 @@ int load_texture(void *mlx, t_tex_img *texture, const char *path)
 int load_all_textures(t_game *game)
 {
     // Index 0=North, 1=South, 2=West, 3=East
-    if (!load_texture(game->mlx, &game->textures[0], game->text.no))
+    if (!load_texture(game->mlx, &game->textures[0], game->map.text.no))
         return (0);
-    if (!load_texture(game->mlx, &game->textures[1], game->text.so))
+    if (!load_texture(game->mlx, &game->textures[1], game->map.text.so))
         return (0);
-    if (!load_texture(game->mlx, &game->textures[2], game->text.we))
+    if (!load_texture(game->mlx, &game->textures[2], game->map.text.we))
         return (0);
-    if (!load_texture(game->mlx, &game->textures[3], game->text.ea))
+    if (!load_texture(game->mlx, &game->textures[3], game->map.text.ea))
         return (0);
     return (1);
 }

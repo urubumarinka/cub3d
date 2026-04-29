@@ -109,7 +109,6 @@ typedef struct s_dda
 typedef struct s_game
 {
     t_map map;
-    t_texture text;
     void *mlx;
     void *win;
     t_image image;
@@ -131,7 +130,7 @@ double get_ticks(void);
 void put_pixel(t_image *image, int x, int y, int color);
 
 int rendering(t_game *game);
-void draw_scene_to_buffer(uint32_t *buffer);
+void draw_scene_to_buffer(t_game *game);
 void draw_wall_stripe(t_game *game, int x);
 void draw_vertical_line(t_game *game, int x, double wallDist, double rayDirX, double rayDirY);
 double cast_ray(t_game *game, double rayDirX, double rayDirY);

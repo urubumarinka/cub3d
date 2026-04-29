@@ -64,7 +64,7 @@ int main(int ac, char **av)
     // Initialize game (creates window and initializes MLX, loads config and textures)
     if (!init_game(&game))
         return (1);
-
+    game.map = map; 
     mlx_key_hook(game.win, handle_key, &game);
     mlx_hook(game.win, 17, 0, close_window, &game);
 

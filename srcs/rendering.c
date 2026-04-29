@@ -1,21 +1,23 @@
 #include "../inc/cub3d.h"
 
 // Draw ceiling and floor background to buffer
-void draw_scene_to_buffer(uint32_t *buffer)
+void draw_scene_to_buffer(t_game *game)
 {
     int x = 0;
+    uint32_t floor_color = (game->map.text.flr_r << 16) | (game->map.text.flr_g << 8) | game->map.text.flr_b;
+    uint32_t ceiling_color = (game->map.text.ceil_r << 16) | (game->map.text.ceil_g << 8) | game->map.text.ceil_b;
     while (x < SCREEN_WIDTH)
     {
         int y = 0;
         while (y < SCREEN_HEIGHT / 2)
         {
-            buffer[y * SCREEN_WIDTH + x] = CEILING_COLOR;
+            game->buffer[y * SCREEN_WIDTH + x] = ceiling_color;
             y++;
         }
         y = SCREEN_HEIGHT / 2;
         while (y < SCREEN_HEIGHT)
         {
-            buffer[y * SCREEN_WIDTH + x] = FLOOR_COLOR;
+            game->buffer[y * SCREEN_WIDTH + x] = floor_color;
             y++;
         }
         x++;
@@ -56,7 +58,7 @@ int rendering(t_game *game)
     int col;
 
     // draw ceiling/floor
-    draw_scene_to_buffer(game->buffer);
+    draw_scene_to_buffer(game);
     // Cast rays for each column and fill buffer with wall textures
     col = 0;
     while (col < SCREEN_WIDTH)

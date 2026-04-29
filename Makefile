@@ -29,7 +29,6 @@ SRCS = \
 ./srcs/parsing_utils_2.c \
 ./srcs/utils.c \
 ./srcs/init.c \
-./srcs/testing.c \
 ./srcs/texture.c \
 ./srcs/raycasting.c \
 ./srcs/wall.c \

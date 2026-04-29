@@ -53,6 +53,7 @@ int main(int ac, char **av)
     t_game  game;
 
     ft_bzero(&map, sizeof(map));
+    ft_bzero(&game, sizeof(game));
     init_map(&map);
 	if (ac != 2)
 		error_msg("Usage: ./cub3d <map-file.cub>", NULL);
@@ -61,10 +62,10 @@ int main(int ac, char **av)
 	if (!parsing(av[1], &map))
 		error_clean(NULL, &map, "map not valid", NULL);
 
+    game.map = map;
     // Initialize game (creates window and initializes MLX, loads config and textures)
     if (!init_game(&game))
-        return (1);
-    game.map = map; 
+        return (1); 
     mlx_key_hook(game.win, handle_key, &game);
     mlx_hook(game.win, 17, 0, close_window, &game);
 

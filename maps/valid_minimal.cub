@@ -1,0 +1,13 @@
+NO ./assets/bluestone.xpm
+SO ./assets/mossy.xpm
+WE ./assets/purplestone.xpm
+EA ./assets/wall_04.xpm
+
+F 220,100,0
+C 0,100,200
+
+111111
+100001
+1000N1
+100001
+111111

@@ -70,7 +70,7 @@ int rendering(t_game *game)
     draw_buffer_to_screen(&game->image, game->buffer);
 
     // Draw minimap on top
-    draw_minimap(&game->image, game);
+    //draw_minimap(&game->image, game);
     // Display image on screen
     mlx_put_image_to_window(game->mlx, game->win, game->image.img_ptr, 0, 0);
     // clean pixels from current frame before drawing next frame

@@ -1,0 +1,169 @@
+# Valgrind suppressions for MiniLibX / X11 reachable allocations.
+# Use with:
+#   valgrind --leak-check=full --show-leak-kinds=all --suppressions=mlx.supp ./cub3d test_map.cub
+
+{
+   mlx_xopen_display_malloc
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:XOpenDisplay
+   fun:mlx_init
+   fun:init_graphics
+   fun:init_game
+   fun:main
+}
+
+{
+   mlx_xopen_display_calloc
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:XOpenDisplay
+   fun:mlx_init
+   fun:init_graphics
+   fun:init_game
+   fun:main
+}
+
+{
+   mlx_xopen_display_xcb_calloc
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:xcb_connect_to_fd
+   fun:xcb_connect_to_display_with_auth_info
+   fun:_XConnectXCB
+   fun:XOpenDisplay
+   fun:mlx_init
+   fun:init_graphics
+   fun:init_game
+   fun:main
+}
+
+{
+   mlx_xopen_display_realloc
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:xcb_connect_to_fd
+   fun:xcb_connect_to_display_with_auth_info
+   fun:_XConnectXCB
+   fun:XOpenDisplay
+   fun:mlx_init
+   fun:init_graphics
+   fun:init_game
+   fun:main
+}
+
+{
+   mlx_xintern_atom
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XUpdateAtomCache
+   fun:XInternAtom
+   fun:mlx_init
+   fun:init_graphics
+   fun:init_game
+   fun:main
+}
+
+{
+   mlx_xshm_query_version
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:XInitExtension
+   fun:XextAddDisplay
+   obj:/usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+   fun:XextAddDisplay
+   fun:XShmQueryVersion
+   fun:mlx_int_deal_shm
+   fun:mlx_init
+   fun:init_graphics
+   fun:init_game
+   fun:main
+}
+
+{
+   mlx_xshm_query_version_malloc
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:XInitExtension
+   fun:XextAddDisplay
+   fun:XShmQueryVersion
+   fun:mlx_int_deal_shm
+   fun:mlx_init
+   fun:init_graphics
+   fun:init_game
+   fun:main
+}
+
+{
+   mlx_xkb_get_map
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_XkbReadGetMapReply
+   fun:XkbGetUpdatedMap
+   fun:XkbGetMap
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:XkbKeycodeToKeysym
+   fun:mlx_int_param_KeyRelease
+   fun:mlx_loop
+   fun:main
+}
+
+{
+   mlx_xkb_get_map_reply
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:XkbAllocClientMap
+   fun:_XkbReadGetMapReply
+   fun:XkbGetUpdatedMap
+   fun:XkbGetMap
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:XkbKeycodeToKeysym
+   fun:mlx_int_param_KeyRelease
+   fun:mlx_loop
+   fun:main
+}
+
+{
+   mlx_xwindow_event
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XEnq
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XReadEvents
+   fun:XWindowEvent
+   fun:mlx_int_wait_first_expose
+   fun:mlx_new_window
+   fun:init_graphics
+   fun:init_game
+   fun:main
+}
+
+{
+   mlx_xpm_xshm_image
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XEnq
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XReply
+   fun:XSync
+   fun:mlx_int_new_xshm_image
+   fun:mlx_new_image
+   fun:mlx_int_parse_xpm
+   fun:mlx_xpm_file_to_image
+   fun:load_texture
+   fun:load_all_textures
+   fun:init_game
+}

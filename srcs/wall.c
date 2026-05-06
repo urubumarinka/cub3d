@@ -12,75 +12,95 @@
 
 #include "../inc/cub3d.h"
 
-int	get_texture_index(t_game *game, double ray_dir_x, double ray_dir_y)
+int get_texture_index(t_game *game, double ray_dir_x, double ray_dir_y)
 {
-	if (game->lastSide == 0)
-	{
-		if (ray_dir_x > 0)
-			return (3);
-		return (2);
-	}
-	if (ray_dir_y > 0)
-		return (1);
-	return (0);
+    if (game->lastSide == 0)
+    {
+        if (ray_dir_x > 0)
+            return (3);
+        return (2);
+    }
+    if (ray_dir_y > 0)
+        return (1);
+    return (0);
 }
 
-void	calculate_wall_dimensions(int *h, int *start, int *end, double dist)
+void calculate_wall_dimensions(int *h, int *start, int *end, double dist)
 {
-	*h = (int)(SCREEN_HEIGHT / dist);
-	*start = -(*h) / 2 + SCREEN_HEIGHT / 2;
-	if (*start < 0)
-		*start = 0;
-	*end = (*h) / 2 + SCREEN_HEIGHT / 2;
-	if (*end >= SCREEN_HEIGHT)
-		*end = SCREEN_HEIGHT - 1;
+    *h = (int)(SCREEN_HEIGHT / dist);
+    *start = -(*h) / 2 + SCREEN_HEIGHT / 2;
+    if (*start < 0)
+        *start = 0;
+    *end = (*h) / 2 + SCREEN_HEIGHT / 2;
+    if (*end >= SCREEN_HEIGHT)
+        *end = SCREEN_HEIGHT - 1;
 }
 
-static void	render_column(t_game *g, int col, t_wall_render *w)
+static void draw_wall_column(t_game *game, int col, t_wall_render *wall)
 {
-	double		tex_pos;
-	int			y;
-	int			ty;
-	uint32_t	color;
+    double tex_pos;
+    int row;
+    int texture_row;
+    uint32_t color;
 
-	tex_pos = (w->draw_start - SCREEN_HEIGHT / 2 + (w->draw_end - w->draw_start) / 2) * w->step;
-	y = w->draw_start;
-	while (y < w->draw_end)
-	{
-		ty = (int)tex_pos & (g->textures[w->tex_num].height - 1);
-		color = g->textures[w->tex_num].data[ty * (g->textures[w->tex_num].line_length / 4) + w->tex_x];
-		if (g->lastSide == 1)
-			color = (color >> 1) & 8355711;
-		g->buffer[y * SCREEN_WIDTH + col] = color;
-		tex_pos += w->step;
-		y++;
-	}
+    tex_pos = (wall->draw_start - SCREEN_HEIGHT / 2 + (wall->draw_end - wall->draw_start) / 2) * wall->tex_scale;
+    row = wall->draw_start;
+    while (row < wall->draw_end)
+    {
+        texture_row = (int)tex_pos & (game->textures[wall->tex_num].height - 1);
+        color = game->textures[wall->tex_num].data[texture_row * (game->textures[wall->tex_num].line_length / 4) + wall->tex_col];
+        if (game->lastSide == 1)
+            color = (color >> 1) & 8355711;
+        put_pixel(&game->image, col, row, color);
+        tex_pos += wall->tex_scale;
+        row++;
+    }
 }
 
-void	draw_wall_stripe(t_game *game, int col)
+void draw_wall(t_game *game, int col)
 {
-	double			cam_x;
-	double			ray_x;
-	double			ray_y;
-	t_wall_render	wall;
+    double cam_x;
+    double ray_dir_x;
+    double ray_dir_y;
+    t_wall_render wall;
 
-	cam_x = 2 * col / (double)SCREEN_WIDTH - 1;
-	ray_x = game->player.dirX + game->player.planeX * cam_x;
-	ray_y = game->player.dirY + game->player.planeY * cam_x;
-	wall.wall_dist = cast_ray(game, ray_x, ray_y);
-	calculate_wall_dimensions(&wall.line_height, &wall.draw_start,
-		&wall.draw_end, wall.wall_dist);
-	wall.tex_num = get_texture_index(game, ray_x, ray_y);
-	if (game->lastSide == 0)
-		wall.wall_x = game->player.y + wall.wall_dist * ray_y;
-	else
-		wall.wall_x = game->player.x + wall.wall_dist * ray_x;
-	wall.wall_x = wall.wall_x - floor(wall.wall_x);
-	wall.tex_x = (int)(wall.wall_x * (double)(game->textures[wall.tex_num].width));
-	if (game->lastSide == 0 && ray_x > 0)
-		wall.tex_x = game->textures[wall.tex_num].width - wall.tex_x - 1;
-	if (game->lastSide == 1 && ray_y < 0)
-		wall.tex_x = game->textures[wall.tex_num].width - wall.tex_x - 1;
-	wall.step = 1.0 * game->textures[wall.tex_num].height / wall.line_height;
-	render_column(game, col, &wall);
+    cam_x = 2 * col / (double)SCREEN_WIDTH - 1;
+    ray_dir_x = game->player.dirX + game->player.planeX * cam_x;
+    ray_dir_y = game->player.dirY + game->player.planeY * cam_x;
+    wall.wall_dist = cast_ray(game, ray_dir_x, ray_dir_y);
+    calculate_wall_dimensions(&wall.line_height, &wall.draw_start,
+                              &wall.draw_end, wall.wall_dist);
+    wall.tex_num = get_texture_index(game, ray_dir_x, ray_dir_y);
+
+    // STEP 1: Calculate WORLD coordinate where ray hit the wall
+    // For vertical walls (north/south), use Y coordinate
+    // For horizontal walls (east/west), use X coordinate
+    // Example: player at (5.3, 7.8) + distance * direction = hit at (5.3, 10.7)
+    if (game->lastSide == 0)
+        wall.wall_hit_pos = game->player.y + wall.wall_dist * ray_dir_y;
+    else
+        wall.wall_hit_pos = game->player.x + wall.wall_dist * ray_dir_x;
+
+    // STEP 2: Extract ONLY the fractional part to get 0-1 (within one brick)
+    // Example: world coordinate 10.7 becomes 0.7 (70% across brick #10)
+    // This works because each brick is 1 unit wide, and texture repeats
+    wall.wall_hit_pos = wall.wall_hit_pos - floor(wall.wall_hit_pos);
+
+    // Convert wall position (0-1) to texture column (0-63)
+    // If wall_hit_pos = 0.5, and texture is 64 pixels wide:
+    // tex_col = 0.5 * 64 = 32 (middle of texture)
+    wall.tex_col = (int)(wall.wall_hit_pos * game->textures[wall.tex_num].width);
+
+    // Flip the texture horizontally based on which direction we're looking
+    // This prevents the texture from appearing mirrored
+    if (game->lastSide == 0 && ray_dir_x > 0)
+        wall.tex_col = game->textures[wall.tex_num].width - wall.tex_col - 1;
+    if (game->lastSide == 1 && ray_dir_y < 0)
+        wall.tex_col = game->textures[wall.tex_num].width - wall.tex_col - 1;
+
+    // Calculate texture scaling ratio (how much to advance per screen pixel)
+    // If texture is 64 pixels tall and wall appears 200 pixels tall on screen:
+    // tex_scale = 64 / 200 = 0.32 (advance 0.32 pixels down texture per screen pixel)
+    wall.tex_scale = 1.0 * game->textures[wall.tex_num].height / wall.line_height;
+    draw_wall_column(game, col, &wall);
 }

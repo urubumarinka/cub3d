@@ -81,8 +81,6 @@ void cleanup_game(t_game *game)
 
     if (!game)
         return;
-    if (game->buffer)
-        free(game->buffer);
     i = 0;
     while (i < 4)
     {

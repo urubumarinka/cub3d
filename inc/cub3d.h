@@ -35,6 +35,15 @@ typedef struct s_player
     double planeY;
 } t_player;
 
+typedef struct s_direction
+{
+    char dir;
+    double dirX;
+    double dirY;
+    double planeX;
+    double planeY;
+} t_direction;
+
 typedef struct s_image
 {
     void *img_ptr;
@@ -105,9 +114,9 @@ typedef struct s_wall_render
     int draw_start;
     int draw_end;
     int tex_num;
-    double wall_x;
-    int tex_x;
-    double step;
+    double wall_hit_pos;
+    int tex_col;
+    double tex_scale;
 } t_wall_render;
 
 typedef struct s_game
@@ -122,19 +131,16 @@ typedef struct s_game
     int lastSide;
     int lastMapX;
     int lastMapY;
-    uint32_t *buffer; // uint32_t cause we storing 32-bit color values in the buffer
     t_tex_img textures[8];
 } t_game;
 
 void error_msg(char *msg, char *context);
 int init_game(t_game *game);
-int init_graphics(t_game *game);
-void init_player(t_game *game);
 void put_pixel(t_image *image, int x, int y, int color);
 
 int rendering(t_game *game);
-void draw_scene_to_buffer(t_game *game);
-void draw_wall_stripe(t_game *game, int x);
+void draw_scene_to_screen(t_game *game);
+void draw_wall(t_game *game, int x);
 double cast_ray(t_game *game, double rayDirX, double rayDirY);
 double dda_loop(t_game *game, t_dda *dda);
 int get_wall_color(t_game *game);
@@ -150,20 +156,20 @@ int load_all_textures(t_game *game);
 void error_clean(char **lines, t_map *map, char *msg, char *context);
 void cleanup_game(t_game *game);
 
-void	error_clean(char **lines, t_map *map, char *msg, char*context);
-void	free_grid(char **grid, int rows);
+void error_clean(char **lines, t_map *map, char *msg, char *context);
+void free_grid(char **grid, int rows);
 
-//parsing
+// parsing
 
-int		parsing(char *file, t_map *map);
-char	**append_line(char **lines_adr, char *line, int count);
-int		set_texture_path(char **slot, int *seen, char *line);
-char	*insert_path(char *s);
-int		path_is_valid(t_map *map);
-int		test_file(char *path);
-int		color_range_check(t_map *map);
-int		check_dup(t_map *map);
-int		is_valid_int(char *s);
+int parsing(char *file, t_map *map);
+char **append_line(char **lines_adr, char *line, int count);
+int set_texture_path(char **slot, int *seen, char *line);
+char *insert_path(char *s);
+int path_is_valid(t_map *map);
+int test_file(char *path);
+int color_range_check(t_map *map);
+int check_dup(t_map *map);
+int is_valid_int(char *s);
 
 // utils
 

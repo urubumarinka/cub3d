@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/07 17:15:49 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:21:07 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	cleanup_game(t_game *game)
 
 	if (!game)
 		return ;
-	if (game->buffer)
-		free(game->buffer);
+	/* if (game->buffer)
+		free(game->buffer); */
 	if (game->map.grid)
 	{
 		free_grid(game->map.grid, game->map.height);

@@ -18,9 +18,9 @@ int	load_texture(void *mlx, t_tex_img *texture, const char *path)
 			&texture->width, &texture->height);
 	if (!texture->img_ptr)
 	{
-		ft_putstr_fd("Warning: Failed to load texture: ", 2);
+		ft_putstr_fd("Error: Failed to load texture: ", 2);
 		ft_putstr_fd((char *)path, 2);
-		ft_putstr_fd(". Using placeholder.\n", 2);
+		ft_putstr_fd(". Aborting texture initialization.\n", 2);
 		return (0);
 	}
 	texture->data = (uint32_t *)mlx_get_data_addr(texture->img_ptr,

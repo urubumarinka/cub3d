@@ -67,7 +67,7 @@ int	rendering(t_game *game)
 	int	col;
 
 	// Clear screen
-	memset(game->image.data, 0, SCREEN_HEIGHT * SCREEN_WIDTH * sizeof(uint32_t));
+	memset(game->image.data, 0, SCREEN_HEIGHT * SCREEN_WIDTH * sizeof(uint32_t)); // change to ft_
 	draw_scene_to_screen(game);
 	// Cast rays for each column and fill screen with wall textures
 	col = 0;

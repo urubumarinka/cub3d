@@ -28,6 +28,9 @@ int	load_texture(void *mlx, t_tex_img *texture, const char *path)
 	if (!texture->data)
 	{
 		ft_putstr_fd("Error: Failed to get texture data\n", 2);
+		mlx_destroy_image(mlx, texture->img_ptr);
+		texture->img_ptr = NULL;
+		texture->data = NULL;
 		return (0);
 	}
 	return (1);

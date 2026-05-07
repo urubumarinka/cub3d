@@ -63,7 +63,10 @@ int	main(int ac, char **av)
 		error_clean(NULL, &map, "map not valid", NULL);
 	game.map = map;
 	if (!init_game(&game))
+	{
+		cleanup_game(&game);
 		error_clean(NULL, &map, "Failed to initialize game", NULL);
+	}
 	mlx_key_hook(game.win, handle_key, &game);
 	mlx_hook(game.win, 17, 0, close_window, &game);
 	mlx_loop_hook(game.mlx, rendering, &game);

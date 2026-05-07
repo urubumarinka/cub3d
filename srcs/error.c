@@ -6,30 +6,30 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/29 17:24:19 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:09:18 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void error_msg(char *msg, char *context)
+void	error_msg(char *msg, char *context)
 {
-    ft_putstr_fd("Error\n", 2);
-    if (errno != 0)
-        perror(msg);
-    else
-    {
-        ft_putstr_fd(msg, 2);
-        if (context)
-            ft_putstr_fd(context, 2);
-        ft_putstr_fd("\n", 2);
-    }
-    exit(1);
+	ft_putstr_fd("Error\n", 2);
+	if (errno != 0)
+		perror(msg);
+	else
+	{
+		ft_putstr_fd(msg, 2);
+		if (context)
+			ft_putstr_fd(context, 2);
+		ft_putstr_fd("\n", 2);
+	}
+	exit(1);
 }
 
-static void clean(char **lines, t_map *map)
+static void	clean(char **lines, t_map *map)
 {
-    int i;
+	int	i;
 
 	i = 0;
 	if (lines)
@@ -69,36 +69,36 @@ static void clean(char **lines, t_map *map)
 	}
 }
 
-void error_clean(char **lines, t_map *map, char *msg, char *context)
+void	error_clean(char **lines, t_map *map, char *msg, char *context)
 {
-    clean(lines, map);
-    error_msg(msg, context);
+	clean(lines, map);
+	error_msg(msg, context);
 }
 
-void cleanup_game(t_game *game)
+void	cleanup_game(t_game *game)
 {
-    int i;
+	int	i;
 
-    if (!game)
-        return;
-    if (game->buffer)
-        free(game->buffer);
-    i = 0;
-    while (i < 4)
-    {
-        if (game->textures[i].img_ptr)
-            mlx_destroy_image(game->mlx, game->textures[i].img_ptr);
-        i++;
-    }
-    if (game->image.img_ptr)
-        mlx_destroy_image(game->mlx, game->image.img_ptr);
-    if (game->win)
-        mlx_destroy_window(game->mlx, game->win);
-    if (game->mlx)
-    {
-        /* mlx_destroy_display(game->mlx); */
-        /* free(game->mlx); */
-    }
+	if (!game)
+		return ;
+	if (game->buffer)
+		free(game->buffer);
+	i = 0;
+	while (i < 4)
+	{
+		if (game->textures[i].img_ptr)
+			mlx_destroy_image(game->mlx, game->textures[i].img_ptr);
+		i++;
+	}
+	if (game->image.img_ptr)
+		mlx_destroy_image(game->mlx, game->image.img_ptr);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+	{
+		//mlx_destroy_display(game->mlx); //uncomment for linux
+		//free(game->mlx);
+	}
 }
 
 void	free_grid(char **grid, int rows)

@@ -65,8 +65,8 @@ void	draw_wall_stripe(t_game *game, int col)
 	t_wall_render	wall;
 
 	cam_x = 2 * col / (double)SCREEN_WIDTH - 1;
-	ray_x = game->player.dirX + game->player.planeX * cam_x;
-	ray_y = game->player.dirY + game->player.planeY * cam_x;
+	ray_x = game->player.dir_x + game->player.plane_x * cam_x;
+	ray_y = game->player.dir_y + game->player.plane_y * cam_x;
 	wall.wall_dist = cast_ray(game, ray_x, ray_y);
 	calculate_wall_dimensions(&wall.line_height, &wall.draw_start,
 		&wall.draw_end, wall.wall_dist);

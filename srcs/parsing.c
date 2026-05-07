@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/29 17:19:15 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:59:06 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,7 +361,7 @@ static char	**read_lines(char *file)
 	return (lines);
 }
 
-int	parsing(char *file, t_map *map)
+int	parsing(char *file, t_map *map, t_game *game)
 {
 	char	**lines;
 	int		map_i;
@@ -379,10 +379,9 @@ int	parsing(char *file, t_map *map)
 	if (lines)
 		free(lines);
 	pad_map(map);
-	if (!find_player(map))
+	if (!find_player(map) || !validate_closed(map))
 		return (0);
-	if (!validate_closed(map))
-		return (0);
+	init_player_dir(game, map);
 	return (1);
 }
 

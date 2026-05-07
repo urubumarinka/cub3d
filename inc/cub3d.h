@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/07 16:58:55 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:20:37 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,42 +123,39 @@ typedef struct s_dda
 
 typedef struct s_wall_render
 {
-	double wall_dist;
-	int line_height;
-	int draw_start;
-	int draw_end;
-	int tex_num;
-	double wall_x;
-	int tex_x;
-	double step;
+    double wall_dist;
+    int line_height;
+    int draw_start;
+    int draw_end;
+    int tex_num;
+    double wall_hit_pos;
+    int tex_col;
+    double tex_scale;
 } t_wall_render;
 
 typedef struct s_game
 {
-	t_map map;
-	void *mlx;
-	void *win;
-	t_image image;
-	t_player player;
-	double time;
-	double oldTime;
-	int lastSide;
-	int lastMapX;
-	int lastMapY;
-	uint32_t *buffer; // uint32_t cause we storing 32-bit color values in the buffer
-	t_tex_img textures[8];
+    t_map map;
+    void *mlx;
+    void *win;
+    t_image image;
+    t_player player;
+    double time;
+    double oldTime;
+    int lastSide;
+    int lastMapX;
+    int lastMapY;
+    t_tex_img textures[8];
 } t_game;
 
 
 //GRAPHICS
 
 int init_game(t_game *game);
-int init_graphics(t_game *game);
-void init_player(t_game *game);
 void put_pixel(t_image *image, int x, int y, int color);
 int rendering(t_game *game);
-void draw_scene_to_buffer(t_game *game);
-void draw_wall_stripe(t_game *game, int x);
+void draw_scene_to_screen(t_game *game);
+void draw_wall(t_game *game, int x);
 double cast_ray(t_game *game, double rayDirX, double rayDirY);
 double dda_loop(t_game *game, t_dda *dda);
 int get_wall_color(t_game *game);

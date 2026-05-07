@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/07 16:59:06 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:22:27 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,9 @@ static int	parse_map(char **lines, int map_i, t_map *map)
 	map->width = 0;
 	while (++i < count)
 	{
-		map->grid[i] = lines[map_i + i];
+		map->grid[i] = ft_strdup(lines[map_i + i]);
+		if (!map->grid[i])
+			return (error_msg("malloc failed", map->grid[i]), 0);
 		len = ft_strlen(map->grid[i]);
 		if (len > 0 && map->grid[i][len - 1] == '\n')
 		{
@@ -377,7 +379,7 @@ int	parsing(char *file, t_map *map, t_game *game)
 	if (!parse_map(lines, map_i, map))
 		return (free_lines(lines), 0);
 	if (lines)
-		free(lines);
+		free_lines(lines);
 	pad_map(map);
 	if (!find_player(map) || !validate_closed(map))
 		return (0);

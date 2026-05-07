@@ -19,10 +19,10 @@ int	empty_line(char *s)
 	i = 0;
 	if (!s)
 		return (0);
-	while(s[i])
+	while (s[i])
 	{
-		if (s[i] != '\0' && s[i] != '\n' && s[i] != '\t' &&
-				s[i] != ' ' && s[i] != '\v' && s[i] != '\r')
+		if (s[i] != '\0' && s[i] != '\n' && s[i] != '\t'
+			&& s[i] != ' ' && s[i] != '\v' && s[i] != '\r')
 			return (0);
 		i++;
 	}

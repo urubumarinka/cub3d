@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/07 17:09:18 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:15:49 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,23 @@ void	cleanup_game(t_game *game)
 		return ;
 	if (game->buffer)
 		free(game->buffer);
+	if (game->map.grid)
+	{
+		free_grid(game->map.grid, game->map.height);
+		game->map.grid = NULL;
+	}
+	if (game->map.text.no)
+		free(game->map.text.no);
+	if (game->map.text.so)
+		free(game->map.text.so);
+	if (game->map.text.we)
+		free(game->map.text.we);
+	if (game->map.text.ea)
+		free(game->map.text.ea);
+	game->map.text.no = NULL;
+	game->map.text.so = NULL;
+	game->map.text.we = NULL;
+	game->map.text.ea = NULL;
 	i = 0;
 	while (i < 4)
 	{
@@ -96,8 +113,8 @@ void	cleanup_game(t_game *game)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
 	{
-		//mlx_destroy_display(game->mlx); //uncomment for linux
-		//free(game->mlx);
+		/* mlx_destroy_display(game->mlx); */
+		/* free(game->mlx); */
 	}
 }
 

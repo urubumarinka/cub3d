@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/07 17:20:37 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/08 11:17:06 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,23 @@
 # define ROT_SPEED   0.03
 # define PLAYER_RADIUS 0.20
 
-/* //Linux X11 keycodes
-#define KEY_W		119
-#define KEY_A		97
-#define KEY_S		115
-#define KEY_D		100
-#define KEY_LEFT	65361
-#define KEY_RIGHT	65363
-#define KEY_ESC		65307 */
+//Linux
+# define KEY_W		119
+# define KEY_A		97
+# define KEY_S		115
+# define KEY_D		100
+# define KEY_LEFT	65361
+# define KEY_RIGHT	65363
+# define KEY_ESC	65307
 
-//macOS keycodes
+/* //mac keycodes
 # define KEY_W    13
 # define KEY_A    0
 # define KEY_S    1
 # define KEY_D    2
 # define KEY_LEFT  123
 # define KEY_RIGHT 124
-# define KEY_ESC   53
+# define KEY_ESC   53 */
 
 //x,y player position in map units
 //dir direction vector (unit length)

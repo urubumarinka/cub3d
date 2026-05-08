@@ -1,46 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/15 10:53:39 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/08 13:19:17 by maborges         ###   ########.fr       */
+/*   Created: 2026/05/08 13:23:59 by maborges          #+#    #+#             */
+/*   Updated: 2026/05/08 13:24:17 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	empty_line(char *s)
+void	free_lines(char **lines)
 {
 	int	i;
 
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-	{
-		if (s[i] != '\0' && s[i] != '\n' && s[i] != '\t'
-			&& s[i] != ' ' && s[i] != '\v' && s[i] != '\r')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	free_split(char **values)
-
-{
-	int	i;
-
-	if (!values)
+	if (!lines)
 		return ;
 	i = 0;
-	while (values[i])
+	while (lines[i])
 	{
-		free(values[i]);
+		free(lines[i]);
 		i++;
 	}
-	free(values);
+	free(lines);
 }

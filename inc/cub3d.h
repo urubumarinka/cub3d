@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/08 14:50:34 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/08 17:15:36 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ void	error_msg(char *msg, char *context);
 void	cleanup_game(t_game *game);
 void	error_clean(char **lines, t_map *map, char *msg, char*context);
 void	free_grid(char **grid, int rows);
+void	free_lines(char **lines);
 
 //PARSING
 
@@ -202,10 +203,21 @@ int		test_file(char *path);
 int		color_range_check(t_map *map);
 int		check_dup(t_map *map);
 int		is_valid_int(char *s);
+void	extract_colors(char *color, t_map *map);
+void	pad_map(t_map *map);
+int		find_player(t_map *map);
+int		parse_map(char **lines, int map_i, t_map *map);
+int		validate_closed(t_map *map);
+char	**copy_map(t_map *map);
+int		flood_fill(char **map, int row, int col,
+			int rows, int cols);
+int		lines_separator(char **lines, t_map *map);
+int		validate_map(char **lines, int i, t_map *map);
 
 //UTILS
 
 int		empty_line(char *s);
+void	free_split(char **values);
 
 //PLAYER MOVEMENT
 
@@ -218,4 +230,5 @@ void	rotate_left(t_game *game);
 void	update_player_movement(t_game *game);
 int		can_move_x(t_game *game, double new_x, double old_y);
 int		can_move_y(t_game *game, double old_x, double new_y);
+
 #endif

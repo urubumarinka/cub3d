@@ -38,6 +38,7 @@ int	init_game(t_game *game)
 		return (0);
 	game->time = 0;
 	game->oldTime = 0;
+	ft_bzero(&game->keys, sizeof(game->keys));
 	if (!load_all_textures(game))
 		return (0);
 	return (1);

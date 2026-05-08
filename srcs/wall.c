@@ -45,7 +45,7 @@ static void	draw_wall_column(t_game *game, int col, t_wall_render *wall)
 	uint32_t	color;
 
 	tex_pos = (wall->draw_start - SCREEN_HEIGHT
-			/ 2 + (wall->draw_end - wall->draw_start) / 2) * wall->tex_scale;
+			/ 2 + wall->line_height / 2) * wall->tex_scale;
 	row = wall->draw_start;
 	while (row < wall->draw_end)
 	{

@@ -67,7 +67,8 @@ int	main(int ac, char **av)
 		cleanup_game(&game);
 		error_clean(NULL, &map, "Failed to initialize game", NULL);
 	}
-	mlx_key_hook(game.win, handle_key, &game);
+	mlx_hook(game.win, 2, 1L << 0, handle_key_press, &game);
+	mlx_hook(game.win, 3, 1L << 1, handle_key_release, &game);
 	mlx_hook(game.win, 17, 0, close_window, &game);
 	mlx_loop_hook(game.mlx, rendering, &game);
 	mlx_loop(game.mlx);

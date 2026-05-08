@@ -66,6 +66,7 @@ int	rendering(t_game *game)
 {
 	int	col;
 
+	update_player_movement(game);
 	// Clear screen
 	memset(game->image.data, 0, SCREEN_HEIGHT * SCREEN_WIDTH * sizeof(uint32_t)); // change to ft_
 	draw_scene_to_screen(game);

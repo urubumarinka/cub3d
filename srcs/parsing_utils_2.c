@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 19:14:15 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/17 20:00:16 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/08 12:29:05 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
- int	color_range_check(t_map *map)
- {
+int	color_range_check(t_map *map)
+{
 	if (map->text.ceil_r < 0 || map->text.ceil_r > 255
 		|| map->text.ceil_g < 0 || map->text.ceil_g > 255
 		|| map->text.ceil_b < 0 || map->text.ceil_b > 255)
@@ -25,7 +25,7 @@
 	return (1);
 }
 
-int		check_dup(t_map *map)
+int	check_dup(t_map *map)
 {
 	if (map->text.ceil_seen)
 		return (error_msg("Duplicated C id", NULL), 0);
@@ -34,7 +34,7 @@ int		check_dup(t_map *map)
 	return (1);
 }
 
-int		is_valid_int(char *s)
+int	is_valid_int(char *s)
 {
 	int	i;
 
@@ -51,5 +51,3 @@ int		is_valid_int(char *s)
 	}
 	return (1);
 }
-
-

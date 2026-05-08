@@ -36,7 +36,6 @@ SRCS = \
 ./srcs/events.c \
 ./srcs/player.c \
 ./srcs/player_rotate.c \
-./srcs/minimap.c \
 
 OBJS = $(SRCS:.c=.o)
 

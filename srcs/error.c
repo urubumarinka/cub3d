@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/07 17:21:07 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/08 12:20:40 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ void	cleanup_game(t_game *game)
 
 	if (!game)
 		return ;
-	/* if (game->buffer)
-		free(game->buffer); */
 	if (game->map.grid)
 	{
 		free_grid(game->map.grid, game->map.height);

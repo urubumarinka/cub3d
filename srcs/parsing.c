@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/07 17:22:27 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/08 12:30:06 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	validate_closed(t_map *map)
 
 	copy = copy_map(map);
 	result = flood_fill(copy, map->player_y,
-					map->player_x, map->height, map->width);
+			map->player_x, map->height, map->width);
 	free_grid(copy, map->height);
 	return (result);
 }

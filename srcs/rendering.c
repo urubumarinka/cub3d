@@ -22,7 +22,7 @@ void	put_pixel(t_image *image, int x, int y, int color)
 		return ;
 	offset = (y * image->line_length) + (x * 4);
 	pixel = image->data + offset;
-	*(int *)pixel = color; // write color there
+	*(int *)pixel = color;
 }
 
 static void	fill_background(t_image *image, int x,
@@ -44,7 +44,7 @@ static void	fill_background(t_image *image, int x,
 	}
 }
 
-void	draw_scene_to_screen(t_game *game)
+static void	draw_scene_to_screen(t_game *game)
 {
 	int			x;
 	uint32_t	floor_color;
@@ -67,10 +67,8 @@ int	rendering(t_game *game)
 	int	col;
 
 	update_player_movement(game);
-	// Clear screen
-	memset(game->image.data, 0, SCREEN_HEIGHT * SCREEN_WIDTH * sizeof(uint32_t)); // change to ft_
+	ft_memset(game->image.data, 0, SCREEN_HEIGHT * SCREEN_WIDTH * sizeof(uint32_t));
 	draw_scene_to_screen(game);
-	// Cast rays for each column and fill screen with wall textures
 	col = 0;
 	while (col < SCREEN_WIDTH)
 	{

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 00:00:00 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/07 17:29:51 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/08 14:47:15 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	load_texture(void *mlx, t_tex_img *texture, const char *path)
+static int	load_texture(void *mlx, t_tex_img *texture, const char *path)
 {
 	texture->img_ptr = mlx_xpm_file_to_image(mlx, (char *)path,
 			&texture->width, &texture->height);

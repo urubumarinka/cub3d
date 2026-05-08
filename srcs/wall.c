@@ -12,9 +12,9 @@
 
 #include "../inc/cub3d.h"
 
-int	get_texture_index(t_game *game, double ray_dir_x, double ray_dir_y)
+static int	get_texture_index(t_game *game, double ray_dir_x, double ray_dir_y)
 {
-	if (game->lastSide == 0)
+	if (game->last_side == 0)
 	{
 		if (ray_dir_x > 0)
 			return (3);
@@ -25,7 +25,7 @@ int	get_texture_index(t_game *game, double ray_dir_x, double ray_dir_y)
 	return (0);
 }
 
-void	calculate_wall_dimensions(int *height, int *start, int *end,
+static void	calculate_wall_dimensions(int *height, int *start, int *end,
 	double dist)
 {
 	*height = (int)(SCREEN_HEIGHT / dist);
@@ -55,7 +55,7 @@ static void	draw_wall_column(t_game *game, int col, t_wall_render *wall)
 		color = game->textures[wall->tex_num].data[texture_row
 			* (game->textures[wall->tex_num].line_length / 4) + wall->tex_col];
 		// if horiz wall, make it darker
-		if (game->lastSide == 1)
+		if (game->last_side == 1)
 			color = (color / 2) & 8355711;
 		// draw pixel to screen
 		put_pixel(&game->image, col, row, color);
@@ -83,7 +83,7 @@ void	draw_wall(t_game *game, int col)
     // For vertical walls (north/south), use Y coordinate
     // For horizontal walls (east/west), use X coordinate
     // Example: player at (5.3, 7.8) + distance * direction = hit at (5.3, 10.7)
-	if (game->lastSide == 0)
+	if (game->last_side == 0)
 		wall.wall_hit_pos = game->player.y + wall.wall_dist * ray_dir_y;
 	else
 		wall.wall_hit_pos = game->player.x + wall.wall_dist * ray_dir_x;
@@ -98,9 +98,9 @@ void	draw_wall(t_game *game, int col)
 			* game->textures[wall.tex_num].width);
     // Flip the texture horizontally based on which direction we're looking
     // This prevents the texture from appearing mirrored
-	if (game->lastSide == 0 && ray_dir_x > 0)
+	if (game->last_side == 0 && ray_dir_x > 0)
 		wall.tex_col = game->textures[wall.tex_num].width - wall.tex_col - 1;
-	if (game->lastSide == 1 && ray_dir_y < 0)
+	if (game->last_side == 1 && ray_dir_y < 0)
 		wall.tex_col = game->textures[wall.tex_num].width - wall.tex_col - 1;
     // Calculate texture scaling ratio (how much to advance per screen pixel)
     // If texture is 64 pixels tall and wall appears 200 pixels tall on screen:

@@ -6,7 +6,7 @@
 /*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/08 11:17:06 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/08 14:50:34 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ typedef struct s_player
 	double	plane_x;
 	double	plane_y;
 }	t_player;
+
+typedef struct s_direction
+{
+	char	dir;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+}	t_direction;
 
 typedef struct s_image
 {
@@ -111,28 +120,28 @@ typedef struct s_map
 
 typedef struct s_dda
 {
-	int mapX;
-	int mapY;
-	double sideDistX;  // Distance to 1st vert grid line
-	double sideDistY;  // Distance to 1rst hori grid line
-	double deltaDistX; // Distance between vertical grid line always same
-	double deltaDistY; // Distance between horizontal grid line always same
-	int stepX;         // Which dir for ray to go
-	int stepY;         // Which dir for ray to go
-	int side;
-} t_dda;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;  // Distance to 1st vert grid line
+	double	side_dist_y;  // Distance to 1rst hori grid line
+	double	delta_dist_x; // Distance between vertical grid line always same
+	double	delta_dist_y; // Distance between horizontal grid line always same
+	int		step_x;         // Which dir for ray to go
+	int		step_y;         // Which dir for ray to go
+	int		side;
+}	t_dda;
 
 typedef struct s_wall_render
 {
-    double wall_dist;
-    int line_height;
-    int draw_start;
-    int draw_end;
-    int tex_num;
-    double wall_hit_pos;
-    int tex_col;
-    double tex_scale;
-} t_wall_render;
+	double	wall_dist;
+	double	wall_hit_pos;
+	double	tex_scale;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		tex_num;
+	int		tex_col;
+}	t_wall_render;
 
 typedef struct s_keys
 {
@@ -142,44 +151,37 @@ typedef struct s_keys
 	int	d;
 	int	left;
 	int	right;
-} 	t_keys;
+}	t_keys;
 
 typedef struct s_game
 {
-    t_map map;
-    void *mlx;
-    void *win;
-    t_image image;
-    t_player player;
-    double time;
-    double oldTime;
-    int lastSide;
-    int lastMapX;
-    int lastMapY;
-    t_tex_img textures[8];
-	t_keys keys;
-} t_game;
-
+	t_map		map;
+	void		*mlx;
+	void		*win;
+	t_image		image;
+	t_player	player;
+	double		time;
+	double		old_time;
+	int			last_side;
+	int			last_map_x;
+	int			last_map_y;
+	t_tex_img	textures[8];
+	t_keys		keys;
+}	t_game;
 
 //GRAPHICS
 
-int init_game(t_game *game);
-void put_pixel(t_image *image, int x, int y, int color);
-int rendering(t_game *game);
-void draw_scene_to_screen(t_game *game);
-void draw_wall(t_game *game, int x);
-double cast_ray(t_game *game, double rayDirX, double rayDirY);
-double dda_loop(t_game *game, t_dda *dda);
-int get_wall_color(t_game *game);
-void calculate_wall_dimensions(int *lineHeight, int *drawStart, int *drawEnd,
-		double wallDist);
-void draw_minimap(t_image *image, t_game *game);
-int handle_key_press(int keycode, t_game *game);
-int handle_key_release(int keycode, t_game *game);
-int close_window(t_game *game);
-int get_texture_index(t_game *game, double rayDirX, double rayDirY);
-int load_texture(void *mlx, t_tex_img *texture, const char *path);
-int load_all_textures(t_game *game);
+int		init_game(t_game *game);
+int		rendering(t_game *game);
+int		get_wall_color(t_game *game);
+int		handle_key_press(int keycode, t_game *game);
+int		handle_key_release(int keycode, t_game *game);
+int		close_window(t_game *game);
+int		load_all_textures(t_game *game);
+double	cast_ray(t_game *game, double rayDirX, double rayDirY);
+void	put_pixel(t_image *image, int x, int y, int color);
+void	draw_wall(t_game *game, int x);
+void	draw_minimap(t_image *image, t_game *game);
 
 //FREES AND CLEANS
 
@@ -191,7 +193,7 @@ void	free_grid(char **grid, int rows);
 
 //PARSING
 
-int		parsing(char *file, t_map *map, t_game *game);
+int		parsing(char *file, t_map *map);
 char	**append_line(char **lines_adr, char *line, int count);
 int		set_texture_path(char **slot, int *seen, char *line);
 char	*insert_path(char *s);
@@ -207,7 +209,6 @@ int		empty_line(char *s);
 
 //PLAYER MOVEMENT
 
-void	init_player_dir(t_game *game, t_map *map);
 void	move_forward(t_game *game);
 void	move_backward(t_game *game);
 void	move_right(t_game *game);
@@ -215,5 +216,6 @@ void	move_left(t_game *game);
 void	rotate_right(t_game *game);
 void	rotate_left(t_game *game);
 void	update_player_movement(t_game *game);
-
+int		can_move_x(t_game *game, double new_x, double old_y);
+int		can_move_y(t_game *game, double old_x, double new_y);
 #endif

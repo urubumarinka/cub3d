@@ -3,14 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 00:00:00 by kchatela          #+#    #+#             */
-/*   Updated: 2026/05/07 17:32:11 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/08 14:50:30 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+static void	set_player_direction(t_player *player, char dir)
+{
+	static t_direction	directions[4] = {
+	{'N', 0, -1, 0.66, 0},
+	{'S', 0, 1, -0.66, 0},
+	{'E', 1, 0, 0, 0.66},
+	{'W', -1, 0, 0, -0.66}};
+	int					i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (directions[i].dir == dir)
+		{
+			player->dir_x = directions[i].dir_x;
+			player->dir_y = directions[i].dir_y;
+			player->plane_x = directions[i].plane_x;
+			player->plane_y = directions[i].plane_y;
+			return ;
+		}
+		i++;
+	}
+}
+
+static void	init_player_dir(t_game *game, t_map *map)
+{
+	game->player.x = map->player_x + 0.5;
+	game->player.y = map->player_y + 0.5;
+	set_player_direction(&game->player, map->player_dir);
+}
 
 static int	init_mlx(t_game *game)
 {
@@ -37,7 +68,8 @@ int	init_game(t_game *game)
 	if (!init_mlx(game))
 		return (0);
 	game->time = 0;
-	game->oldTime = 0;
+	game->old_time = 0;
+	init_player_dir(game, &game->map);
 	ft_bzero(&game->keys, sizeof(game->keys));
 	if (!load_all_textures(game))
 		return (0);

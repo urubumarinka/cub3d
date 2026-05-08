@@ -35,6 +35,7 @@ SRCS = \
 ./srcs/rendering.c \
 ./srcs/events.c \
 ./srcs/player.c \
+./srcs/player_collision.c \
 ./srcs/player_rotate.c \
 
 OBJS = $(SRCS:.c=.o)

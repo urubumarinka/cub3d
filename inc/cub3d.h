@@ -26,6 +26,7 @@
 # define SCREEN_HEIGHT 960
 # define MOVE_SPEED  0.05
 # define ROT_SPEED   0.03
+# define PLAYER_RADIUS 0.20
 
 /* //Linux X11 keycodes
 #define KEY_W		119
@@ -133,6 +134,16 @@ typedef struct s_wall_render
     double tex_scale;
 } t_wall_render;
 
+typedef struct s_keys
+{
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	int	left;
+	int	right;
+} 	t_keys;
+
 typedef struct s_game
 {
     t_map map;
@@ -146,6 +157,7 @@ typedef struct s_game
     int lastMapX;
     int lastMapY;
     t_tex_img textures[8];
+	t_keys keys;
 } t_game;
 
 
@@ -162,7 +174,8 @@ int get_wall_color(t_game *game);
 void calculate_wall_dimensions(int *lineHeight, int *drawStart, int *drawEnd,
 		double wallDist);
 void draw_minimap(t_image *image, t_game *game);
-int handle_key(int keycode, t_game *game);
+int handle_key_press(int keycode, t_game *game);
+int handle_key_release(int keycode, t_game *game);
 int close_window(t_game *game);
 int get_texture_index(t_game *game, double rayDirX, double rayDirY);
 int load_texture(void *mlx, t_tex_img *texture, const char *path);
@@ -201,5 +214,6 @@ void	move_right(t_game *game);
 void	move_left(t_game *game);
 void	rotate_right(t_game *game);
 void	rotate_left(t_game *game);
+void	update_player_movement(t_game *game);
 
 #endif

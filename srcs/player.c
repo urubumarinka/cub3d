@@ -6,7 +6,7 @@
 /*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 00:00:00 by kchatela          #+#    #+#             */
-/*   Updated: 2026/05/08 12:38:23 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/08 13:23:14 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_wall(t_game *game, double x, double y)
 {
 	int	grid_x;
 	int	grid_y;
-	
+
 	grid_x = (int)x;
 	grid_y = (int)y;
 	if (grid_x < 0 || grid_y < 0 
@@ -53,44 +53,11 @@ int	can_move_y(t_game *game, double old_x, double new_y)
 	return (1);
 }
 
-void	init_player_dir(t_game *game, t_map *map)
-{
-    game->player.x = map->player_x + 0.5; // centre of spawn cell
-    game->player.y = map->player_y + 0.5;
-    if (map->player_dir == 'N')
-    {
-        game->player.dir_x = 0;
-        game->player.dir_y = -1;
-        game->player.plane_x = 0.66;
-        game->player.plane_y = 0;
-    }
-    else if (map->player_dir == 'S')
-    {
-        game->player.dir_x = 0;
-        game->player.dir_y = 1;
-        game->player.plane_x = -0.66;
-        game->player.plane_y = 0;
-    }
-    else if (map->player_dir == 'E')
-    {
-        game->player.dir_x = 1;
-        game->player.dir_y = 0;
-        game->player.plane_x = 0;
-        game->player.plane_y = 0.66;
-    }
-    else if (map->player_dir == 'W')
-    {
-        game->player.dir_x = -1;
-        game->player.dir_y = 0;
-        game->player.plane_x = 0;
-        game->player.plane_y = -0.66;
-    }
-}
 
 void	move_forward(t_game *game)
 {
-	double nx;
-	double ny;
+	double	nx;
+	double	ny;
 
 	nx = game->player.x + game->player.dir_x * MOVE_SPEED;
 	ny = game->player.y + game->player.dir_y * MOVE_SPEED;
@@ -102,8 +69,8 @@ void	move_forward(t_game *game)
 
 void	move_backward(t_game *game)
 {
-	double nx;
-	double ny;
+	double	nx;
+	double	ny;
 
 	nx = game->player.x - game->player.dir_x * MOVE_SPEED;
 	ny = game->player.y - game->player.dir_y * MOVE_SPEED;
@@ -113,10 +80,10 @@ void	move_backward(t_game *game)
 		game->player.x = nx;
 }
 
-void move_right(t_game *game)
+void	move_right(t_game *game)
 {
-	double nx;
-	double ny;
+	double	nx;
+	double	ny;
 
 	nx = game->player.x + game->player.dir_y * MOVE_SPEED;
 	ny = game->player.y - game->player.dir_x * MOVE_SPEED;
@@ -126,10 +93,10 @@ void move_right(t_game *game)
 		game->player.x = nx;
 }
 
-void move_left(t_game *game)
+void	move_left(t_game *game)
 {
-	double nx;
-	double ny;
+	double	nx;
+	double	ny;
 
 	nx = game->player.x - game->player.dir_y * MOVE_SPEED;
 	ny = game->player.y + game->player.dir_x * MOVE_SPEED;

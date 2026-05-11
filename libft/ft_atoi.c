@@ -40,6 +40,6 @@ int	ft_atoi(const char *nptr)
 	return (result * sign);
 }
 		/* if (result * sign > INT_MAX)
-            return (-1);
-    	if (result * sign < INT_MIN)
-            return (-1); */
+			return (-1);
+		if (result * sign < INT_MIN)
+			return (-1); */

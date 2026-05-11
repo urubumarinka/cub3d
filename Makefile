@@ -1,4 +1,4 @@
-NAME = cub3d
+NAME = cub3D
 
 # OS Detection
 UNAME_S := $(shell uname -s)
@@ -23,11 +23,15 @@ REMOVE = rm -f
 
 SRCS = \
 ./srcs/main.c \
-./srcs/error.c \
+./srcs/frees_and_error.c \
+./srcs/frees.c \
 ./srcs/parsing.c \
 ./srcs/parsing_utils.c \
 ./srcs/parsing_utils_2.c \
+./srcs/parsing_utils_3.c \
+./srcs/lines_separator.c \
 ./srcs/utils.c \
+./srcs/colors.c \
 ./srcs/init.c \
 ./srcs/texture.c \
 ./srcs/raycasting.c \
@@ -35,7 +39,8 @@ SRCS = \
 ./srcs/rendering.c \
 ./srcs/events.c \
 ./srcs/player.c \
-./srcs/minimap.c \
+./srcs/player_collision.c \
+./srcs/player_rotate.c \
 
 OBJS = $(SRCS:.c=.o)
 

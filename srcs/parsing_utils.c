@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:59:55 by maborges          #+#    #+#             */
-/*   Updated: 2026/04/28 19:31:19 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/06 15:38:16 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*insert_path(char *s)
 	char	*path;
 
 	i = 0;
-	if ((s[i] <= 13 && s[i] >= 9) || s[i] == 32)
+	while ((s[i] <= 13 && s[i] >= 9) || s[i] == 32)
 		i++;
 	len = ft_strlen(s + i);
 	while (len > 0 && s[i + len - 1] == '\n')
@@ -69,22 +69,24 @@ char	**append_line(char **lines_adr, char *line, int count)
 {
 	int		i;
 	char	**new_arr;
+	char	*new_line;
 
-	i = 0;
 	new_arr = malloc(sizeof(char *) * (count + 2));
 	if (!new_arr)
-		return (0); //make sure the caller frees array
-	while(i < count)
-	{
-		new_arr[i] = lines_adr[i];
-		i++;
-	}
-	new_arr[count] = ft_strdup(line);
-	if (!new_arr[count])
+		return (0);
+	new_line = ft_strdup(line);
+	if (!new_line)
 	{
 		free(new_arr);
 		return (0);
 	}
+	i = 0;
+	while (i < count)
+	{
+		new_arr[i] = lines_adr[i];
+		i++;
+	}
+	new_arr[count] = new_line;
 	new_arr[count + 1] = NULL;
 	if (lines_adr)
 		free(lines_adr);

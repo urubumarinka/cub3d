@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   lines_separator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:48:04 by maborges          #+#    #+#             */
 /*   Updated: 2026/05/11 17:49:38 by kchatela         ###   ########.fr       */

@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 19:14:15 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 16:37:08 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/11 17:49:06 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,33 @@ int	is_valid_int(char *s)
 	return (1);
 }
 
-int	find_player(t_map *map)
+static int	find_player_helper(t_map *map, int y, int *found)
 {
 	int		x;
+	char	p;
+
+	x = 0;
+	while (map->grid[y][x])
+	{
+		p = map->grid[y][x];
+		if (p == 'N' || p == 'S' || p == 'E' || p == 'W')
+		{
+			if (++(*found) > 1)
+				return (error_msg("multiple players", NULL), 0);
+			map->player_x = x;
+			map->player_y = y;
+			map->player_dir = p;
+			map->grid[y][x] = '0';
+		}
+		x++;
+	}
+	return (1);
+}
+
+int	find_player(t_map *map)
+{
 	int		y;
 	int		found;
-	char	p;
 
 	if (!map || !map->grid || map->height <= 0)
 		return (error_msg("invalid map", NULL), 0);
@@ -43,22 +64,8 @@ int	find_player(t_map *map)
 	y = 0;
 	while (y < map->height)
 	{
-		x = 0;
-		while (map->grid[y][x])
-		{
-			p = map->grid[y][x];
-			if (p == 'N' || p == 'S' || p == 'E' || p == 'W')
-			{
-				found++;
-				if (found > 1)
-					return (error_msg("multiple players", NULL), 0);
-				map->player_x = x;
-				map->player_y = y;
-				map->player_dir = p;
-				map->grid[y][x] = '0';
-			}
-			x++;
-		}
+		if (!find_player_helper(map, y, &found))
+			error_clean(NULL, map, NULL, NULL);
 		y++;
 	}
 	if (found == 0)

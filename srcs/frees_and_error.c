@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 16:17:41 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/11 17:48:06 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	error_msg(char *msg, char *context)
 			ft_putstr_fd(context, 2);
 		ft_putstr_fd("\n", 2);
 	}
-	exit(1);
 }
 
 static void	free_map(t_map *map)
@@ -72,6 +71,10 @@ void	error_clean(char **lines, t_map *map, char *msg, char *context)
 {
 	clean(lines, map);
 	error_msg(msg, context);
+	if (errno != 0)
+		exit(errno);
+	else
+		exit(1);
 }
 
 void	cleanup_game(t_game *game)

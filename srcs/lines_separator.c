@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lines_separator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:48:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 16:24:14 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/11 17:49:39 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	process_line(char **lines, int i, t_map *map, int *state)
 	{
 		if (state[6] == -1)
 			state[6] = i;
-		if (!validate_map(lines, i, map))
+		if (!validate_map(lines, i))
 			return (error_clean(lines, map, "map not valid", NULL), 0);
 		return (1);
 	}

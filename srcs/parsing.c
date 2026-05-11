@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 16:23:45 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/11 17:59:18 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	parsing(char *file, t_map *map)
 	map_i = lines_separator(lines, map);
 	if (map_i < 0)
 		return (free_lines(lines), error_msg("no map found", NULL), 0);
+	if (!check_dup(map))
+		return (free_lines(lines), 0);
 	if (!path_is_valid(map))
 		return (free_lines(lines), error_msg("not valid path", NULL), 0);
 	if (!parse_map(lines, map_i, map))

@@ -21,7 +21,8 @@ int	is_valid_int(char *s)
 		i++;
 	if (!s[i])
 		return (0);
-	while (s[i] && s[i] != '\n' && s[i] != '\r' && s[i] != ' ')
+	while (s[i] && s[i] != '\n' && s[i] != '\r'
+		&& s[i] != ' ' && s[i] != '\t')
 	{
 		if (s[i] < '0' || s[i] > '9')
 			return (0);

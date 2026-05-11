@@ -6,7 +6,7 @@
 /*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:59:55 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 16:30:29 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/11 17:12:57 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ char	*insert_path(char *s)
 	while ((s[i] <= 13 && s[i] >= 9) || s[i] == 32)
 		i++;
 	len = ft_strlen(s + i);
-	while (len > 0 && s[i + len - 1] == '\n')
+	while (len > 0 && (s[i + len - 1] == '\n' || s[i + len - 1] == '\r'
+			|| s[i + len - 1] == '\t' || s[i + len - 1] == ' '))
 		len--;
 	path = ft_substr(s, i, len);
 	return (path);

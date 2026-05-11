@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lines_separator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:48:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/08 15:39:43 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:30:29 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static int	process_line(char **lines, int i, t_map *map, int *state)
 		if (state[6] == -1)
 			state[6] = i;
 		if (!validate_map(lines, i, map))
-			return (error_clean(lines, map, "map not valid", line), 0);
+			return (error_clean(lines, map, "map not valid", NULL), 0);
 		return (1);
 	}
-	return (error_msg("Wrong Identifier", line), 0);
+	return (error_msg("Wrong Identifier: ", line), 0);
 }
 
 int	lines_separator(char **lines, t_map *map)

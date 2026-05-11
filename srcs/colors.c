@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:25:03 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/08 13:30:42 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/11 13:13:41 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	extract_colors(char *color, t_map *map)
 	if (!values || !values[0] || !values[1] || !values[2] || values[3])
 	{
 		free_split(values);
-		return (error_msg("wrong color format", NULL));
+		return (error_msg("Wrong color format", NULL));
 	}
 	i = -1;
 	while (values[++i])

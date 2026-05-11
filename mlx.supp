@@ -167,3 +167,133 @@
    fun:load_all_textures
    fun:init_game
 }
+
+# Generic X11/libXcb allocations (system library, not application code)
+{
+   x11_generic_allocations
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so*
+}
+
+{
+   xcb_generic_allocations
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   obj:/usr/lib/x86_64-linux-gnu/libxcb.so*
+}
+
+{
+   libxext_generic_allocations
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   obj:/usr/lib/x86_64-linux-gnu/libXext.so*
+}
+
+# X11 uninitialised data in system calls (expected behavior)
+{
+   x11_writev_uninit
+   Memcheck:Param
+   writev(vector[0])
+   fun:writev
+}
+
+# Catch ALL X11/libXcb reachable allocations not covered above (any source)
+{
+   x11_malloc_all
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so*
+}
+
+{
+   x11_calloc_all
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so*
+}
+
+{
+   x11_realloc_all
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so*
+}
+
+{
+   xcb_malloc_all
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libxcb.so*
+}
+
+{
+   xcb_calloc_all
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libxcb.so*
+}
+
+{
+   xcb_realloc_all
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libxcb.so*
+}
+
+{
+   libxext_malloc_all
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libXext.so*
+}
+
+{
+   libxext_calloc_all
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libXext.so*
+}
+
+# strdup allocations originating from X11 functions
+{
+   x11_strdup_malloc
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so*
+}
+
+{
+   xext_strdup_malloc
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   obj:/usr/lib/x86_64-linux-gnu/libXext.so*
+}
+
+# mlx_init internal allocations
+{
+   mlx_init_malloc
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:mlx_init
+}
+
+{
+   x11_writev_uninit
+   Memcheck:Param
+   writev(vector[0])
+   obj:/usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+}

@@ -6,7 +6,7 @@
 /*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:25:03 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 12:57:39 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/11 18:01:26 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	color_range_check(t_map *map)
 
 static void	color_assign(char id, char **values, t_map *map)
 {
-	if (id == 'C')
+	if (id == 'F')
 	{
 		map->text.flr_r = ft_atoi(values[0]);
 		map->text.flr_g = ft_atoi(values[1]);
@@ -62,7 +62,7 @@ void	extract_colors(char *color, t_map *map)
 	i = -1;
 	while (values[++i])
 		if (!is_valid_int(values[i]))
-			return (free_split(values), error_msg("not valid int", values[i]));
+			return (free_split(values), error_msg("invalid int", NULL));
 	if (id == 'F' || id == 'C')
 		color_assign(id, values, map);
 	free_split(values);

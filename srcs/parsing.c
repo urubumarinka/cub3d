@@ -69,6 +69,8 @@ int	parsing(char *file, t_map *map)
 
 	lines = NULL;
 	lines = read_lines(file);
+	if (!lines)
+		return (0);
 	map_i = lines_separator(lines, map);
 	if (map_i < 0)
 		return (free_lines(lines), error_msg("no map found", NULL), 0);

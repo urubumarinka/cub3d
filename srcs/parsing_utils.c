@@ -45,7 +45,7 @@ char	*insert_path(char *s)
 	char	*path;
 
 	i = 0;
-	if ((s[i] <= 13 && s[i] >= 9) || s[i] == 32)
+	while ((s[i] <= 13 && s[i] >= 9) || s[i] == 32)
 		i++;
 	len = ft_strlen(s + i);
 	while (len > 0 && s[i + len - 1] == '\n')

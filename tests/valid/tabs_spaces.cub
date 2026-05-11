@@ -1,0 +1,12 @@
+NO	./assets/wall_01.xpm
+SO 	./assets/wall_02.xpm
+WE	 ./assets/wall_03.xpm
+EA      ./assets/wall_04.xpm
+
+F	  220,100,0
+C   225,30,0
+
+11111
+10N01
+10001
+11111

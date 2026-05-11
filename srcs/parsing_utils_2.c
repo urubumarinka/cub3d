@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 19:14:15 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/08 16:55:51 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:37:08 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,42 +30,36 @@ int	is_valid_int(char *s)
 	return (1);
 }
 
-static int	player_assigments(t_map *map, int *found, int w, int h, char c)
-{
-	(*found)++;
-	if (*found > 1)
-	{
-		error_msg("multiple players", NULL);
-		return (0);
-	}
-	map->player_x = w;
-	map->player_y = h;
-	map->player_dir = c;
-	map->grid[h][w] = '0';
-	return (1);
-}
-
 int	find_player(t_map *map)
 {
-	int		width;
-	int		height;
+	int		x;
+	int		y;
 	int		found;
 	char	p;
 
+	if (!map || !map->grid || map->height <= 0)
+		return (error_msg("invalid map", NULL), 0);
 	found = 0;
-	height = 0;
-	while (height < map->height)
+	y = 0;
+	while (y < map->height)
 	{
-		width = 0;
-		while (map->grid[height][width])
+		x = 0;
+		while (map->grid[y][x])
 		{
-			p = map->grid[height][width];
+			p = map->grid[y][x];
 			if (p == 'N' || p == 'S' || p == 'E' || p == 'W')
-				if (!player_assigments(map, &found, width, height, p))
-					return (0);
-			width++;
+			{
+				found++;
+				if (found > 1)
+					return (error_msg("multiple players", NULL), 0);
+				map->player_x = x;
+				map->player_y = y;
+				map->player_dir = p;
+				map->grid[y][x] = '0';
+			}
+			x++;
 		}
-		height++;
+		y++;
 	}
 	if (found == 0)
 		return (error_msg("no player found", NULL), 0);
@@ -104,7 +98,7 @@ int	validate_closed(t_map *map)
 
 	copy = copy_map(map);
 	result = flood_fill(copy, map->player_y,
-			map->player_x, map->height, map->width);
+			map->player_x, map);
 	free_grid(copy, map->height);
 	return (result);
 }

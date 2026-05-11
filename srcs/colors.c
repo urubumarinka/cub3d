@@ -6,7 +6,7 @@
 /*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:25:03 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 13:13:41 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/11 12:57:39 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,24 @@ int	color_range_check(t_map *map)
 		|| map->text.flr_b < 0 || map->text.flr_b > 255)
 		return (error_msg("Wrong color range", NULL), 0);
 	return (1);
+}
+
+static void	color_assign(char id, char **values, t_map *map)
+{
+	if (id == 'C')
+	{
+		map->text.flr_r = ft_atoi(values[0]);
+		map->text.flr_g = ft_atoi(values[1]);
+		map->text.flr_b = ft_atoi(values[2]);
+		map->text.flr_seen = 1;
+	}
+	else if (id == 'C')
+	{
+		map->text.ceil_r = ft_atoi(values[0]);
+		map->text.ceil_g = ft_atoi(values[1]);
+		map->text.ceil_b = ft_atoi(values[2]);
+		map->text.ceil_seen = 1;
+	}
 }
 
 void	extract_colors(char *color, t_map *map)
@@ -43,27 +61,10 @@ void	extract_colors(char *color, t_map *map)
 	}
 	i = -1;
 	while (values[++i])
-	{
 		if (!is_valid_int(values[i]))
-		{
-			free_split(values);
-			return (error_msg("not valid int", values[i]));
-		}
-	}
-	if (id == 'F')
-	{
-		map->text.flr_r = ft_atoi(values[0]);
-		map->text.flr_g = ft_atoi(values[1]);
-		map->text.flr_b = ft_atoi(values[2]);
-		map->text.flr_seen = 1;
-	}
-	else if (id == 'C')
-	{
-		map->text.ceil_r = ft_atoi(values[0]);
-		map->text.ceil_g = ft_atoi(values[1]);
-		map->text.ceil_b = ft_atoi(values[2]);
-		map->text.ceil_seen = 1;
-	}
+			return (free_split(values), error_msg("not valid int", values[i]));
+	if (id == 'F' || id == 'C')
+		color_assign(id, values, map);
 	free_split(values);
 	color_range_check(map);
 	return ;

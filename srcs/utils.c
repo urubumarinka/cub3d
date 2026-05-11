@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 10:53:39 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/08 13:19:17 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:05:07 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,17 @@ void	free_split(char **values)
 		i++;
 	}
 	free(values);
+}
+
+void	free_grid(char **grid, int rows)
+{
+	int	i;
+
+	i = 0;
+	while (i < rows)
+	{
+		free(grid[i]);
+		i++;
+	}
+	free(grid);
 }

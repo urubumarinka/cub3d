@@ -6,19 +6,21 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/08 17:18:04 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:23:45 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	validate_map(char **lines, int i, t_map *map)
+int	validate_map(char **lines, int i)
 {
 	int	p;
 
-	p = 0;
 	while (lines[i])
 	{
+		if (empty_line(lines[i]))
+			return (0);
+		p = 0;
 		while (lines[i][p])
 		{
 			if (lines[i][p] != '0' && lines[i][p] != '1'
@@ -31,7 +33,6 @@ int	validate_map(char **lines, int i, t_map *map)
 		}
 		i++;
 	}
-	(void)map; //TODO other validations
 	return (1);
 }
 

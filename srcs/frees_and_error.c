@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   frees_and_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/08 12:20:40 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/11 16:17:41 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,8 @@ void	error_msg(char *msg, char *context)
 	exit(1);
 }
 
-static void	clean(char **lines, t_map *map)
+static void	free_map(t_map *map)
 {
-	int	i;
-
-	i = 0;
-	if (lines)
-	{
-		while (lines[i])
-		{
-			free(lines[i]);
-			i++;
-		}
-		free(lines);
-	}
-	i = 0;
-	if (map && map->grid)
-	{
-		while (map->grid[i])
-		{
-			free(map->grid[i]);
-			i++;
-		}
-		free(map->grid);
-		map->grid = NULL;
-	}
 	if (map && map->text.no)
 		free(map->text.no);
 	if (map && map->text.so)
@@ -69,6 +46,28 @@ static void	clean(char **lines, t_map *map)
 	}
 }
 
+static void	clean(char **lines, t_map *map)
+{
+	int	i;
+
+	i = -1;
+	if (lines)
+	{
+		while (lines[++i])
+			free(lines[i]);
+		free(lines);
+	}
+	i = -1;
+	if (map && map->grid)
+	{
+		while (map->grid[++i])
+			free(map->grid[i]);
+		free(map->grid);
+		map->grid = NULL;
+	}
+	free_map(map);
+}
+
 void	error_clean(char **lines, t_map *map, char *msg, char *context)
 {
 	clean(lines, map);
@@ -81,23 +80,7 @@ void	cleanup_game(t_game *game)
 
 	if (!game)
 		return ;
-	if (game->map.grid)
-	{
-		free_grid(game->map.grid, game->map.height);
-		game->map.grid = NULL;
-	}
-	if (game->map.text.no)
-		free(game->map.text.no);
-	if (game->map.text.so)
-		free(game->map.text.so);
-	if (game->map.text.we)
-		free(game->map.text.we);
-	if (game->map.text.ea)
-		free(game->map.text.ea);
-	game->map.text.no = NULL;
-	game->map.text.so = NULL;
-	game->map.text.we = NULL;
-	game->map.text.ea = NULL;
+	free_game_helper(game);
 	i = 0;
 	while (i < 4)
 	{
@@ -111,20 +94,7 @@ void	cleanup_game(t_game *game)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
 	{
-		/* mlx_destroy_display(game->mlx); */
-		/* free(game->mlx); */
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
 	}
-}
-
-void	free_grid(char **grid, int rows)
-{
-	int	i;
-
-	i = 0;
-	while (i < rows)
-	{
-		free(grid[i]);
-		i++;
-	}
-	free(grid);
 }

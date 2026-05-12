@@ -30,6 +30,7 @@ SRCS = \
 ./srcs/parsing_utils_2.c \
 ./srcs/parsing_utils_3.c \
 ./srcs/lines_separator.c \
+./srcs/lines_separator_utils.c \
 ./srcs/utils.c \
 ./srcs/colors.c \
 ./srcs/init.c \

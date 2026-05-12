@@ -6,7 +6,7 @@
 /*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:59:55 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 17:12:57 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/12 14:01:05 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,21 @@
 
 int	test_file(char *path)
 {
-	int	fd;
+	int		fd;
+	char	c;
+	int		ret;
 
 	if (!path || path[0] == '\0')
 		return (error_msg("Missing texture path", NULL), 0);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
+		return (0);
+	ret = read(fd, &c, 1);
+	if (ret < 0)
 	{
-		error_msg("invalid file", path);
+		if (errno != EISDIR)
+			error_msg("invalid file", path);
+		close(fd);
 		return (0);
 	}
 	close(fd);

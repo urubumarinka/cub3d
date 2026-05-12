@@ -6,31 +6,48 @@
 /*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 17:59:18 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/12 16:09:38 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	validate_map(char **lines, int i)
+static int	is_valid_line(char *line)
 {
 	int	p;
+
+	p = 0;
+	while (line[p])
+	{
+		if (line[p] != '0' && line[p] != '1' && line[p] != 'N'
+			&& line[p] != 'S' && line[p] != 'E' && line[p] != 'W'
+			&& line[p] != ' ' && line[p] != '\t' && line[p] != '\n'
+			&& line[p] != '\r')
+			return (0);
+		p++;
+	}
+	return (1);
+}
+
+int	validate_map(char **lines, int i)
+{
+	int	j;
 
 	while (lines[i])
 	{
 		if (empty_line(lines[i]))
-			return (0);
-		p = 0;
-		while (lines[i][p])
 		{
-			if (lines[i][p] != '0' && lines[i][p] != '1'
-				&& lines[i][p] != 'N' && lines[i][p] != 'S'
-				&& lines[i][p] != 'E' && lines[i][p] != 'W'
-				&& lines[i][p] != ' ' && lines[i][p] != '\t'
-				&& lines[i][p] != '\n' && lines[i][p] != '\r')
-				return (0);
-			p++;
+			j = i;
+			while (lines[j])
+			{
+				if (!empty_line(lines[j]))
+					return (0);
+				j++;
+			}
+			return (1);
 		}
+		if (!is_valid_line(lines[i]))
+			return (0);
 		i++;
 	}
 	return (1);

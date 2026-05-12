@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 16:24:38 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/12 16:05:54 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,10 @@ int		validate_closed(t_map *map);
 char	**copy_map(t_map *map);
 int		flood_fill(char **cpy, int row, int col, t_map *map);
 int		lines_separator(char **lines, t_map *map);
+char	*skip_ws(char *line);
+int		get_color_idx(char c);
+int		handle_map_line(char **lines, int i, t_map *map, int *state);
+int		is_id(const char *s, const char *id);
 int		validate_map(char **lines, int i);
 
 // UTILS

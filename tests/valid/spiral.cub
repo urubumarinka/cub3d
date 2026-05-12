@@ -1,7 +1,7 @@
-NO ./assets/paint1.xpm
-SO ./assets/paint2.xpm
-WE ./assets/paint3.xpm
-EA ./assets/paint4.xpm
+NO ./assets/wall_01.xpm
+SO ./assets/wall_02.xpm
+WE ./assets/wall_03.xpm
+EA ./assets/wall_04.xpm
 F 29, 24, 31
 C 24, 25, 31
 

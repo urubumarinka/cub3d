@@ -1,7 +1,7 @@
-NO ./assets/tile1.xpm
-SO ./assets/tile2.xpm
-WE ./assets/tile3.xpm
-EA ./assets/tile4.xpm
+NO ./assets/wall_01.xpm
+SO ./assets/wall_02.xpm
+WE ./assets/wall_03.xpm
+EA ./assets/wall_04.xpm
 F 50,200,10
 C 22,30,153
 

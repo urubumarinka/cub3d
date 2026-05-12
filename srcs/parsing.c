@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/12 17:03:26 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/12 18:06:11 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	parsing(char *file, t_map *map)
 	if (!check_dup(map))
 		return (free_lines(lines), 0);
 	if (!path_is_valid(map))
-		return (free_lines(lines), error_msg("not valid path", NULL), 0);
+		return (error_clean(lines, map, "not valid path", NULL), 0);
 	if (!parse_map(lines, map_i, map))
 		return (free_lines(lines), 0);
 	pad_map(map);

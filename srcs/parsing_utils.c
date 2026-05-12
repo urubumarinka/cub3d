@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:59:55 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/12 14:01:05 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/12 18:04:24 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	test_file(char *path)
 	int		ret;
 
 	if (!path || path[0] == '\0')
-		return (error_msg("Missing texture path", NULL), 0);
+		return (error_clean(NULL, NULL, "Missing texture path", NULL), 0);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (0);

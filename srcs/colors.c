@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:25:03 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/12 17:55:17 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/12 18:11:00 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	extract_colors(char *color, t_map *map)
 	i = -1;
 	while (values[++i])
 		if (!is_valid_int(values[i]))
-			return (free_split(values), error_msg("invalid int", NULL));
+			return (error_clean(values, map, "Bad RGB value", NULL));
 	if (id == 'F' || id == 'C')
 		color_assign(id, values, map);
 	free_split(values);

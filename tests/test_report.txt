@@ -3,30 +3,18 @@ RESULT: FAIL (exit 1)
 STDERR:
 Error
 Missing texture path
-Error
-not valid path
-Error
-map not valid
 
 === tests/invalid/textures/missing_SO.cub ===
 RESULT: FAIL (exit 1)
 STDERR:
 Error
 Missing texture path
-Error
-not valid path
-Error
-map not valid
 
 === tests/invalid/textures/missing_WE.cub ===
 RESULT: FAIL (exit 1)
 STDERR:
 Error
 Missing texture path
-Error
-not valid path
-Error
-map not valid
 
 === tests/invalid/textures/duplicate_NO.cub ===
 RESULT: FAIL (exit 1)
@@ -39,26 +27,18 @@ RESULT: FAIL (exit 22)
 STDERR:
 Error
 not valid path: No such file or directory
-Error
-map not valid: Invalid argument
 
 === tests/invalid/textures/missing_EA.cub ===
 RESULT: FAIL (exit 1)
 STDERR:
 Error
 Missing texture path
-Error
-not valid path
-Error
-map not valid
 
 === tests/invalid/textures/directory_as_texture.cub ===
 RESULT: FAIL (exit 22)
 STDERR:
 Error
 not valid path: No such file or directory
-Error
-map not valid: Invalid argument
 
 === tests/invalid/extension/missing_extension ===
 RESULT: FAIL (exit 1)
@@ -88,11 +68,7 @@ map not valid
 RESULT: FAIL (exit 1)
 STDERR:
 Error
-invalid int
-Error
-Missing F id
-Error
-map not valid
+Bad RGB value
 
 === tests/invalid/colors/missing_C.cub ===
 RESULT: FAIL (exit 1)
@@ -139,11 +115,7 @@ Duplicated color id: F 220,100,0
 RESULT: FAIL (exit 1)
 STDERR:
 Error
-invalid int
-Error
-Missing F id
-Error
-map not valid
+Bad RGB value
 
 === tests/invalid/colors/trailing_comma.cub ===
 RESULT: FAIL (exit 1)
@@ -163,10 +135,6 @@ RESULT: FAIL (exit 1)
 STDERR:
 Error
 Missing texture path
-Error
-not valid path
-Error
-map not valid
 
 === tests/invalid/identifiers/identifier_after_map.cub ===
 RESULT: FAIL (exit 1)
@@ -185,8 +153,6 @@ RESULT: FAIL (exit 22)
 STDERR:
 Error
 not valid path: No such file or directory
-Error
-map not valid: Invalid argument
 
 === tests/invalid/identifiers/bad_identifier_XX.cub ===
 RESULT: FAIL (exit 1)

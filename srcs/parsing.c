@@ -98,6 +98,8 @@ int	parsing(char *file, t_map *map)
 		return (error_clean(lines, map, "not valid path", NULL), 0);
 	if (!parse_map(lines, map_i, map))
 		return (free_lines(lines), 0);
+	free_lines(lines);
+	lines = NULL;
 	pad_map(map);
 	if (!find_player(map))
 		return (error_clean(lines, map, NULL, NULL), 0);

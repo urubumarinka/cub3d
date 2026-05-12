@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 19:14:15 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 17:49:06 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/12 16:28:49 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,25 @@ int	validate_closed(t_map *map)
 {
 	char	**copy;
 	int		result;
+	int		y;
+	int		x;
 
 	copy = copy_map(map);
 	result = flood_fill(copy, map->player_y,
 			map->player_x, map);
+	if (result)
+	{
+		y = -1;
+		while (++y < map->height)
+		{
+			x = -1;
+			while (++x < map->width && copy[y][x])
+			{
+				if (copy[y][x] == '0')
+					return (free_grid(copy, map->height), 0);
+			}
+		}
+	}
 	free_grid(copy, map->height);
 	return (result);
 }

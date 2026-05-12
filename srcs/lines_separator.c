@@ -6,23 +6,46 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:48:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 17:49:39 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/12 14:47:34 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
+static int	check_color_format(char *rgb)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (rgb[++i])
+	{
+		if (rgb[i] == ',')
+		{
+			if (rgb[i + 1] == ',')
+				return (0);
+			count++;
+		}
+	}
+	if (count != 2)
+		return (0);
+	return (1);
+}
+
 static int	process_texture(char *line, char **texture, int *seen)
 {
 	if (*seen)
-		return (error_msg("Duplicated texture id", NULL), 0);
+		return (error_msg("Duplicated texture id ", NULL), 0);
 	return (set_texture_path(texture, seen, line + 3));
 }
 
 static int	process_color(char *line, t_map *map, int *seen)
 {
 	if (*seen)
-		return (error_msg("Duplicated color id", NULL), 0);
+		return (error_msg("Duplicated color id: ", line), 0);
+	if (!check_color_format(line))
+		return (error_msg("Wrong color format: ", line), 0);
 	extract_colors(line, map);
 	return (*seen = 1, 1);
 }

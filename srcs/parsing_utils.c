@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:59:55 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 16:30:29 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/12 14:36:05 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,7 @@ char	**append_line(char **lines_adr, char *line, int count)
 		return (0);
 	new_line = ft_strdup(line);
 	if (!new_line)
-	{
-		free(new_arr);
-		return (0);
-	}
+		return (free(new_arr), NULL);
 	i = 0;
 	while (i < count)
 	{

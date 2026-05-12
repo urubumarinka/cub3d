@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 16:24:38 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/12 13:55:44 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 960
-# define MOVE_SPEED 0.05
-# define ROT_SPEED 0.03
+# define MOVE_SPEED 0.08
+# define ROT_SPEED 0.05
 # define PLAYER_RADIUS 0.20
 
 // Linux keycodes

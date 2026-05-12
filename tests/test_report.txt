@@ -1,0 +1,334 @@
+=== tests/invalid/textures/missing_NO.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Missing texture path
+Error
+not valid path
+Error
+map not valid
+
+=== tests/invalid/textures/missing_SO.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Missing texture path
+Error
+not valid path
+Error
+map not valid
+
+=== tests/invalid/textures/missing_WE.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Missing texture path
+Error
+not valid path
+Error
+map not valid
+
+=== tests/invalid/textures/duplicate_NO.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Duplicated texture id
+
+=== tests/invalid/textures/invalid_path_NO.cub ===
+RESULT: FAIL (exit 22)
+STDERR:
+Error
+not valid path: No such file or directory
+Error
+map not valid: Invalid argument
+
+=== tests/invalid/textures/missing_EA.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Missing texture path
+Error
+not valid path
+Error
+map not valid
+
+=== tests/invalid/textures/directory_as_texture.cub ===
+RESULT: FAIL (exit 22)
+STDERR:
+Error
+not valid path: No such file or directory
+Error
+map not valid: Invalid argument
+
+=== tests/invalid/extension/missing_extension ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Wrong format or doesnt exist.
+
+=== tests/invalid/extension/wrong_extension.txt ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Wrong format or doesnt exist.
+
+=== tests/invalid/spacing/spaces_in_map.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Invalid map!
+
+=== tests/invalid/spacing/map_too_early.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+map not valid
+
+=== tests/invalid/colors/negative_value.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+invalid int
+Error
+Missing F id
+Error
+map not valid
+
+=== tests/invalid/colors/missing_C.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Duplicated color id: C 220,100,0
+
+
+=== tests/invalid/colors/extra_component.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Wrong color format: F 220,100,0,255
+
+
+=== tests/invalid/colors/overflow_value.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Wrong color range
+
+=== tests/invalid/colors/leading_comma.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Wrong color format: F ,220,100,0
+
+
+=== tests/invalid/colors/missing_component.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Wrong color format: F 220,100
+
+
+=== tests/invalid/colors/duplicate_F.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Duplicated color id: F 220,100,0
+
+
+=== tests/invalid/colors/nonnumeric_value.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+invalid int
+Error
+Missing F id
+Error
+map not valid
+
+=== tests/invalid/colors/trailing_comma.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Wrong color format: F 220,100,0,
+
+
+=== tests/invalid/identifiers/unknown_identifier.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+map not valid
+
+=== tests/invalid/identifiers/empty_texture_path.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Missing texture path
+Error
+not valid path
+Error
+map not valid
+
+=== tests/invalid/identifiers/identifier_after_map.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+map not valid
+
+=== tests/invalid/identifiers/bad_color_identifier.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+map not valid
+
+=== tests/invalid/identifiers/directory_texture_path.cub ===
+RESULT: FAIL (exit 22)
+STDERR:
+Error
+not valid path: No such file or directory
+Error
+map not valid: Invalid argument
+
+=== tests/invalid/identifiers/bad_identifier_XX.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+map not valid
+
+=== tests/invalid/identifiers/duplicate_identifier.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Duplicated texture id
+
+=== tests/invalid/identifiers/empty_color_definition.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Wrong color format: F 
+
+
+=== tests/invalid/player/two_players.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+multiple players
+
+=== tests/invalid/player/no_player.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+no player found
+
+=== tests/invalid/map/unclosed_corner.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Invalid map!
+
+=== tests/invalid/map/bad_map_char.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+map not valid
+
+=== tests/invalid/map/unclosed_map.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Invalid map!
+
+=== tests/invalid/empty.cub ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+map not valid
+
+=== tests/test_report.txt ===
+RESULT: FAIL (exit 1)
+STDERR:
+Error
+Wrong format or doesnt exist.
+
+=== tests/valid/empty_lines.cub ===
+RESULT: OK (exit 0)
+
+=== tests/valid/west_player.cub ===
+RESULT: OK (exit 0)
+
+=== tests/valid/nonrectangular2.cub ===
+RESULT: OK (exit 0)
+
+=== tests/valid/nonrectangular.cub ===
+RESULT: OK (exit 0)
+
+=== tests/valid/minimal.cub ===
+RESULT: OK (exit 0)
+
+=== tests/valid/random_order.cub ===
+RESULT: OK (exit 0)
+
+=== tests/valid/tabs_spaces.cub ===
+RESULT: OK (exit 0)
+
+=== tests/valid/boundary_colors.cub ===
+RESULT: OK (exit 0)
+
+=== tests/valid/north_player.cub ===
+RESULT: OK (exit 0)
+
+=== tests/valid/extra_spacing.cub ===
+RESULT: OK (exit 0)
+
+SUMMARY
+Total tests: 45
+
+Succeeded (exit 0): 10
+ - tests/valid/empty_lines.cub
+ - tests/valid/west_player.cub
+ - tests/valid/nonrectangular2.cub
+ - tests/valid/nonrectangular.cub
+ - tests/valid/minimal.cub
+ - tests/valid/random_order.cub
+ - tests/valid/tabs_spaces.cub
+ - tests/valid/boundary_colors.cub
+ - tests/valid/north_player.cub
+ - tests/valid/extra_spacing.cub
+
+Opened (no error, timed out): 0
+
+Failed: 35
+ - tests/invalid/textures/missing_NO.cub
+ - tests/invalid/textures/missing_SO.cub
+ - tests/invalid/textures/missing_WE.cub
+ - tests/invalid/textures/duplicate_NO.cub
+ - tests/invalid/textures/invalid_path_NO.cub
+ - tests/invalid/textures/missing_EA.cub
+ - tests/invalid/textures/directory_as_texture.cub
+ - tests/invalid/extension/missing_extension
+ - tests/invalid/extension/wrong_extension.txt
+ - tests/invalid/spacing/spaces_in_map.cub
+ - tests/invalid/spacing/map_too_early.cub
+ - tests/invalid/colors/negative_value.cub
+ - tests/invalid/colors/missing_C.cub
+ - tests/invalid/colors/extra_component.cub
+ - tests/invalid/colors/overflow_value.cub
+ - tests/invalid/colors/leading_comma.cub
+ - tests/invalid/colors/missing_component.cub
+ - tests/invalid/colors/duplicate_F.cub
+ - tests/invalid/colors/nonnumeric_value.cub
+ - tests/invalid/colors/trailing_comma.cub
+ - tests/invalid/identifiers/unknown_identifier.cub
+ - tests/invalid/identifiers/empty_texture_path.cub
+ - tests/invalid/identifiers/identifier_after_map.cub
+ - tests/invalid/identifiers/bad_color_identifier.cub
+ - tests/invalid/identifiers/directory_texture_path.cub
+ - tests/invalid/identifiers/bad_identifier_XX.cub
+ - tests/invalid/identifiers/duplicate_identifier.cub
+ - tests/invalid/identifiers/empty_color_definition.cub
+ - tests/invalid/player/two_players.cub
+ - tests/invalid/player/no_player.cub
+ - tests/invalid/map/unclosed_corner.cub
+ - tests/invalid/map/bad_map_char.cub
+ - tests/invalid/map/unclosed_map.cub
+ - tests/invalid/empty.cub
+ - tests/test_report.txt

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:25:03 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 18:01:26 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/12 17:55:17 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int	color_range_check(t_map *map)
 	if (map->text.ceil_r < 0 || map->text.ceil_r > 255
 		|| map->text.ceil_g < 0 || map->text.ceil_g > 255
 		|| map->text.ceil_b < 0 || map->text.ceil_b > 255)
-		return (error_msg("Wrong color range", NULL), 0);
+		return (error_clean(NULL, map, "Wrong color range", NULL), 0);
 	if (map->text.flr_r < 0 || map->text.flr_r > 255
 		|| map->text.flr_g < 0 || map->text.flr_g > 255
 		|| map->text.flr_b < 0 || map->text.flr_b > 255)
-		return (error_msg("Wrong color range", NULL), 0);
+		return (error_clean(NULL, map, "Wrong color range", NULL), 0);
 	return (1);
 }
 

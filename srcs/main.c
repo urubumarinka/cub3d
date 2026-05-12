@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:50:06 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/12 14:11:00 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/12 17:17:55 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int	main(int ac, char **av)
 	ft_bzero(&game, sizeof(game));
 	init_map(&map);
 	if (ac != 2)
-		error_msg("Usage: ./cub3d <map-file.cub>", NULL);
+		error_clean(NULL, NULL, "Too may args. Usage: ./cub3d <*.cub>", NULL);
 	if (!file_check(av[1]))
-		error_msg("File has wrong format or doesnt exist", NULL);
+		return (error_msg("Wrong format or doesnt exist.", NULL), exit(1), 1);
 	if (!parsing(av[1], &map))
 		error_clean(NULL, &map, "map not valid", NULL);
 	game.map = map;

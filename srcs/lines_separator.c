@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   lines_separator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:48:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/12 16:06:04 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/12 17:07:49 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+static int	check_color_format(char *rgb)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (rgb[++i])
+	{
+		if (rgb[i] == ',')
+		{
+			if (rgb[i + 1] == ',')
+				return (0);
+			count++;
+		}
+	}
+	if (count != 2)
+		return (0);
+	return (1);
+}
 
 static int	process_texture(char *line, char **texture, int *seen)
 {
@@ -22,7 +43,9 @@ static int	process_texture(char *line, char **texture, int *seen)
 static int	process_color(char *line, t_map *map, int *seen)
 {
 	if (*seen)
-		return (0);
+		return (error_msg("Duplicated color id: ", line), 0);
+	if (!check_color_format(line))
+		return (error_msg("Wrong color format: ", line), 0);
 	extract_colors(line, map);
 	return (*seen = 1, 1);
 }
@@ -44,7 +67,7 @@ static int	process_ids(char *trimmed, char **lines, t_map *map, int *st)
 	if ((trimmed[0] == 'F' || trimmed[0] == 'C')
 		&& (trimmed[1] == ' ' || trimmed[1] == '\t'))
 		return (process_color(trimmed, map, &st[get_color_idx(trimmed[0])])
-			|| (error_clean(lines, map, "Duplicated color id", NULL), 0));
+			|| (error_clean(lines, map, NULL, NULL), 0));
 	return (0);
 }
 

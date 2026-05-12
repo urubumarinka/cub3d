@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees_and_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/12 14:31:50 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/12 16:55:26 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,7 @@ static void	clean(char **lines, t_map *map)
 
 	i = -1;
 	if (lines)
-	{
-		while (lines[++i])
-			free(lines[i]);
-		free(lines);
-	}
-	i = -1;
+		free_lines(lines);
 	if (map && map->grid)
 	{
 		while (map->grid[++i])

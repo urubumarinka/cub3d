@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 19:14:15 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 17:49:06 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/12 17:52:00 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,38 @@ void	pad_map(t_map *map)
 	}
 }
 
+/* static void dump_copy(char **cpy, int rows)
+{
+	int i = -1;
+
+	while (++i < rows)
+		fprintf(stderr, "COPY[%d]: '%s'\n", i, cpy[i]);
+} */
+
 int	validate_closed(t_map *map)
 {
 	char	**copy;
+	int		x;
+	int		y;
 	int		result;
 
+	if (!map || !map->grid || map->height <= 0 || map->width <= 0)
+		return (0);
+	y = 0;
+	while (y < map->height)
+	{
+		if (map->grid[y][0] == '0' || map->grid[y][map->width - 1] == '0')
+			return (0);
+		y++;
+	}
+	x = -1;
+	while (++x < map->width)
+		if (map->grid[0][x] == '0' || map->grid[map->height - 1][x] == '0')
+			return (0);
 	copy = copy_map(map);
-	result = flood_fill(copy, map->player_y,
-			map->player_x, map);
+	if (!copy)
+		return (error_msg("malloc failed", NULL), 0);
+	result = flood_fill(copy, map->player_y, map->player_x, map);
 	free_grid(copy, map->height);
 	return (result);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/12 16:09:38 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/12 17:03:26 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,11 @@ int	parsing(char *file, t_map *map)
 		return (free_lines(lines), error_msg("not valid path", NULL), 0);
 	if (!parse_map(lines, map_i, map))
 		return (free_lines(lines), 0);
-	if (lines)
-		free_lines(lines);
 	pad_map(map);
-	if (!find_player(map) || !validate_closed(map))
-		return (0);
+	if (!find_player(map))
+		return (error_clean(lines, map, NULL, NULL), 0);
+	if (!validate_closed(map))
+		return (error_clean(lines, map, "Invalid map!", NULL), 0);
 	return (1);
 }
 

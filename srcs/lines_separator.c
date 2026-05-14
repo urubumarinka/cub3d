@@ -12,27 +12,6 @@
 
 #include "../inc/cub3d.h"
 
-static int	check_color_format(char *rgb)
-{
-	int	i;
-	int	count;
-
-	i = -1;
-	count = 0;
-	while (rgb[++i])
-	{
-		if (rgb[i] == ',')
-		{
-			if (rgb[i + 1] == ',')
-				return (0);
-			count++;
-		}
-	}
-	if (count != 2)
-		return (0);
-	return (1);
-}
-
 static int	process_texture(char *line, char **texture, int *seen)
 {
 	if (*seen)

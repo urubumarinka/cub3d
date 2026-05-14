@@ -12,25 +12,6 @@
 
 #include "../inc/cub3d.h"
 
-static void	init_map(t_map *map)
-{
-	map->grid = NULL;
-	map->height = 0;
-	map->width = 0;
-	map->text.no = NULL;
-	map->text.so = NULL;
-	map->text.we = NULL;
-	map->text.ea = NULL;
-	map->text.flr_r = 0;
-	map->text.flr_g = 0;
-	map->text.flr_b = 0;
-	map->text.flr_seen = 0;
-	map->text.ceil_r = 0;
-	map->text.ceil_g = 0;
-	map->text.ceil_b = 0;
-	map->text.ceil_seen = 0;
-}
-
 static int	file_check(char *path)
 {
 	char	*dot;
@@ -63,8 +44,8 @@ int	main(int ac, char **av)
 		cleanup_game(&game);
 		error_clean(NULL, NULL, "Failed to initialize game", NULL);
 	}
-	mlx_hook(game.win, 2, 1L << 0, handle_key_press, &game);
-	mlx_hook(game.win, 3, 1L << 1, handle_key_release, &game);
+	mlx_hook(game.win, 2, 1, handle_key_press, &game);
+	mlx_hook(game.win, 3, 2, handle_key_release, &game);
 	mlx_hook(game.win, 17, 0, close_window, &game);
 	mlx_loop_hook(game.mlx, rendering, &game);
 	mlx_loop(game.mlx);

@@ -45,26 +45,32 @@ static void	draw_wall_column(t_game *game, int col, t_wall_render *wall)
 	uint32_t	color;
 
 	tex_pos = (wall->draw_start - SCREEN_HEIGHT
-			/ 2 + wall->line_height / 2) * wall->tex_scale;
+			/ 2 + wall->line_height / 2) * wall->scale;
 	row = wall->draw_start;
 	while (row < wall->draw_end)
 	{
-		//convert tex pos to row position on texture
 		texture_row = (int)tex_pos % (game->textures[wall->tex_num].height);
-		// get pixel color from texture[row][col]
 		color = game->textures[wall->tex_num].data[texture_row
 			* (game->textures[wall->tex_num].line_length / 4) + wall->tex_col];
-		// if horiz wall, make it darker
 		if (game->last_side == 1)
-			color = (color / 2) & 8355711;
-		// draw pixel to screen
+			color = (color / 2) & 0x7F7F7F;
 		put_pixel(&game->image, col, row, color);
-		// move to next pos on texture
-		tex_pos = tex_pos + wall->tex_scale;
+		tex_pos = tex_pos + wall->scale;
 		row++;
 	}
 }
 
+/*
+** draw_wall
+** Renders one vertical column of the 3D view.
+**
+** Step 1: Cast a ray for this screen column to find wall hit and distance.
+** Step 2: Calculate wall height on screen based on distance.
+** Step 3: Determine which wall texture to use and where the ray hit it.
+** Step 4: Convert hit position (0-1) into a texture column (0-63). if 0.5 -> 32
+tex_scale = 64 / 200 = 0.32 (advance 0.32 pixels down texture per screen pixel)
+** Step 5: Draw the wall pixel by pixel using texture mapping.
+*/
 void	draw_wall(t_game *game, int col)
 {
 	double			cam_x;
@@ -79,33 +85,17 @@ void	draw_wall(t_game *game, int col)
 	calculate_wall_dimensions(&wall.line_height, &wall.draw_start,
 		&wall.draw_end, wall.wall_dist);
 	wall.tex_num = get_texture_index(game, ray_dir_x, ray_dir_y);
-    // STEP 1: Calculate WORLD coordinate where ray hit the wall
-    // For vertical walls (north/south), use Y coordinate
-    // For horizontal walls (east/west), use X coordinate
-    // Example: player at (5.3, 7.8) + distance * direction = hit at (5.3, 10.7)
 	if (game->last_side == 0)
 		wall.wall_hit_pos = game->player.y + wall.wall_dist * ray_dir_y;
 	else
 		wall.wall_hit_pos = game->player.x + wall.wall_dist * ray_dir_x;
-    // STEP 2: Extract ONLY the fractional part to get 0-1 (within one brick)
-    // Example: world coordinate 10.7 becomes 0.7 (70% across brick #10)
-    // This works because each brick is 1 unit wide, and texture repeats
 	wall.wall_hit_pos = wall.wall_hit_pos - floor(wall.wall_hit_pos);
-    // Convert wall position (0-1) to texture column (0-63)
-    // If wall_hit_pos = 0.5, and texture is 64 pixels wide:
-    // tex_col = 0.5 * 64 = 32 (middle of texture)
 	wall.tex_col = (int)(wall.wall_hit_pos
 			* game->textures[wall.tex_num].width);
-    // Flip the texture horizontally based on which direction we're looking
-    // This prevents the texture from appearing mirrored
 	if (game->last_side == 0 && ray_dir_x > 0)
 		wall.tex_col = game->textures[wall.tex_num].width - wall.tex_col - 1;
 	if (game->last_side == 1 && ray_dir_y < 0)
 		wall.tex_col = game->textures[wall.tex_num].width - wall.tex_col - 1;
-    // Calculate texture scaling ratio (how much to advance per screen pixel)
-    // If texture is 64 pixels tall and wall appears 200 pixels tall on screen:
-    // tex_scale = 64 / 200 = 0.32 (advance 0.32 pixels down texture per screen pixel)
-	wall.tex_scale = (double)game->textures[wall.tex_num].height
-			/ wall.line_height;
+	wall.scale = (double)game->textures[wall.tex_num].height / wall.line_height;
 	draw_wall_column(game, col, &wall);
 }

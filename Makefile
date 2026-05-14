@@ -36,6 +36,7 @@ SRCS = \
 ./srcs/init.c \
 ./srcs/texture.c \
 ./srcs/raycasting.c \
+./srcs/raycasting_utils.c \
 ./srcs/wall.c \
 ./srcs/rendering.c \
 ./srcs/events.c \

@@ -135,7 +135,7 @@ typedef struct s_wall_render
 {
 	double	wall_dist;
 	double	wall_hit_pos;
-	double	tex_scale;
+	double	scale;
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
@@ -163,8 +163,6 @@ typedef struct s_game
 	double		time;
 	double		old_time;
 	int			last_side;
-	int			last_map_x;
-	int			last_map_y;
 	t_tex_img	textures[8];
 	t_keys		keys;
 }	t_game;
@@ -179,6 +177,7 @@ int		handle_key_release(int keycode, t_game *game);
 int		close_window(t_game *game);
 int		load_all_textures(t_game *game);
 double	cast_ray(t_game *game, double rayDirX, double rayDirY);
+int		is_wall_hit(t_game *game, int map_x, int map_y);
 void	put_pixel(t_image *image, int x, int y, int color);
 void	draw_wall(t_game *game, int x);
 //void	draw_minimap(t_image *image, t_game *game);
@@ -195,6 +194,7 @@ void	free_game_helper(t_game *game);
 
 // PARSING
 
+void	init_map(t_map *map);
 int		parsing(char *file, t_map *map);
 char	**append_line(char **lines_adr, char *line, int count);
 int		set_texture_path(char **slot, int *seen, char *line);
@@ -214,6 +214,7 @@ int		flood_fill(char **cpy, int row, int col, t_map *map);
 int		lines_separator(char **lines, t_map *map);
 char	*skip_ws(char *line);
 int		get_color_idx(char c);
+int		check_color_format(char *rgb);
 int		handle_map_line(char **lines, int i, t_map *map, int *state);
 int		is_id(const char *s, const char *id);
 int		validate_map(char **lines, int i);

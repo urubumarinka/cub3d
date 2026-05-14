@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 00:00:00 by kchatela          #+#    #+#             */
-/*   Updated: 2026/05/14 16:13:53 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/14 17:32:15 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,3 @@ void	move_right(t_game *game)
 	if (can_move_x(game, nx, game->player.y))
 		game->player.x = nx;
 }
-

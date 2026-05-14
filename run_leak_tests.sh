@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 EXEC=./cub3D
-TEST_DIR=tests
+TEST_DIR=maps
 SUPP=mlx.supp
-OUT=tests/leak_report.txt
+OUT=maps/leak_report.txt
 TMPDIR=$(mktemp -d)
 
 VALGRIND_ARGS=(

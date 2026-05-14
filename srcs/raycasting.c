@@ -12,43 +12,46 @@
 
 #include "../inc/cub3d.h"
 
-static void	init_dda_dist(t_game *game, t_dda *dda, double rayDirX, double rayDirY)
+static void	init_dda_dist(t_game *game, t_dda *dda, double rayDirX,
+	double rayDirY)
 {
-    // which grid square player is currently in
 	dda->map_x = (int)game->player.x;
 	dda->map_y = (int)game->player.y;
-	if (rayDirX == 0) // goes straight, no hits with wall = infintiy number
+	if (rayDirX == 0)
 		dda->delta_dist_x = 1e30;
 	else
-		dda->delta_dist_x = fabs(1 / rayDirX); // spacing between vertical lines
-	if (rayDirY == 0) //goes straight, no hits with wall = infintiy number
+		dda->delta_dist_x = fabs(1 / rayDirX);
+	if (rayDirY == 0)
 		dda->delta_dist_y = 1e30;
 	else
-		dda->delta_dist_y = fabs(1 / rayDirY); // spacing between horizontal lines
+		dda->delta_dist_y = fabs(1 / rayDirY);
 }
 
 // Initialize step directions and side distances
-static void	init_dda_steps(t_game *game, t_dda *dda, double rayDirX, double rayDirY)
+static void	init_dda_steps(t_game *game, t_dda *dda, double rayDirX,
+	double rayDirY)
 {
-	if (rayDirX < 0) // ray goes left
+	if (rayDirX < 0)
 	{
 		dda->step_x = -1;
 		dda->side_dist_x = (game->player.x - dda->map_x) * dda->delta_dist_x;
 	}
 	else
 	{
-		dda->step_x = 1; // ray goes right
-		dda->side_dist_x = (dda->map_x + 1.0 - game->player.x) * dda->delta_dist_x;
+		dda->step_x = 1;
+		dda->side_dist_x = (dda->map_x + 1.0 - game->player.x)
+			* dda->delta_dist_x;
 	}
-	if (rayDirY < 0) //ray goes up
+	if (rayDirY < 0)
 	{
 		dda->step_y = -1;
 		dda->side_dist_y = (game->player.y - dda->map_y) * dda->delta_dist_y;
 	}
 	else
 	{
-		dda->step_y = 1; // ray goes down
-		dda->side_dist_y = (dda->map_y + 1.0 - game->player.y) * dda->delta_dist_y;
+		dda->step_y = 1;
+		dda->side_dist_y = (dda->map_y + 1.0 - game->player.y)
+			* dda->delta_dist_y;
 	}
 }
 
@@ -58,37 +61,29 @@ static void	init_dda(t_game *game, t_dda *dda, double rayDirX, double rayDirY)
 	init_dda_steps(game, dda, rayDirX, rayDirY);
 }
 
+//Digital Differential Analyzer: raycating algorithm,calculates dist to wall
 static double	dda_loop(t_game *game, t_dda *dda)
 {
-	int	hit;
-
-	hit = 0;
-	while (hit == 0)
+	while (!is_wall_hit(game, dda->map_x, dda->map_y))
 	{
-		if (dda->side_dist_x < dda->side_dist_y) // if vertical line is closer
+		if (dda->side_dist_x < dda->side_dist_y)
 		{
 			dda->side_dist_x = dda->side_dist_x + dda->delta_dist_x;
-			dda->map_x += dda->step_x;
+			dda->map_x = dda->map_x + dda->step_x;
 			dda->side = 0;
 		}
 		else
 		{
-			dda->side_dist_y += dda->delta_dist_y;
-			dda->map_y += dda->step_y;
+			dda->side_dist_y = dda->side_dist_y + dda->delta_dist_y;
+			dda->map_y = dda->map_y + dda->step_y;
 			dda->side = 1;
 		}
-		if (dda->map_x < 0 || dda->map_x >= game->map.width || dda->map_y < 0 || dda->map_y >= game->map.height)
-			hit = 1;
-		else if (game->map.grid[dda->map_y][dda->map_x] == '1')
-			hit = 1;
 	}
 	if (dda->side == 0)
 		return (dda->side_dist_x - dda->delta_dist_x);
-	else
-		return (dda->side_dist_y - dda->delta_dist_y);
+	return (dda->side_dist_y - dda->delta_dist_y);
 }
 
-//Calculate distance to wall, //Digital Differential Analyzer : raycating algorithm
 double	cast_ray(t_game *game, double rayDirX, double rayDirY)
 {
 	t_dda	dda;
@@ -96,9 +91,6 @@ double	cast_ray(t_game *game, double rayDirX, double rayDirY)
 
 	init_dda(game, &dda, rayDirX, rayDirY);
 	wall_dist = dda_loop(game, &dda);
-    //store values for rendering
 	game->last_side = dda.side;
-	game->last_map_x = dda.map_x;
-	game->last_map_y = dda.map_y;
 	return (wall_dist);
 }

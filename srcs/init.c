@@ -12,6 +12,25 @@
 
 #include "../inc/cub3d.h"
 
+void	init_map(t_map *map)
+{
+	map->grid = NULL;
+	map->height = 0;
+	map->width = 0;
+	map->text.no = NULL;
+	map->text.so = NULL;
+	map->text.we = NULL;
+	map->text.ea = NULL;
+	map->text.flr_r = 0;
+	map->text.flr_g = 0;
+	map->text.flr_b = 0;
+	map->text.flr_seen = 0;
+	map->text.ceil_r = 0;
+	map->text.ceil_g = 0;
+	map->text.ceil_b = 0;
+	map->text.ceil_seen = 0;
+}
+
 static void	set_player_direction(t_player *player, char dir)
 {
 	static t_direction	directions[4] = {
@@ -48,7 +67,7 @@ static int	init_mlx(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (0);
-	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
+	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D");
 	if (!game->win)
 		return (0);
 	game->image.img_ptr = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);

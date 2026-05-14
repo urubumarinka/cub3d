@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 EXEC=./cub3D
-TEST_DIR=tests
-OUT=tests/test_report.txt
+TEST_DIR=maps
+OUT=maps/test_report.txt
 TMPDIR=$(mktemp -d)
 
 # create/clear report

@@ -15,9 +15,9 @@
 // draw a single pixel at coordinates x, y on the screen
 void	put_pixel(t_image *image, int x, int y, int color)
 {
-	int		offset;// where to write pixel
-	char	*pixel;// address of pixel
-	// check if pixel is outside screen
+	int		offset;
+	char	*pixel;
+
 	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
 		return ;
 	offset = (y * image->line_length) + (x * 4);
@@ -67,7 +67,8 @@ int	rendering(t_game *game)
 	int	col;
 
 	update_player_movement(game);
-	ft_memset(game->image.data, 0, SCREEN_HEIGHT * SCREEN_WIDTH * sizeof(uint32_t));
+	ft_memset(game->image.data, 0, SCREEN_HEIGHT * SCREEN_WIDTH
+		* sizeof(uint32_t));
 	draw_scene_to_screen(game);
 	col = 0;
 	while (col < SCREEN_WIDTH)

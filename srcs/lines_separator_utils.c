@@ -26,6 +26,27 @@ int	get_color_idx(char c)
 	return (5);
 }
 
+int	check_color_format(char *rgb)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (rgb[++i])
+	{
+		if (rgb[i] == ',')
+		{
+			if (rgb[i + 1] == ',')
+				return (0);
+			count++;
+		}
+	}
+	if (count != 2)
+		return (0);
+	return (1);
+}
+
 int	handle_map_line(char **lines, int i, t_map *map, int *state)
 {
 	if (state[6] == -1)

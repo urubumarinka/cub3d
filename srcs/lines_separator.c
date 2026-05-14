@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:48:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/12 17:07:49 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/13 22:51:34 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static int	process_texture(char *line, char **texture, int *seen)
 static int	process_color(char *line, t_map *map, int *seen)
 {
 	if (*seen)
-		return (error_msg("Duplicated color id: ", line), 0);
+		return (error_clean(NULL, map, "Duplicated color id", line), 0);
 	if (!check_color_format(line))
-		return (error_msg("Wrong color format: ", line), 0);
+		return (error_clean(NULL, map, "Wrong color format", line), 0);
 	extract_colors(line, map);
 	return (*seen = 1, 1);
 }

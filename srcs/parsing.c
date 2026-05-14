@@ -6,28 +6,11 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/12 18:06:11 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/14 16:28:00 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-static int	is_valid_line(char *line)
-{
-	int	p;
-
-	p = 0;
-	while (line[p])
-	{
-		if (line[p] != '0' && line[p] != '1' && line[p] != 'N'
-			&& line[p] != 'S' && line[p] != 'E' && line[p] != 'W'
-			&& line[p] != ' ' && line[p] != '\t' && line[p] != '\n'
-			&& line[p] != '\r')
-			return (0);
-		p++;
-	}
-	return (1);
-}
 
 int	validate_map(char **lines, int i)
 {
@@ -62,7 +45,7 @@ static char	**read_lines(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (ft_putstr_fd("Error\nCant open file\n", 2), NULL);
+		return (error_clean(NULL, NULL, "Cant open file", file), NULL);
 	lines = NULL;
 	line = NULL;
 	count = 0;
@@ -92,7 +75,7 @@ int	parsing(char *file, t_map *map)
 	map_i = lines_separator(lines, map);
 	if (map_i < 0)
 		return (free_lines(lines), error_msg("no map found", NULL), 0);
-	if (!check_dup(map))
+	if (!check_missing_color(map))
 		return (free_lines(lines), 0);
 	if (!path_is_valid(map))
 		return (error_clean(lines, map, "not valid path", NULL), 0);
@@ -108,7 +91,7 @@ int	parsing(char *file, t_map *map)
 	return (1);
 }
 
-/* //Use to print the.cub file
+/* //To print the.cub file
 	int		p;
 	p = 0;
 	while (lines && lines[p] != NULL)

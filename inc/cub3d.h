@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/12 16:05:54 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/13 22:52:16 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ char	*insert_path(char *s);
 int		path_is_valid(t_map *map);
 int		test_file(char *path);
 int		color_range_check(t_map *map);
-int		check_dup(t_map *map);
+int		check_missing_color(t_map *map);
 int		is_valid_int(char *s);
 void	extract_colors(char *color, t_map *map);
 void	pad_map(t_map *map);
@@ -223,6 +223,7 @@ int		validate_map(char **lines, int i);
 
 int		empty_line(char *s);
 void	free_split(char **values);
+int		is_valid_line(char *line);
 
 // PLAYER MOVEMENT
 

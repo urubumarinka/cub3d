@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:29:22 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 17:59:18 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/13 22:53:34 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,11 @@ int	flood_fill(char **cpy, int row, int col, t_map *map)
 	return (1);
 }
 
-int	check_dup(t_map *map)
+int	check_missing_color(t_map *map)
 {
 	if (!map->text.ceil_seen)
-		return (error_msg("Missing C id", NULL), 0);
+		return (error_clean(NULL, map, "Missing C id", NULL), 0);
 	if (!map->text.flr_seen)
-		return (error_msg("Missing F id", NULL), 0);
+		return (error_clean(NULL, map, "Missing F id", NULL), 0);
 	return (1);
 }

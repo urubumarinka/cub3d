@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 10:53:39 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 16:05:07 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/13 22:45:32 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	empty_line(char *s)
 
 	i = 0;
 	if (!s)
-		return (0);
+		return (1);
 	while (s[i])
 	{
 		if (s[i] != '\0' && s[i] != '\n' && s[i] != '\t'
@@ -56,4 +56,21 @@ void	free_grid(char **grid, int rows)
 		i++;
 	}
 	free(grid);
+}
+
+int	is_valid_line(char *line)
+{
+	int	p;
+
+	p = 0;
+	while (line[p])
+	{
+		if (line[p] != '0' && line[p] != '1' && line[p] != 'N'
+			&& line[p] != 'S' && line[p] != 'E' && line[p] != 'W'
+			&& line[p] != ' ' && line[p] != '\t' && line[p] != '\n'
+			&& line[p] != '\r')
+			return (0);
+		p++;
+	}
+	return (1);
 }

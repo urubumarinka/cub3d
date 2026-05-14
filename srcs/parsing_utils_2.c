@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 19:14:15 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/12 17:52:00 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/14 16:31:57 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	find_player_helper(t_map *map, int y, int *found)
 		if (p == 'N' || p == 'S' || p == 'E' || p == 'W')
 		{
 			if (++(*found) > 1)
-				return (error_msg("multiple players", NULL), 0);
+				return (error_clean(NULL, map, "Multiple players", NULL), 0);
 			map->player_x = x;
 			map->player_y = y;
 			map->player_dir = p;
@@ -60,7 +60,7 @@ int	find_player(t_map *map)
 	int		found;
 
 	if (!map || !map->grid || map->height <= 0)
-		return (error_msg("invalid map", NULL), 0);
+		return (error_clean(NULL, map, "Invalid map", NULL), 0);
 	found = 0;
 	y = 0;
 	while (y < map->height)
@@ -70,7 +70,7 @@ int	find_player(t_map *map)
 		y++;
 	}
 	if (found == 0)
-		return (error_msg("no player found", NULL), 0);
+		return (error_clean(NULL, map, "No player found", NULL), 0);
 	return (1);
 }
 

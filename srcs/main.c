@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:50:06 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/13 20:53:05 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/15 18:17:18 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int	main(int ac, char **av)
 	ft_bzero(&game, sizeof(game));
 	init_map(&map);
 	if (ac != 2)
-		error_clean(NULL, NULL, "Too may args. Usage: ./cub3d <*.cub>", NULL);
+		error_clean(NULL, NULL, "Usage: ./cub3d <*.cub>", NULL);
 	if (!file_check(av[1]))
 		return (error_msg("Wrong format or doesnt exist.", NULL), exit(1), 1);
 	if (!parsing(av[1], &map))
-		error_clean(NULL, &map, "map not valid", NULL);
+		error_clean(NULL, &map, "Invalid map", NULL);
 	game.map = map;
 	if (!init_game(&game))
 	{

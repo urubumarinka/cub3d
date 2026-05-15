@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees_and_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/15 11:51:31 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/15 17:54:49 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	error_msg(char *msg, char *context)
 {
+	int	len;
+
 	if ((!msg || msg[0] == '\0') && errno == 0)
 		return ;
 	ft_putstr_fd("Error\n", 2);
@@ -23,7 +25,12 @@ void	error_msg(char *msg, char *context)
 	{
 		ft_putstr_fd(msg, 2);
 		if (context)
+		{
+			len = ft_strlen(context);
+			if (len > 0 && context[len - 1] == '\n')
+				context[len - 1] = '\0';
 			ft_putstr_fd(context, 2);
+		}
 		ft_putstr_fd("\n", 2);
 	}
 }
@@ -70,7 +77,7 @@ void	error_clean(char **lines, t_map *map, char *msg, char *context)
 	if (errno == EISDIR)
 	{
 		errno = 0;
-		msg = "";
+		msg = "Not valid file, this is a dir.";
 	}
 	error_msg(msg, context);
 	if (errno != 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/15 12:07:05 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/15 18:05:09 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,12 +198,12 @@ int		parsing(char *file, t_map *map);
 char	**append_line(char **lines_adr, char *line, int count);
 int		set_texture_path(char **slot, int *seen, char *line);
 char	*insert_path(char *s);
-int		path_is_valid(t_map *map);
+int		path_is_valid(t_map *map, char **lines);
 int		test_file(char *path);
-int		color_range_check(t_map *map);
-int		check_missing_color(t_map *map);
+int		color_range_check(t_map *map, char **lines);
+int		check_missing_color(t_map *map, char **lines);
 int		is_valid_int(char *s);
-void	extract_colors(char *color, t_map *map);
+int		extract_colors(char *color, t_map *map, char **lines);
 void	pad_map(t_map *map);
 int		find_player(t_map *map);
 int		parse_map(char **lines, int map_i, t_map *map);

@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/14 16:28:00 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/15 18:16:45 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	**read_lines(char *file)
 			break ;
 		lines = append_line(lines, line, count);
 		if (!lines)
-			return (free(lines), free(line), NULL);
+			return (free_lines(lines), NULL);
 		free(line);
 		count++;
 	}
@@ -75,9 +75,9 @@ int	parsing(char *file, t_map *map)
 	map_i = lines_separator(lines, map);
 	if (map_i < 0)
 		return (free_lines(lines), error_msg("no map found", NULL), 0);
-	if (!check_missing_color(map))
+	if (!check_missing_color(map, lines))
 		return (free_lines(lines), 0);
-	if (!path_is_valid(map))
+	if (!path_is_valid(map, lines))
 		return (error_clean(lines, map, "not valid path", NULL), 0);
 	if (!parse_map(lines, map_i, map))
 		return (free_lines(lines), 0);
@@ -87,7 +87,7 @@ int	parsing(char *file, t_map *map)
 	if (!find_player(map))
 		return (error_clean(lines, map, NULL, NULL), 0);
 	if (!validate_closed(map))
-		return (error_clean(lines, map, "Invalid map!", NULL), 0);
+		return (error_clean(lines, map, "Invalid map", NULL), 0);
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lines_separator_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:48:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/12 16:06:22 by kchatela         ###   ########.fr       */
+/*   Updated: 2026/05/15 18:17:06 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ int	handle_map_line(char **lines, int i, t_map *map, int *state)
 {
 	if (state[6] == -1)
 		state[6] = i;
-	return (validate_map(lines, i)
-		|| (error_clean(lines, map, "map not valid", NULL), 0));
+	if (!validate_map(lines, i))
+		return (error_clean(lines, map, "Invalid map", NULL), 0);
+	return (1);
 }
 
 int	is_id(const char *s, const char *id)

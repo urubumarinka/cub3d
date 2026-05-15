@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:59:55 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/12 18:04:24 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/15 18:12:56 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,17 @@ int	test_file(char *path)
 	int		ret;
 
 	if (!path || path[0] == '\0')
-		return (error_clean(NULL, NULL, "Missing texture path", NULL), 0);
+		return (0);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (0);
 	ret = read(fd, &c, 1);
 	if (ret < 0)
 	{
-		if (errno != EISDIR)
-			error_msg("invalid file", path);
+		/* if (errno == EISDIR)
+			error_msg("Invalid file", path);
+		else
+			error_msg("Invalid file", path); */
 		close(fd);
 		return (0);
 	}
@@ -35,13 +37,13 @@ int	test_file(char *path)
 	return (1);
 }
 
-int	path_is_valid(t_map *map)
+int	path_is_valid(t_map *map, char **lines)
 {
 	if (!test_file(map->text.no)
 		|| !test_file(map->text.so)
 		|| !test_file(map->text.we)
 		|| !test_file(map->text.ea))
-		return (0);
+		return (error_clean(lines, map, "Missing texture path", NULL), 0);
 	return (1);
 }
 

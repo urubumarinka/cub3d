@@ -36,7 +36,7 @@ libft/gnl/*.o
 *.i*86
 *.x86_64
 *.hex
-cub3d
+cub3D
 
 # Debug files
 *.dSYM/

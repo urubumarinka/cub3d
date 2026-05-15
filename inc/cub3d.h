@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/13 22:52:16 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/15 12:07:05 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # define MAC_KEY_RIGHT 124
 # define MAC_KEY_ESC 53
 
-// x,y player position in map units
+// x,y player pos in map units
 // dir direction vector (unit length)
 // plane camera plane (perpendicular to dir)
 typedef struct s_player
@@ -122,12 +122,12 @@ typedef struct s_dda
 {
 	int			map_x;
 	int			map_y;
-	double		side_dist_x;  // Distance to 1st vert grid line
-	double		side_dist_y;  // Distance to 1rst hori grid line
-	double		delta_dist_x; // Distance between vertical grid line always same
-	double		delta_dist_y; // Dist between horizontal grid line always same
-	int			step_x;          // Which dir for ray to go
-	int			step_y;          // Which dir for ray to go
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	int			step_x;
+	int			step_y;
 	int			side;
 }	t_dda;
 
@@ -180,7 +180,6 @@ double	cast_ray(t_game *game, double rayDirX, double rayDirY);
 int		is_wall_hit(t_game *game, int map_x, int map_y);
 void	put_pixel(t_image *image, int x, int y, int color);
 void	draw_wall(t_game *game, int x);
-//void	draw_minimap(t_image *image, t_game *game);
 
 // FREES AND CLEANS
 

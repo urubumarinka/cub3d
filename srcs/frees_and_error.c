@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees_and_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/13 18:59:58 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/15 11:51:31 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	cleanup_game(t_game *game)
 			mlx_destroy_image(game->mlx, game->image.img_ptr);
 		if (game->win)
 			mlx_destroy_window(game->mlx, game->win);
-		//mlx_destroy_display(game->mlx);
+		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}
 }

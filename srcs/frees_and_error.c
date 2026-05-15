@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees_and_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:42:14 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 17:48:06 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/15 11:51:31 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	error_msg(char *msg, char *context)
 {
+	if ((!msg || msg[0] == '\0') && errno == 0)
+		return ;
 	ft_putstr_fd("Error\n", 2);
 	if (errno != 0)
 		perror(msg);
@@ -51,12 +53,7 @@ static void	clean(char **lines, t_map *map)
 
 	i = -1;
 	if (lines)
-	{
-		while (lines[++i])
-			free(lines[i]);
-		free(lines);
-	}
-	i = -1;
+		free_lines(lines);
 	if (map && map->grid)
 	{
 		while (map->grid[++i])
@@ -70,6 +67,11 @@ static void	clean(char **lines, t_map *map)
 void	error_clean(char **lines, t_map *map, char *msg, char *context)
 {
 	clean(lines, map);
+	if (errno == EISDIR)
+	{
+		errno = 0;
+		msg = "";
+	}
 	error_msg(msg, context);
 	if (errno != 0)
 		exit(errno);
@@ -84,19 +86,19 @@ void	cleanup_game(t_game *game)
 	if (!game)
 		return ;
 	free_game_helper(game);
-	i = 0;
-	while (i < 4)
-	{
-		if (game->textures[i].img_ptr)
-			mlx_destroy_image(game->mlx, game->textures[i].img_ptr);
-		i++;
-	}
-	if (game->image.img_ptr)
-		mlx_destroy_image(game->mlx, game->image.img_ptr);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
 	{
+		i = 0;
+		while (i < 4)
+		{
+			if (game->textures[i].img_ptr)
+				mlx_destroy_image(game->mlx, game->textures[i].img_ptr);
+			i++;
+		}
+		if (game->image.img_ptr)
+			mlx_destroy_image(game->mlx, game->image.img_ptr);
+		if (game->win)
+			mlx_destroy_window(game->mlx, game->win);
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}

@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 18:18:30 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 16:23:45 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/14 16:28:00 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 int	validate_map(char **lines, int i)
 {
-	int	p;
+	int	j;
 
 	while (lines[i])
 	{
 		if (empty_line(lines[i]))
-			return (0);
-		p = 0;
-		while (lines[i][p])
 		{
-			if (lines[i][p] != '0' && lines[i][p] != '1'
-				&& lines[i][p] != 'N' && lines[i][p] != 'S'
-				&& lines[i][p] != 'E' && lines[i][p] != 'W'
-				&& lines[i][p] != ' ' && lines[i][p] != '\t'
-				&& lines[i][p] != '\n' && lines[i][p] != '\r')
-				return (0);
-			p++;
+			j = i;
+			while (lines[j])
+			{
+				if (!empty_line(lines[j]))
+					return (0);
+				j++;
+			}
+			return (1);
 		}
+		if (!is_valid_line(lines[i]))
+			return (0);
 		i++;
 	}
 	return (1);
@@ -45,7 +45,7 @@ static char	**read_lines(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (ft_putstr_fd("Error\nCant open file\n", 2), NULL);
+		return (error_clean(NULL, NULL, "Cant open file", file), NULL);
 	lines = NULL;
 	line = NULL;
 	count = 0;
@@ -75,19 +75,23 @@ int	parsing(char *file, t_map *map)
 	map_i = lines_separator(lines, map);
 	if (map_i < 0)
 		return (free_lines(lines), error_msg("no map found", NULL), 0);
+	if (!check_missing_color(map))
+		return (free_lines(lines), 0);
 	if (!path_is_valid(map))
-		return (free_lines(lines), error_msg("not valid path", NULL), 0);
+		return (error_clean(lines, map, "not valid path", NULL), 0);
 	if (!parse_map(lines, map_i, map))
 		return (free_lines(lines), 0);
-	if (lines)
-		free_lines(lines);
+	free_lines(lines);
+	lines = NULL;
 	pad_map(map);
-	if (!find_player(map) || !validate_closed(map))
-		return (0);
+	if (!find_player(map))
+		return (error_clean(lines, map, NULL, NULL), 0);
+	if (!validate_closed(map))
+		return (error_clean(lines, map, "Invalid map!", NULL), 0);
 	return (1);
 }
 
-/* //Use to print the.cub file
+/* //To print the.cub file
 	int		p;
 	p = 0;
 	while (lines && lines[p] != NULL)

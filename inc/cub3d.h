@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kchatela <kchatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:28:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/11 16:24:38 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/15 12:07:05 by kchatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # define MAC_KEY_RIGHT 124
 # define MAC_KEY_ESC 53
 
-// x,y player position in map units
+// x,y player pos in map units
 // dir direction vector (unit length)
 // plane camera plane (perpendicular to dir)
 typedef struct s_player
@@ -122,12 +122,12 @@ typedef struct s_dda
 {
 	int			map_x;
 	int			map_y;
-	double		side_dist_x;  // Distance to 1st vert grid line
-	double		side_dist_y;  // Distance to 1rst hori grid line
-	double		delta_dist_x; // Distance between vertical grid line always same
-	double		delta_dist_y; // Dist between horizontal grid line always same
-	int			step_x;          // Which dir for ray to go
-	int			step_y;          // Which dir for ray to go
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	int			step_x;
+	int			step_y;
 	int			side;
 }	t_dda;
 
@@ -135,7 +135,7 @@ typedef struct s_wall_render
 {
 	double	wall_dist;
 	double	wall_hit_pos;
-	double	tex_scale;
+	double	scale;
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
@@ -163,8 +163,6 @@ typedef struct s_game
 	double		time;
 	double		old_time;
 	int			last_side;
-	int			last_map_x;
-	int			last_map_y;
 	t_tex_img	textures[8];
 	t_keys		keys;
 }	t_game;
@@ -179,9 +177,9 @@ int		handle_key_release(int keycode, t_game *game);
 int		close_window(t_game *game);
 int		load_all_textures(t_game *game);
 double	cast_ray(t_game *game, double rayDirX, double rayDirY);
+int		is_wall_hit(t_game *game, int map_x, int map_y);
 void	put_pixel(t_image *image, int x, int y, int color);
 void	draw_wall(t_game *game, int x);
-//void	draw_minimap(t_image *image, t_game *game);
 
 // FREES AND CLEANS
 
@@ -195,6 +193,7 @@ void	free_game_helper(t_game *game);
 
 // PARSING
 
+void	init_map(t_map *map);
 int		parsing(char *file, t_map *map);
 char	**append_line(char **lines_adr, char *line, int count);
 int		set_texture_path(char **slot, int *seen, char *line);
@@ -202,7 +201,7 @@ char	*insert_path(char *s);
 int		path_is_valid(t_map *map);
 int		test_file(char *path);
 int		color_range_check(t_map *map);
-int		check_dup(t_map *map);
+int		check_missing_color(t_map *map);
 int		is_valid_int(char *s);
 void	extract_colors(char *color, t_map *map);
 void	pad_map(t_map *map);
@@ -212,12 +211,18 @@ int		validate_closed(t_map *map);
 char	**copy_map(t_map *map);
 int		flood_fill(char **cpy, int row, int col, t_map *map);
 int		lines_separator(char **lines, t_map *map);
+char	*skip_ws(char *line);
+int		get_color_idx(char c);
+int		check_color_format(char *rgb);
+int		handle_map_line(char **lines, int i, t_map *map, int *state);
+int		is_id(const char *s, const char *id);
 int		validate_map(char **lines, int i);
 
 // UTILS
 
 int		empty_line(char *s);
 void	free_split(char **values);
+int		is_valid_line(char *line);
 
 // PLAYER MOVEMENT
 

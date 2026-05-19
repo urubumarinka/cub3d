@@ -61,15 +61,13 @@ static void	draw_wall_column(t_game *game, int col, t_wall_render *wall)
 }
 
 /*
-** draw_wall
-** Renders one vertical column of the 3D view.
-**
-** Step 1: Cast a ray for this screen column to find wall hit and distance.
-** Step 2: Calculate wall height on screen based on distance.
-** Step 3: Determine which wall texture to use and where the ray hit it.
-** Step 4: Convert hit position (0-1) into a texture column (0-63). if 0.5 -> 32
+draw_wall
+1: Cast a ray for this screen column to find wall hit and distance.
+2: Calculate wall height on screen based on distance.
+3: Determine which wall texture to use and where the ray hit it.
+4: Convert hit position (0-1) into a texture column (0-63). if 0.5 -> 32
 tex_scale = 64 / 200 = 0.32 (advance 0.32 pixels down texture per screen pixel)
-** Step 5: Draw the wall pixel by pixel using texture mapping.
+5: Draw the wall pixel by pixel using texture mapping.
 */
 void	draw_wall(t_game *game, int col)
 {

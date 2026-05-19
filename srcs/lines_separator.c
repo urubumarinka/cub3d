@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:48:04 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/13 22:51:34 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/15 18:04:29 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ static int	process_texture(char *line, char **texture, int *seen)
 	return (set_texture_path(texture, seen, line + 3));
 }
 
-static int	process_color(char *line, t_map *map, int *seen)
+static int	process_color(char *line, t_map *map, int *seen, char **lines)
 {
 	if (*seen)
-		return (error_clean(NULL, map, "Duplicated color id", line), 0);
+		return (error_msg("Duplicated color id: ", line), 0);
 	if (!check_color_format(line))
-		return (error_clean(NULL, map, "Wrong color format", line), 0);
-	extract_colors(line, map);
+		return (error_msg("Wrong color format: ", line), 0);
+	if (!extract_colors(line, map, lines))
+		return (error_msg("Wrong RGB: ", line), 0);
 	return (*seen = 1, 1);
 }
 
@@ -45,8 +46,11 @@ static int	process_ids(char *trimmed, char **lines, t_map *map, int *st)
 			|| (error_clean(lines, map, "Duplicated texture id", NULL), 0));
 	if ((trimmed[0] == 'F' || trimmed[0] == 'C')
 		&& (trimmed[1] == ' ' || trimmed[1] == '\t'))
-		return (process_color(trimmed, map, &st[get_color_idx(trimmed[0])])
-			|| (error_clean(lines, map, NULL, NULL), 0));
+	{
+		if (!process_color(trimmed, map, &st[get_color_idx(trimmed[0])], lines))
+			error_clean(lines, map, NULL, NULL);
+		return (1);
+	}
 	return (0);
 }
 
@@ -59,7 +63,7 @@ static int	process_line(char **lines, int i, t_map *map, int *state)
 		return (1);
 	if (trimmed[0] == '0' || trimmed[0] == '1' || trimmed[0] == 'N'
 		|| trimmed[0] == 'S' || trimmed[0] == 'E' || trimmed[0] == 'W'
-		|| trimmed[0] == 'F' || trimmed[0] == 'C' || state[6] == -1)
+		|| state[6] == -1)
 		return (handle_map_line(lines, i, map, state));
 	return (error_clean(lines, map, "Wrong Identifier", NULL), 0);
 }

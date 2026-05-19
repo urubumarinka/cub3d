@@ -20,6 +20,10 @@ make
 
 This creates the `cub3D` executable at the root of the repository.
 
+### Instalation
+
+After compilated you can directly execute the created executable file, no need to install.
+
 ### Execution
 
 Launch the game with a valid `.cub` map file:

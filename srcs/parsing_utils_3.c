@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 13:29:22 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/13 22:53:34 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/15 17:59:39 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,11 @@ int	flood_fill(char **cpy, int row, int col, t_map *map)
 	return (1);
 }
 
-int	check_missing_color(t_map *map)
+int	check_missing_color(t_map *map, char **lines)
 {
 	if (!map->text.ceil_seen)
-		return (error_clean(NULL, map, "Missing C id", NULL), 0);
+		return (error_clean(lines, map, "Missing C id", NULL), 0);
 	if (!map->text.flr_seen)
-		return (error_clean(NULL, map, "Missing F id", NULL), 0);
+		return (error_clean(lines, map, "Missing F id", NULL), 0);
 	return (1);
 }

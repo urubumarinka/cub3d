@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:59:55 by maborges          #+#    #+#             */
-/*   Updated: 2026/05/15 18:12:56 by maborges         ###   ########.fr       */
+/*   Updated: 2026/05/19 13:52:26 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ int	test_file(char *path)
 	ret = read(fd, &c, 1);
 	if (ret < 0)
 	{
-		/* if (errno == EISDIR)
-			error_msg("Invalid file", path);
-		else
-			error_msg("Invalid file", path); */
 		close(fd);
 		return (0);
 	}
